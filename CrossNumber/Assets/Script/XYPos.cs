@@ -8,7 +8,6 @@ class XYPos
 
     public void Setting(int xSet, int ySet)
     {
-
         x = xSet;
         y = ySet;
 

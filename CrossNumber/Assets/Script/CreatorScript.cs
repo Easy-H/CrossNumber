@@ -7,9 +7,11 @@ public class CreatorScript : MonoBehaviour
 
     public GameObject board;
     public GameObject basicUnit;
-
+    
     public string[] numUnits = null;
     public string[] charUnits = null;
+
+    public int boardSize = 9;
 
     public Vector3 boardPos;
     public Vector3 numFirstPos;
@@ -18,13 +20,20 @@ public class CreatorScript : MonoBehaviour
     private void Awake()
     {
 
-        GameControllerScript gcs = gameObject.GetComponent<GameControllerScript>();
+        GameManager gcs = gameObject.GetComponent<GameManager>();
 
-        gcs.unitNum = numUnits.Length + charUnits.Length;
+        GameManager.unitNum = numUnits.Length + charUnits.Length;
 
         int i, j, k;
 
-        Instantiate(board, boardPos, Quaternion.identity);
+        board = Instantiate(board, boardPos, Quaternion.identity);
+
+        board.GetComponent<SpriteRenderer>().size = Vector2.one * boardSize;
+
+        Camera.main.orthographicSize = boardSize + 1;
+        Camera.main.transform.position = new Vector3(boardPos.x, boardPos.y * 2 + 1f, -10);
+        GameManager.maxSizeX = boardSize;
+        GameManager.maxSizeY = boardSize;
 
         for (i = 0; i < numUnits.Length; i++)
         {
@@ -32,7 +41,7 @@ public class CreatorScript : MonoBehaviour
             j = i / 9;
             k = i % 9;
 
-            UnitScript setValue = Instantiate(basicUnit, numFirstPos + Vector3.down * j + Vector3.right * k, Quaternion.identity).GetComponent<UnitScript>();
+            Unit setValue = Instantiate(basicUnit, numFirstPos + Vector3.down * j + Vector3.right * k, Quaternion.identity).GetComponent<Unit>();
 
             setValue.Created(numUnits[i]);
 
@@ -44,12 +53,12 @@ public class CreatorScript : MonoBehaviour
             j = i / 9;
             k = i % 9;
 
-            UnitScript setValue = Instantiate(basicUnit, charFirstPos + Vector3.down * j + Vector3.right * k, Quaternion.identity).GetComponent<UnitScript>();
+            Unit setValue = Instantiate(basicUnit, charFirstPos + Vector3.down * j + Vector3.right * k, Quaternion.identity).GetComponent<Unit>();
 
             setValue.Created(charUnits[i]);
 
             if (charUnits[i] == "=") {
-                gcs.EqualsPos.Add(setValue);
+                gcs.equalsPos.Add(setValue);
                 gcs.listLength++;
             }
 

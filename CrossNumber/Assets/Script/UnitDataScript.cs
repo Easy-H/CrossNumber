@@ -13,7 +13,7 @@ public class ValueAndSprite {
 public class UnitDataScript : MonoBehaviour
 {
 
-    [SerializeField] ValueAndSprite[] VAS;
+    [SerializeField] ValueAndSprite[] VAS = null;
 
     public Sprite UnitSprite(string unitValue) {
 

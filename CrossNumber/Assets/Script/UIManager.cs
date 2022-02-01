@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
 
-    GameControllerScript manager;
+    GameManager manager;
 
-    [SerializeField] Image[] Panels = null;
+    [SerializeField] GameObject[] Panels = null;
+    [SerializeField] GameObject[] texts = null;
 
     [SerializeField] Image loading = null;
     [SerializeField] float fillingSpeed = 0.5f;
@@ -18,12 +19,16 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         if (GameObject.FindWithTag("GameController"))
-            manager = GameObject.FindWithTag("GameController").GetComponent<GameControllerScript>();
+            manager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
     }
 
     public void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GetBack() {
+        manager.GetBack();
     }
 
     public void Check() {
@@ -34,7 +39,7 @@ public class UIManager : MonoBehaviour
 
         OpenPanel(0);
 
-        bool clear = manager.CheckClear();
+        int clear = manager.CheckClear();
 
         for (float f = 0; f < 1;)
         {
@@ -48,18 +53,23 @@ public class UIManager : MonoBehaviour
 
         ClosePanel(0);
 
-        if (clear) {
+        if (clear == -1) {
             OpenPanel(1);
             
         }
         else {
             OpenPanel(2);
+            OpenText(clear);
 
         }
     }
 
     public void OpenPanel(int i) {
         Panels[i].gameObject.SetActive(true);
+    }
+    public void OpenText(int i)
+    {
+        texts[i].gameObject.SetActive(true);
     }
 
     public void ClosePanel(int i) {
@@ -69,6 +79,10 @@ public class UIManager : MonoBehaviour
 
     public void GoNextScene() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void GoScene(int i)
+    {
+        SceneManager.LoadScene(i);
     }
 
     public void GotoScene(int i) {

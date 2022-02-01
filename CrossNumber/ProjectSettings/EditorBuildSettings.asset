@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/z_SampleScene.unity
     guid: 5158b9bb63e06384a81056bac6fe2148
   - enabled: 1
-    path: Assets/Scenes/Start.unity
+    path: Assets/Scenes/0_Start.unity
     guid: 80f9a5d5bf9739c489cbd94f2afef691
   - enabled: 1
-    path: Assets/Scenes/OverWorld.unity
+    path: Assets/Scenes/1_OverWorld.unity
     guid: 4392256b1869f3a49b935864b32daef8
   - enabled: 1
     path: Assets/Scenes/level_1.unity
@@ -30,6 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/level_5.unity
     guid: c9e2d849a71623a4ba06d41467ca2624
   - enabled: 1
-    path: Assets/Scenes/Clear.unity
+    path: Assets/Scenes/x_Clear.unity
     guid: 1aadd00e8c6b3b9449d42f94ea113057
   m_configObjects: {}

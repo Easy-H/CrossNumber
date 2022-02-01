@@ -466,6 +466,31 @@ PrefabInstance:
       propertyPath: charUnits.Array.data[5]
       value: =
       objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: boardPos.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: boardPos.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: numFirstPos.y
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: charFirstPos.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: boardSize
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1976318833640172854, guid: 6d15dac479a916149856371ad1676589,
         type: 3}
       propertyPath: m_LocalPosition.x

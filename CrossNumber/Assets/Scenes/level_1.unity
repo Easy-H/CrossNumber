@@ -176,7 +176,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &470395663
 GameObject:
@@ -260,7 +260,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5922306465997066583
+--- !u!1001 &3521987233326796633
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 5922306466029702691, guid: f0bceb614a617a146a83ad1f183abc7d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5922306466029702691, guid: f0bceb614a617a146a83ad1f183abc7d,
         type: 3}
@@ -465,6 +465,31 @@ PrefabInstance:
         type: 3}
       propertyPath: charUnits.Array.data[5]
       value: =
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: boardSize
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: boardPos.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: boardPos.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: numFirstPos.y
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634196492011064394, guid: 6d15dac479a916149856371ad1676589,
+        type: 3}
+      propertyPath: charFirstPos.y
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1976318833640172854, guid: 6d15dac479a916149856371ad1676589,
         type: 3}
