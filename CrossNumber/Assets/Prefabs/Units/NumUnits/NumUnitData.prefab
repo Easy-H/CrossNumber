@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1250357754428283658}
   - component: {fileID: 4461217738426510684}
   m_Layer: 0
-  m_Name: UnitData
+  m_Name: NumUnitData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,11 +64,3 @@ MonoBehaviour:
     value: 9
   - sprite: {fileID: 21300018, guid: 248bfb780827467488079b86033012b7, type: 3}
     value: 0
-  - sprite: {fileID: 21300020, guid: 248bfb780827467488079b86033012b7, type: 3}
-    value: +
-  - sprite: {fileID: 21300022, guid: 248bfb780827467488079b86033012b7, type: 3}
-    value: '-'
-  - sprite: {fileID: 21300024, guid: 248bfb780827467488079b86033012b7, type: 3}
-    value: '*'
-  - sprite: {fileID: 21300026, guid: 248bfb780827467488079b86033012b7, type: 3}
-    value: =
