@@ -4,75 +4,161 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    protected GameManager gm;
+
+    static Unit[] units = null;
+    static int beforeUnitNum = 0;
+    static int realUnitNum = 0;
+
+    public bool overed = false;
+
+    [SerializeField] Protector[] protector = null;
+    [SerializeField] GameObject underline = null;
+
+    protected int defaultLayer;
+    [SerializeField] int[] carefulLayer = null;
+    [SerializeField] int careful;
 
     public string value = "1";
 
-    bool calced = false;
+    public bool peaked = false;
+    bool calced = true;
 
-    protected virtual void Awake()
-    {
-        gm = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        gm.unCalced += 1;
-        Place();
+    public static void ResetData() {
+        beforeUnitNum = 0;
+        realUnitNum = 0;
     }
 
-    public virtual void Pick() {
-        gameObject.layer = 2;
+    protected virtual void Start() {
+        realUnitNum++;
+        calced = true;
+        careful = 0;
+        defaultLayer = gameObject.layer;
+        for (int i = 0; i < carefulLayer.Length; i++)
+        {
+            careful = careful | (1 << carefulLayer[i]);
+        }
     }
 
-    public void Hold(Vector3 pos) {
+    public static void AllReset() {
+        if (realUnitNum == 0)
+            return;
 
-        Vector3 resultPos = CollideCheck(new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), 0));
-        transform.position = resultPos;
-
-        if (calced) {
-            gm.unCalced++;
-            calced = false;
+        if (realUnitNum != beforeUnitNum) {
+            GameObject[] finder = GameObject.FindGameObjectsWithTag("Unit");
+            units = new Unit[finder.Length];
+            for (int i = 0; i < units.Length; i++) {
+                units[i] = finder[i].GetComponent<Unit>();
+                units[i].ResetValue();
+            }
+            beforeUnitNum = realUnitNum;
+        }
+        else {
+            for (int i = 0; i < units.Length; i++) {
+                units[i].ResetValue();
+            }
         }
 
     }
 
-    public virtual Vector3 Place() {
-        gameObject.layer = 0;
-        return transform.position;
+    protected virtual void ResetValue() {
+        if (!overed)
+            BreakCalc();
+        SetProtector();
     }
 
-    protected virtual Vector3 CollideCheck(Vector3 pos)
-    {
-        if (ObjectCheck(pos)) {
-            pos = CollideCheck(pos - Vector3.up);
-        }
+    public void Overed() {
+        Calced();
+        enabled = false;
+        gameObject.GetComponent<Collider2D>().enabled = false;
 
-        return pos;
+        overed = true;
     }
 
-    protected RaycastHit2D ObjectCheck(Vector3 pos) {
-        int layerMask = ~((1 << 2) | (1 << LayerMask.NameToLayer("Char")));
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, layerMask);
-
-        return hit;
-    }
-
-    protected RaycastHit2D ObjectCheck(Vector3 pos, int layerNum) {
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, (1 << layerNum));
-
-        return hit;
-    }
-
-
-    protected RaycastHit2D ObjectCheck(Vector3 pos, string layer) {
-        int layerMask = ~(1 << LayerMask.NameToLayer(layer));
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, layerMask);
-
-        return hit;
+    public void BreakOvered() {
+        overed = false;
+        enabled = true;
+        gameObject.GetComponent<Collider2D>().enabled = true;
     }
 
     public void Calced() {
         if (!calced) {
-            gm.unCalced--;
-            calced = true;
+            GameManager.instance.unCalced--;
+            underline.SetActive(false);
+        }
+
+        calced = true;
+    }
+
+    public void BreakCalc()
+    {
+        if (calced) {
+            GameManager.instance.unCalced++;
+            calced = false;
+        }
+
+        StartCoroutine(DrawUnderline());
+    }
+
+    IEnumerator DrawUnderline()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (!calced)
+        {
+            underline.SetActive(true);
+        }
+
+    }
+
+    public int Pick() {
+        gameObject.layer = 2;
+        peaked = true;
+        ClearProtector();
+        return careful;
+    }
+
+    public bool Hold(Vector3 pos) {
+
+        if (ObjectCheck(pos, careful))
+            return false;
+
+        Vector3 resultPos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), 0);
+
+        if ((transform.position - resultPos).magnitude < 0.1f)
+            return false;
+        
+        transform.position = resultPos;
+
+        return true;
+        
+    }
+
+    public Vector3 Place() {
+        gameObject.layer = defaultLayer;
+        peaked = false;
+        return transform.position;
+    }
+
+    void ClearProtector() {
+        for (int i = 0; i < protector.Length; i++)
+        {
+            protector[i].Clear();
         }
     }
 
+    protected void SetProtector() {
+        if (peaked)
+            return;
+        
+        for (int i = 0; i < protector.Length; i++) {
+            protector[i].Set();
+        }
+    }
+
+    public static RaycastHit2D ObjectCheck(Vector3 pos, int layerValue) {
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, layerValue);
+
+        return hit;
+    }
+    
 }

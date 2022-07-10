@@ -8,6 +8,7 @@ TagManager:
   - Equal
   - Board
   - Reset
+  - Data
   layers:
   - Default
   - TransparentFX
@@ -17,14 +18,14 @@ TagManager:
   - UI
   - 
   - 
-  - Char
   - Result
   - Background
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Equal
+  - Char All
+  - Char Some
+  - Exponet
+  - Number
+  - Zero
   - 
   - 
   - 

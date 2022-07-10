@@ -4,22 +4,44 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public List<EqualUnit> equals = new List<EqualUnit>();
-    [SerializeField] Camera subCamera = null;
+    public static GameManager instance;
+    public List<EqualUnit> equalUnits;
 
-    Vector3 originPos;
+    StageData stage;
+
+    [SerializeField] AudioSource moveSound = null;
+    [SerializeField] AudioSource wrongSound = null;
 
     [SerializeField] List<MoveData> moves = null;
-    [SerializeField] int movesCount = 0;
 
+    [SerializeField] Camera subCamera = null;
+    [SerializeField] Camera traceCamera = null;
+
+    [SerializeField] Transform trCamera = null;
+    [SerializeField] Transform trBoard = null;
+    
+    [SerializeField] int movesCount = 0;
     public int unCalced = 0;
+
     public static bool noError;
+    public static bool playWrongSound;
+    public bool moving = false;
+    [SerializeField] bool moveField = false;
 
     Unit selected;
-    
-    // Start is called before the first frame update
-    void Start () {
-        CheckClear();
+
+    Vector3 originMouseInput;
+    Vector3 originPos;
+
+    private void Awake()
+    {
+        instance = this;
+        Unit.ResetData();
+        equalUnits = new List<EqualUnit>();
+    }
+
+    private void Start() {
+        StartCoroutine(CheckClear());
     }
 
     // 뒤로가기 기능
@@ -30,41 +52,82 @@ public class GameManager : MonoBehaviour
         unit.Pick();
         unit.Hold(moves[movesCount].GetOriginPos());
         unit.Place();
+        moveSound.Stop();
+        moveSound.Play();
+
+        StartCoroutine(CheckClear());
+    }
+
+    public void Foward() {
+        if (movesCount > moves.Count - 1)
+            return;
+        Unit unit = moves[movesCount].GetObject().GetComponent<Unit>();
+        unit.Pick();
+        unit.Hold(moves[movesCount++].GetMovedPos());
+        unit.Place();
+        moveSound.Stop();
+        moveSound.Play();
+        StartCoroutine(CheckClear());
     }
 
     private void Update () {
+        
+        if (Input.GetMouseButtonDown(0))
+        {
 
-        if (Input.GetMouseButtonDown(0)) {
-
-            int layerMask = ~((1 << 2) | (1 << LayerMask.NameToLayer("Char")));
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.down, 0.1f, layerMask);
-
-            if (hit && hit.collider.CompareTag("Unit")) {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            RaycastHit2D hit = Unit.ObjectCheck(mousePos, Camera.main.cullingMask);
+            
+            if (!hit) {
+                if (moveField) {
+                    moving = true;
+                    originMouseInput = traceCamera.ScreenToWorldPoint(Input.mousePosition);
+                }
+            }
+            else if (hit.collider.CompareTag("Unit")) {
 
                 selected = hit.collider.GetComponent<Unit>();
-                selected.Pick();
+                subCamera.cullingMask = selected.Pick();
                 originPos = selected.transform.position;
 
-                if (selected.GetComponent<CharUnit>())
-                    subCamera.gameObject.SetActive(true);
-                
             }
-            
+            return;
         }
 
         if (Input.GetMouseButton(0)) {
 
+            if (moving) {
+                Vector3 mousePos = traceCamera.ScreenToWorldPoint(Input.mousePosition);
+
+                trCamera.Translate(originMouseInput - mousePos);
+                trBoard.position = new Vector3(Mathf.Round(trCamera.position.x), Mathf.Round(trCamera.position.y), 1);
+
+                originMouseInput = mousePos;
+                
+            }
+
             if (!selected)
                 return;
 
-            selected.Hold(Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10);
-            CheckClear();
+            if (selected.Hold(Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10))
+            {
+                if (moveSound) {
+                    moveSound.Stop();
+                    moveSound.Play();
+
+                }
+                StartCoroutine(CheckClear());
+            }
 
         }
 
         if (Input.GetMouseButtonUp(0)) {
-            if (!selected)
+
+            if (!selected) {
+                moving = false;
                 return;
+            }
 
             Vector3 result = selected.Place();
 
@@ -78,32 +141,48 @@ public class GameManager : MonoBehaviour
 
             }
 
-            subCamera.gameObject.SetActive(false);
+            subCamera.cullingMask = 0;
 
-            if (noError)
-            {
-                UIManager.instance.Clear();
-                Debug.Log("Clear");
-            }
+            StartCoroutine(CheckClear());
 
             selected = null;
 
         }
-        
 
     }
     
-    // -1: 무오류, 0: 유닛 배치 덜함, 1: 수식 오류
-    public void CheckClear() {
-        noError = true;
-        for (int i = 0; i < equals.Count; i++)
-        {
-            equals[i].Check();
+    IEnumerator CheckClear()
+    {
+        playWrongSound = false;
+        subCamera.gameObject.SetActive(true);
+        yield return new WaitForFixedUpdate();
 
+        Unit.AllReset();
+        noError = true;
+
+        EqualUnit.AllCheck();
+
+        if (playWrongSound) {
+            moveSound.Stop();
+            wrongSound.Stop();
+            wrongSound.Play();
         }
 
-        if (unCalced - equals.Count != 0)
+        if (unCalced != 0)
             noError = false;
+        else if (noError) {
+            subCamera.gameObject.SetActive(false);
+            if (!selected)
+            {
+                stage = GameObject.FindWithTag("Data").GetComponent<StageData>();
+                UIManager.instance.StartAnimation("Clear");
+                DataManager.Instance.LoadGameData(stage.overworld);
+                DataManager.Instance.gameData.SetStageClear(stage.level, true);
+                DataManager.Instance.SaveGameData();
+            }
+            yield break;
+        }
+        
 
     }
 

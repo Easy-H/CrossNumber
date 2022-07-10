@@ -5,30 +5,90 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/z_SampleScene.unity
-    guid: 5158b9bb63e06384a81056bac6fe2148
   - enabled: 1
     path: Assets/Scenes/0_Start.unity
     guid: 80f9a5d5bf9739c489cbd94f2afef691
   - enabled: 1
-    path: Assets/Scenes/1_OverWorld.unity
+    path: Assets/Scenes/1_Beginner/Beginner_0_Overworld.unity
     guid: 4392256b1869f3a49b935864b32daef8
   - enabled: 1
-    path: Assets/Scenes/level_1.unity
+    path: Assets/Scenes/1_Beginner/Beginner_1.unity
     guid: 94d88327a361acc4798f87f1338dab7c
   - enabled: 1
-    path: Assets/Scenes/level_2.unity
+    path: Assets/Scenes/1_Beginner/Beginner_2.unity
+    guid: 9ed781c5e0686fb48bbd164c80944bc0
+  - enabled: 1
+    path: Assets/Scenes/1_Beginner/Beginner_3.unity
+    guid: 94364f077432e764583a89a6e475cd20
+  - enabled: 1
+    path: Assets/Scenes/1_Beginner/Beginner_4.unity
     guid: dfaa787392cf1a949813757d1abdefde
   - enabled: 1
-    path: Assets/Scenes/level_3.unity
+    path: Assets/Scenes/1_Beginner/Beginner_5.unity
     guid: 10002bf55722fc64fa03ebe0630b8cdd
   - enabled: 1
-    path: Assets/Scenes/level_4.unity
+    path: Assets/Scenes/1_Beginner/Beginner_6.unity
+    guid: 9ca54be4e68359a4b8cadfbaed07c59b
+  - enabled: 1
+    path: Assets/Scenes/1_Beginner/Beginner_7.unity
     guid: 59a4a20bc451d104c8bf551041fd8734
   - enabled: 1
-    path: Assets/Scenes/level_5.unity
+    path: Assets/Scenes/1_Beginner/Beginner_8.unity
+    guid: fa374b23f4d355247967d4fea319db53
+  - enabled: 1
+    path: Assets/Scenes/1_Beginner/Beginner_9.unity
+    guid: 4bee5f4054952364d9ee1a86bd95ce08
+  - enabled: 1
+    path: Assets/Scenes/1_Beginner/Beginner_10.unity
+    guid: b8908028297483444b97e0f5a72634cd
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_0_Overworld.unity
+    guid: bca4546b9f50c1e4a9f7bf0b6dd16567
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_1.unity
     guid: c9e2d849a71623a4ba06d41467ca2624
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_2.unity
+    guid: 7b72661803705c049a9e5583f451ef54
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_3.unity
+    guid: d44289dbcab2cc04888446437344cc10
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_4.unity
+    guid: 6ce5e38bf18d12a4cbd5952042fbaa99
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_5.unity
+    guid: 8360050eb2cd60e46abc7e4191b520d9
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_6.unity
+    guid: aad7a02ec782c40439c38a7bdf62de3b
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_7.unity
+    guid: 6856f9e422af3334ca167490db8ea48b
+  - enabled: 1
+    path: Assets/Scenes/2_Intermediate/Intermediate_8.unity
+    guid: 70e5f9eb5a2deac45a4fe5fcafda20fb
+  - enabled: 1
+    path: Assets/Scenes/3_Advanced/Advanced_0_Overworld.unity
+    guid: b27854da4c8769945b7c3c74f4e0b615
+  - enabled: 1
+    path: Assets/Scenes/3_Advanced/Advanced_1.unity
+    guid: a9d7321895eed014d9bc12a03972a286
+  - enabled: 1
+    path: Assets/Scenes/3_Advanced/Advanced_2.unity
+    guid: cbd90c03137a39e4796359e1f8c10096
+  - enabled: 1
+    path: Assets/Scenes/3_Advanced/Advanced_3.unity
+    guid: e2230b79ec3aea0499f83b56d4a56abd
+  - enabled: 1
+    path: Assets/Scenes/3_Advanced/Advanced_4.unity
+    guid: 164cd04d50fb25447919f7a3597b2353
+  - enabled: 1
+    path: Assets/Scenes/3_Advanced/Advanced_5.unity
+    guid: 252754cee5a0a4649b82dad6d6b1c8ec
+  - enabled: 1
+    path: Assets/Scenes/3_Advanced/Advanced_6.unity
+    guid: e62c8d5d2682c8f4da42328e1ed9f2d5
   - enabled: 1
     path: Assets/Scenes/x_Clear.unity
     guid: 1aadd00e8c6b3b9449d42f94ea113057
