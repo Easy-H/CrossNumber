@@ -68,9 +68,8 @@ public class Unit : MonoBehaviour
 
     public void Overed() {
         Calced();
-        enabled = false;
         gameObject.GetComponent<Collider2D>().enabled = false;
-
+        enabled = false;
         overed = true;
     }
 

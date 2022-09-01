@@ -8,7 +8,9 @@ public class UIManager : MonoBehaviour {
     
     public static UIManager instance;
 
+
     [SerializeField] UIAnimationGenerator[] actions = null;
+    [SerializeField] SceneChange changer = null;
 
     private void Start()
     {
@@ -45,12 +47,17 @@ public class UIManager : MonoBehaviour {
     }
     public void GoNextScene()
     {
-        StartAnimation("ChangeScene");
+        StartCoroutine(changer.CaptureScreen());
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void GoScene(int i)
     {
+        StartCoroutine(changer.CaptureScreen());
         SceneManager.LoadScene(i);
+    }
+
+    public void OpenWeb(string link) {
+        Application.OpenURL(link);
     }
 
 }

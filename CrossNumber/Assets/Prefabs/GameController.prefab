@@ -46,9 +46,10 @@ Camera:
   m_ClearFlags: 3
   m_BackGroundColor: {r: 0.8980392, g: 0.8980392, b: 0.67058825, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -215,9 +216,10 @@ Camera:
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -288,9 +290,10 @@ Camera:
   m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -389,7 +392,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 01d21638a2aa6ba448a810d800125fdf, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -525,9 +528,10 @@ Camera:
   m_ClearFlags: 3
   m_BackGroundColor: {r: 0, g: 0.38888884, b: 1, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -562,10 +566,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1976318833640172854}
     m_Modifications:
-    - target: {fileID: 4338443573369140823, guid: d084f37f31e859449a5b67d6f8a84f2b,
+    - target: {fileID: 4338443573369140817, guid: d084f37f31e859449a5b67d6f8a84f2b,
         type: 3}
-      propertyPath: m_Name
-      value: Board
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4338443573369140817, guid: d084f37f31e859449a5b67d6f8a84f2b,
         type: 3}
@@ -584,6 +588,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4338443573369140817, guid: d084f37f31e859449a5b67d6f8a84f2b,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338443573369140817, guid: d084f37f31e859449a5b67d6f8a84f2b,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -599,16 +608,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4338443573369140817, guid: d084f37f31e859449a5b67d6f8a84f2b,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338443573369140817, guid: d084f37f31e859449a5b67d6f8a84f2b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338443573369140817, guid: d084f37f31e859449a5b67d6f8a84f2b,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -621,6 +620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338443573369140823, guid: d084f37f31e859449a5b67d6f8a84f2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Board
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d084f37f31e859449a5b67d6f8a84f2b, type: 3}

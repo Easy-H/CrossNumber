@@ -165,6 +165,7 @@ public class EqualUnit : CharUnit
     }
 
     // Sentence를 기반으로 연산한다.
+    /*
     float Calculate(Sentence si)
     {
         string[] words = si.str.Split(' ');
@@ -231,6 +232,80 @@ public class EqualUnit : CharUnit
         }
 
         return nums[0];
+
+    }*/
+    string[] words;
+    int calLength;
+
+    // Sentence를 기반으로 연산한다.
+    float Calculate(Sentence si) {
+        words = si.str.Split(' ');
+        calLength = words.Length;
+
+        return CalculateUnit();
+    }
+
+    float CalculateUnit()
+    {
+
+        float[] nums = new float[3];
+        string[] ops = new string[2];
+
+        int numsNum = 0;
+        int opsNum = 0;
+        int i = 0;
+        
+        if (words[i] == "-") {
+            i++;
+            nums[numsNum++] = -1;
+            ops[opsNum++] = "*";
+        }
+        else if (words[i] == "+") {
+            i++;
+        }
+
+        while (true) {
+
+            if (words[i] == "(") {
+
+            }
+            nums[numsNum++] = int.Parse(words[i++]);
+
+            if (numsNum == 3) {
+                if (ops[0] == "^") {
+                    nums[0] = Calc(nums[0], ops[0], nums[1]);
+
+                    ops[0] = ops[1];
+                    nums[1] = nums[2];
+                }
+                else if (ops[1] != "+" && ops[1] != "-") {
+                    nums[1] = Calc(nums[1], ops[1], nums[2]);
+                }
+                else
+                {
+                    nums[0] = Calc(nums[0], ops[0], nums[1]);
+
+                    ops[0] = ops[1];
+                    nums[1] = nums[2];
+
+                }
+
+                numsNum--;
+                opsNum--;
+
+            }
+
+            if (calLength == i || words[i] == ")")
+            {
+                if (numsNum == 2)
+                    nums[0] = Calc(nums[0], ops[0], nums[1]);
+
+                return nums[0];
+            }
+
+            ops[opsNum++] = words[i++];
+
+        }
 
     }
 

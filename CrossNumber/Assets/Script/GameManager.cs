@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        StartCoroutine(CheckClear());
+        StartCoroutine(StartCheckClear());
     }
 
     // 뒤로가기 기능
@@ -150,7 +150,37 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
+
+    IEnumerator StartCheckClear()
+    {
+        playWrongSound = false;
+        subCamera.gameObject.SetActive(true);
+        yield return new WaitForFixedUpdate();
+
+        Unit.AllReset();
+        noError = true;
+
+        EqualUnit.AllCheck();
+
+        if (unCalced != 0)
+            noError = false;
+        else if (noError)
+        {
+            subCamera.gameObject.SetActive(false);
+            if (!selected)
+            {
+                stage = GameObject.FindWithTag("Data").GetComponent<StageData>();
+                UIManager.instance.StartAnimation("Clear");
+                DataManager.Instance.LoadGameData(stage.overworld);
+                DataManager.Instance.gameData.SetStageClear(stage.level, true);
+                DataManager.Instance.SaveGameData();
+            }
+            yield break;
+        }
+
+
+    }
+
     IEnumerator CheckClear()
     {
         playWrongSound = false;
