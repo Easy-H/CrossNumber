@@ -4,6 +4,12 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
+public enum OverWorld{
+    beginner,
+    intermediate,
+    advanced
+}
+
 public class GameData {
     public bool[] stageClear;
 
