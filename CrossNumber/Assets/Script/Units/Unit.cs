@@ -6,8 +6,8 @@ public class Unit : MonoBehaviour
 {
 
     static Unit[] units = null;
-    static int beforeUnitNum = 0;
-    static int realUnitNum = 0;
+    static int unitCount;
+    static int uncalcedUnitCount;
 
     public bool overed = false;
 
@@ -16,53 +16,62 @@ public class Unit : MonoBehaviour
 
     protected int defaultLayer;
     [SerializeField] int[] carefulLayer = null;
-    [SerializeField] int careful;
+    int careful;
 
     public string value = "1";
 
-    public bool peaked = false;
+    protected bool peaked = false;
     bool calced = true;
 
-    public static void ResetData() {
-        beforeUnitNum = 0;
-        realUnitNum = 0;
+    public static void WhenNewSceneLoaded() {
+        unitCount = 0;
+        units = null;
     }
 
-    protected virtual void Start() {
-        realUnitNum++;
-        calced = true;
-        careful = 0;
-        defaultLayer = gameObject.layer;
-        for (int i = 0; i < carefulLayer.Length; i++)
-        {
-            careful = careful | (1 << carefulLayer[i]);
-        }
-    }
-
-    public static void AllReset() {
-        if (realUnitNum == 0)
+    public static void SetUnitsStateUncalced() {
+        if (unitCount == 0)
             return;
 
-        if (realUnitNum != beforeUnitNum) {
+        if (units == null) {
             GameObject[] finder = GameObject.FindGameObjectsWithTag("Unit");
             units = new Unit[finder.Length];
             for (int i = 0; i < units.Length; i++) {
                 units[i] = finder[i].GetComponent<Unit>();
-                units[i].ResetValue();
+                units[i].SetStateUnCalced();
             }
-            beforeUnitNum = realUnitNum;
         }
         else {
             for (int i = 0; i < units.Length; i++) {
-                units[i].ResetValue();
+                units[i].SetStateUnCalced();
             }
         }
 
+        uncalcedUnitCount = unitCount;
+
     }
 
-    protected virtual void ResetValue() {
-        if (!overed)
-            BreakCalc();
+    public static bool AllCalcCheck() {
+        if (uncalcedUnitCount > 0)
+            return false;
+        return true;
+    }
+
+    protected virtual void Start() {
+        unitCount++;
+        careful = 0;
+        defaultLayer = gameObject.layer;
+
+        // carefulLayer를 계산한다
+        for (int i = 0; i < carefulLayer.Length; i++) {
+            careful = careful | (1 << carefulLayer[i]);
+        }
+    }
+
+    protected virtual void SetStateUnCalced() {
+        if (!overed) {
+            calced = false;
+            StartCoroutine(DrawUnderline());
+        }
         SetProtector();
     }
 
@@ -81,29 +90,18 @@ public class Unit : MonoBehaviour
 
     public void Calced() {
         if (!calced) {
-            GameManager.instance.unCalced--;
+            uncalcedUnitCount--;
             underline.SetActive(false);
         }
 
         calced = true;
     }
 
-    public void BreakCalc()
-    {
-        if (calced) {
-            GameManager.instance.unCalced++;
-            calced = false;
-        }
-
-        StartCoroutine(DrawUnderline());
-    }
-
     IEnumerator DrawUnderline()
     {
         yield return new WaitForEndOfFrame();
 
-        if (!calced)
-        {
+        if (!calced) {
             underline.SetActive(true);
         }
 
@@ -125,8 +123,11 @@ public class Unit : MonoBehaviour
 
         if ((transform.position - resultPos).magnitude < 0.1f)
             return false;
-        
+
+        GameManager.instance.CheckClear();
+        SoundManager.instance.PlayAudio("moveSound", true);
         transform.position = resultPos;
+
 
         return true;
         
@@ -139,8 +140,7 @@ public class Unit : MonoBehaviour
     }
 
     void ClearProtector() {
-        for (int i = 0; i < protector.Length; i++)
-        {
+        for (int i = 0; i < protector.Length; i++) {
             protector[i].Clear();
         }
     }

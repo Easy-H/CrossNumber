@@ -14,10 +14,18 @@ public class UIAnimation
     
 }
 
+public enum AnimationAction {
+    Rest,
+    FadeIn,
+    FillImage,
+    Close
+}
+
 [System.Serializable]
 public class UIAnimationGenerator
 {
     public string actionName;
+    
     [SerializeField] UIAnimation[] animations = null;
 
     UIAnimation ua;

@@ -7,9 +7,9 @@ public class OverUnit : Unit
     [SerializeField] Unit overedUnit;
     [SerializeField] string defaultValue = null;
 
-    protected override void ResetValue() {
+    protected override void SetStateUnCalced() {
 
-        base.ResetValue();
+        base.SetStateUnCalced();
 
         gameObject.layer = defaultLayer;
 

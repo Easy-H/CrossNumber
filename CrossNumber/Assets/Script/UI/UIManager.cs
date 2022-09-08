@@ -23,23 +23,23 @@ public class UIManager : MonoBehaviour {
     }
 
     public void GetBack() {
-        GameManager.instance.GetBack();
+        MoveDataManager.GetBack();
     }
 
     public void Foward()
     {
-        GameManager.instance.Foward();
+        MoveDataManager.Foward();
     }
 
     public void StartAnimation(int i) {
         actions[i].Action();
     }
 
-    public void StartAnimation(string str) {
+    public void StartAnimation(string aniName) {
 
         for (int i = 0; i < actions.Length; i++) {
 
-            if (actions[i].actionName == str)
+            if (actions[i].actionName == aniName)
                 actions[i].Action();
 
         }

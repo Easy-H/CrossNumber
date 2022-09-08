@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    [SerializeField] RawImage img;
-    [SerializeField] float aniTime;
+    [SerializeField] RawImage img = null;
+    [SerializeField] float aniTime = 2f;
 
     static Texture2D texture;
 
