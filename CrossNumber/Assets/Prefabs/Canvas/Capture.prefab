@@ -85,5 +85,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd3ef8497610ca4d84716f637dce410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 2407935896379638421}
-  aniTime: 1
+  _capturedImage: {fileID: 2407935896379638421}
+  _playTimeSecond: 2

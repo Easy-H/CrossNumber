@@ -2,37 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveData {
+[System.Serializable]
+public class MoveData
+{
+    static List<MoveData> moves = null;
+    static int movesCount = 0;
 
     [SerializeField] GameObject unit;
 
     [SerializeField] Vector3 originPos;
     [SerializeField] Vector3 movedPos;
 
-    public MoveData(GameObject u, Vector3 origin, Vector3 moved) {
+    public MoveData(GameObject u, Vector3 origin, Vector3 moved)
+    {
         unit = u;
         originPos = origin;
         movedPos = moved;
     }
 
-    public GameObject GetObject() {
+    public GameObject GetObject()
+    {
         return unit;
     }
 
-    public Vector3 GetOriginPos() {
+    public Vector3 GetOriginPos()
+    {
         return originPos;
     }
 
-    public Vector3 GetMovedPos() {
+    public Vector3 GetMovedPos()
+    {
         return movedPos;
     }
-}
-
-[System.Serializable]
-public class MoveDataManager
-{
-    static List<MoveData> moves = null;
-    static int movesCount = 0;
 
     public static void WhenNewSceneLoaded() {
         moves = new List<MoveData>();

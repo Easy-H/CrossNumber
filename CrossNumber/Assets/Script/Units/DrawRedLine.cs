@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DrawRedLine : MonoBehaviour
 {
-    [SerializeField] Transform coverImage = null;
-    [SerializeField] float playTime = .2f;
+    [SerializeField] Transform _coverImage = null;
+    [SerializeField] float _playTimeSecond = .2f;
 
     // 계산 결과가 틀리면 가운데에 줄을 그음
     public void DrawLine(Vector3 pos, Vector3 direct, float size) {
@@ -18,7 +18,7 @@ public class DrawRedLine : MonoBehaviour
         
         StopAllCoroutines();
         StartCoroutine(Wipe());
-        EqualUnit.playErrorSound = true;
+        UnitManager.instance._playErrorSound = true;
 
         transform.position = pos;
         transform.right = direct;
@@ -33,17 +33,17 @@ public class DrawRedLine : MonoBehaviour
     IEnumerator Wipe()
     {
         float time = 0;
-        float y = coverImage.localScale.y;
+        float y = _coverImage.localScale.y;
 
-        coverImage.localScale = new Vector3(1, y);
+        _coverImage.localScale = new Vector3(1, y);
         gameObject.layer = 9;
 
-        while (time < playTime) {
+        while (time < _playTimeSecond) {
             yield return new WaitForEndOfFrame();
-            coverImage.localScale = new Vector3(1 - time / playTime, y);
+            _coverImage.localScale = new Vector3(1 - time / _playTimeSecond, y);
             time += Time.deltaTime;
         }
-        coverImage.localScale = new Vector3(0, y);
+        _coverImage.localScale = new Vector3(0, y);
         gameObject.layer = 8;
     }
 }

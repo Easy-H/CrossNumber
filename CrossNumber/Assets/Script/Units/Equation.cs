@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Equation
 {
-    public int num;
+    public int containCharCount { get; private set; }
 
-    private string value;
-    private string[] words;
+    private string _value;
+    private string[] _words;
 
-    private bool lastIsNum;
+    private bool _lastIsNum;
     
     public Equation()
     {
-        value = "";
-        num = 0;
-        lastIsNum = false;
+        _value = "";
+        containCharCount = 0;
+        _lastIsNum = false;
     }
 
     public Equation(string s)
     {
-        value = s;
-        num = 0;
-        lastIsNum = false;
+        _value = s;
+        containCharCount = 0;
+        _lastIsNum = false;
     }
 
     // 필드에 있는 유닛을 문자열 수식으로 만든다.
@@ -45,30 +45,30 @@ public class Equation
                 break;
         }
 
-        value = value.Trim();
-
+        _value = _value.Trim();
+        
     }
 
     public void AddValue(string str, bool addback)
     {
         bool isNum = int.TryParse(str.Substring(0, 1), out int i);
 
-        if (isNum != lastIsNum)
+        if (isNum != _lastIsNum)
         {
             if (addback)
-                value = str + " " + value;
+                _value = str + " " + _value;
             else
-                value = value + " " + str;
+                _value = _value + " " + str;
         }
         else
         {
             if (addback)
-                value = str + value;
+                _value = str + _value;
             else
-                value = value + str;
+                _value = _value + str;
         }
-        lastIsNum = isNum;
-        num++;
+        _lastIsNum = isNum;
+        containCharCount++;
 
     }
 
@@ -79,7 +79,7 @@ public class Equation
             return false;
         }
 
-        words = value.Split(' ');
+        _words = _value.Split(' ');
 
         calcResult = CalculateEquation();
 
@@ -89,18 +89,18 @@ public class Equation
 
     public bool CalcAbleCheck() {
 
-        if (num == 0)
+        if (containCharCount == 0)
             return false;
         // 첫 문자가 +, -가 아닌 문자일 경우 false
 
-        string str = value.Substring(0, 1);
+        string str = _value.Substring(0, 1);
         bool isNum = int.TryParse(str, out int i);
 
         if (!isNum && str != "+" && str != "-")
             return false;
 
         //마지막 문자가 숫자면 true, 아니면 false
-        str = value.Substring(value.Length - 1);
+        str = _value.Substring(_value.Length - 1);
         isNum = int.TryParse(str, out i);
 
         return isNum;
@@ -114,22 +114,22 @@ public class Equation
         int numsNum = 0;
         int opsNum = 0;
         int wordIdx = 0;
-        int length = words.Length;
+        int length = _words.Length;
 
-        if (words[wordIdx] == "-") {
+        if (_words[wordIdx] == "-") {
             wordIdx++;
             nums[numsNum++] = -1;
             ops[opsNum++] = "*";
         }
-        else if (words[wordIdx] == "+") {
+        else if (_words[wordIdx] == "+") {
             wordIdx++;
         }
 
         while (true) {
-            if (words[wordIdx] == "(") {
+            if (_words[wordIdx] == "(") {
                 // 재귀로 실행하면 괄호가 구현될듯 함
             }
-            nums[numsNum++] = int.Parse(words[wordIdx++]);
+            nums[numsNum++] = int.Parse(_words[wordIdx++]);
 
             if (numsNum == 3) {
                 if (ops[0] == "^") {
@@ -154,14 +154,14 @@ public class Equation
 
             }
 
-            if (length == wordIdx || words[wordIdx] == ")") {
+            if (length == wordIdx || _words[wordIdx] == ")") {
                 if (numsNum == 2)
                     nums[0] = Calc(nums[0], ops[0], nums[1]);
 
                 return nums[0];
             }
 
-            ops[opsNum++] = words[wordIdx++];
+            ops[opsNum++] = _words[wordIdx++];
 
         }
 

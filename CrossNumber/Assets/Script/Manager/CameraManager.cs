@@ -4,58 +4,52 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    GameManager gm;
-
-    Camera[] cameras;
+    Camera[] _cameras;
     
-    [SerializeField] float size = 0;
+    [SerializeField] float _size = 0;
 
-    [SerializeField] Vector2 sizeLimit = Vector2.one;
+    [SerializeField] Vector2 _sizeLimit = Vector2.one;
 
     IEnumerator coroutine;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        gm = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        
-        cameras = Camera.allCameras;
-
-        CameraSizeSet(size);
+    void Start() {
+        _cameras = Camera.allCameras;
+        CameraSizeSet(_size);
 
     }
 
     private void Update()
     {
         if (Input.GetAxis("Mouse ScrollWheel") != 0) {
-            CameraSizeSet(size - Input.GetAxis("Mouse ScrollWheel") * 4);
+            CameraSizeSet(_size - Input.GetAxis("Mouse ScrollWheel") * 4);
         }
 
     }
 
     void CameraSizeSet(float si) {
-        if (si > sizeLimit.y)
-            si = sizeLimit.y;
-        else if (si < sizeLimit.x)
-            si = sizeLimit.x;
-        for (int i = 0; i < cameras.Length; i++) {
-            cameras[i].orthographicSize = si;
+        if (si > _sizeLimit.y)
+            si = _sizeLimit.y;
+        else if (si < _sizeLimit.x)
+            si = _sizeLimit.x;
+        for (int i = 0; i < _cameras.Length; i++) {
+            _cameras[i].orthographicSize = si;
         }
-        size = si;
+        _size = si;
     }
 
-    public IEnumerator Zooming(float delta) {
+    public IEnumerator ZoomAction(float delta) {
         while (true) {
-            gm.moving = false;
+            GameManager.instance._isMoving = false;
             yield return new WaitForEndOfFrame();
-            CameraSizeSet(size + delta);
+            CameraSizeSet(_size + delta);
         }
     }
 
     
     public void ZoomStart(float delta) {
-        gm.moving = false;
-        coroutine = Zooming(delta);
+        GameManager.instance._isMoving = false;
+        coroutine = ZoomAction(delta);
         StartCoroutine(coroutine);
 
     }

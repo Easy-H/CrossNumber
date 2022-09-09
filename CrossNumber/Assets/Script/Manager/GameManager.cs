@@ -4,56 +4,54 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
 
-    StageData stage;
+    [SerializeField] Camera _subCamera = null;
+    [SerializeField] Camera _traceCamera = null;
 
-    [SerializeField] Camera subCamera = null;
-    [SerializeField] Camera traceCamera = null;
-
-    [SerializeField] Transform trCamera = null;
-    [SerializeField] Transform trBoard = null;
+    [SerializeField] Transform _trCamera = null;
+    [SerializeField] Transform _trBoard = null;
     
-    public bool moving = false;
-    [SerializeField] bool moveField = false;
+    public bool _isMoving = false;
+    [SerializeField] bool _moveField = false;
 
-    Unit selected;
+    Unit _selectedUnit;
 
-    Vector3 originMouseInput;
-    Vector3 originPos;
+    Vector3 _originMouseInput;
+    Vector3 _originUnitPos;
+
+    bool canClear;
 
     private void Awake()
     {
-        EqualUnit.equalUnits = new List<EqualUnit>();
-        Unit.WhenNewSceneLoaded();
-        MoveDataManager.WhenNewSceneLoaded();
-        instance = this;
     }
 
     private void Start() {
-        CheckClear();
+        UnitManager.WhenNewSceneLoaded();
+        MoveData.WhenNewSceneLoaded();
+
+        instance = this;
     }
 
     private void Update () {
         
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetMouseButtonDown(0)) {
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
             RaycastHit2D hit = Unit.ObjectCheck(mousePos, Camera.main.cullingMask);
             
             if (!hit) {
-                if (moveField) {
-                    moving = true;
-                    originMouseInput = traceCamera.ScreenToWorldPoint(Input.mousePosition);
+                if (_moveField) {
+                    _isMoving = true;
+                    _originMouseInput = _traceCamera.ScreenToWorldPoint(Input.mousePosition);
                 }
             }
             else if (hit.collider.CompareTag("Unit")) {
 
-                selected = hit.collider.GetComponent<Unit>();
-                subCamera.cullingMask = selected.Pick();
-                originPos = selected.transform.position;
+                _selectedUnit = hit.collider.GetComponent<Unit>();
+                _subCamera.cullingMask = _selectedUnit.Pick();
+                _originUnitPos = _selectedUnit.transform.position;
 
             }
             return;
@@ -61,72 +59,44 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButton(0)) {
 
-            if (moving) {
-                Vector3 mousePos = traceCamera.ScreenToWorldPoint(Input.mousePosition);
+            if (_isMoving) {
+                Vector3 mousePos = _traceCamera.ScreenToWorldPoint(Input.mousePosition);
 
-                trCamera.Translate(originMouseInput - mousePos);
-                trBoard.position = new Vector3(Mathf.Round(trCamera.position.x), Mathf.Round(trCamera.position.y), 1);
+                _trCamera.Translate(_originMouseInput - mousePos);
+                _trBoard.position = new Vector3(Mathf.Round(_trCamera.position.x), Mathf.Round(_trCamera.position.y), 1);
 
-                originMouseInput = mousePos;
+                _originMouseInput = mousePos;
                 
             }
 
-            if (!selected)
+            if (!_selectedUnit)
                 return;
 
-            selected.Hold(Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10);
+            _selectedUnit.Hold(Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10);
 
         }
 
         if (Input.GetMouseButtonUp(0)) {
 
-            if (!selected) {
-                moving = false;
+            if (!_selectedUnit) {
+                _isMoving = false;
                 return;
             }
 
-            Vector3 result = selected.Place();
+            Vector3 result = _selectedUnit.Place();
 
-            if ((result - originPos).magnitude > 0.5f) {
-                MoveDataManager.AddData(selected.gameObject, originPos, result);
+            if ((result - _originUnitPos).magnitude > 0.5f) {
+                MoveData.AddData(_selectedUnit.gameObject, _originUnitPos, result);
 
             }
 
-            CheckClear();
+            _subCamera.cullingMask = 0;
 
-            subCamera.cullingMask = 0;
-
-            selected = null;
+            _selectedUnit = null;
 
         }
 
     }
 
-    public void CheckClear() {
-        StartCoroutine(CheckClearAction());
-    }
-
-    IEnumerator CheckClearAction()
-    {
-        yield return new WaitForFixedUpdate();
-
-        Unit.SetUnitsStateUncalced();
-
-        bool canClear = EqualUnit.AllCheck();
-
-        if (Unit.AllCalcCheck() && canClear) {
-            subCamera.gameObject.SetActive(false);
-            if (!selected)
-            {
-                stage = GameObject.FindWithTag("Data").GetComponent<StageData>();
-                UIManager.instance.StartAnimation("Clear");
-                DataManager.Instance.LoadGameData(stage.overworld);
-                DataManager.Instance.gameData.SetStageClear(stage.level, true);
-                DataManager.Instance.SaveGameData();
-            }
-            yield break;
-        }
-        
-    }
 
 }

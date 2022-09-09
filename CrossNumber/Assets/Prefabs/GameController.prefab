@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b0a19193bce154c9e8eaaba60b3bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneStartSound: {fileID: 5031409825919864323}
-  audios:
+  _sceneStartSound: {fileID: 5031409825919864323}
+  _audios:
   - audio: {fileID: 4677211514273923613}
     name: moveSound
   - audio: {fileID: 2706183122326370806}
@@ -636,6 +636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1976318833640172854}
   - component: {fileID: 7842722006727861509}
+  - component: {fileID: 7711470385806910028}
   - component: {fileID: 952787253444739855}
   m_Layer: 0
   m_Name: GameController
@@ -674,12 +675,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea5d75b2e7ba6d48ac3d4ef67663131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subCamera: {fileID: 7452605459462886393}
-  traceCamera: {fileID: 4202790243368022336}
-  trCamera: {fileID: 470395666}
-  trBoard: {fileID: 6944657902540077493}
-  moving: 0
-  moveField: 1
+  _subCamera: {fileID: 7452605459462886393}
+  _traceCamera: {fileID: 4202790243368022336}
+  _trCamera: {fileID: 470395666}
+  _trBoard: {fileID: 6944657902540077493}
+  _isMoving: 0
+  _moveField: 0
+--- !u!114 &7711470385806910028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6634196492011064395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55fc175262a5ab4b919669a6eb3c8ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!81 &952787253444739855
 AudioListener:
   m_ObjectHideFlags: 0

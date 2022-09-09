@@ -8,28 +8,28 @@ public class SceneButton : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
 
-    [SerializeField] string overworld = "basic";
-    [SerializeField] int thisLevel = 0;
-    [SerializeField] int addLevel = 0;
+    [SerializeField] string _overworld = "basic";
+    [SerializeField] int _thisLevel = 0;
+    [SerializeField] int _addLevel = 0;
 
     [SerializeField] string unClear = "red";
 
     [SerializeField] Text txt = null;
 
-    private void Start()
-    {
+    private void Start() {
+
         canvas.worldCamera = Camera.main;
 
-        DataManager.Instance.LoadGameData(overworld);
-        if (!DataManager.Instance.gameData.GetStageClear(thisLevel)) {
+        DataManager.Instance.LoadGameData(_overworld);
+
+        if (!DataManager.Instance.gameData.GetStageClear(_thisLevel)) {
             txt.text = "<color=" + unClear + ">" + txt.text + "</color>";
         }
+
     }
     
-    public void GoScene()
-    {
-        Debug.Log(1);
-        SceneManager.LoadScene(thisLevel + addLevel);
+    public void GoScene() {
+        SceneManager.LoadScene(_thisLevel + _addLevel);
     }
     
 }

@@ -10,10 +10,10 @@ public class AudioData {
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] AudioSource sceneStartSound = null;
-    [SerializeField] AudioData[] audios = null;
+    [SerializeField] AudioSource _sceneStartSound = null;
+    [SerializeField] AudioData[] _audios = null;
 
-    public static SoundManager instance;
+    public static SoundManager instance { get; private set; }
 
     private void Start()
     {
@@ -21,18 +21,18 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayAudio(string audioName, bool canPlayOther) {
-        if (sceneStartSound.isPlaying)
+        if (_sceneStartSound.isPlaying)
             return;
 
-        for (int i = 0; i < audios.Length; i++) {
+        for (int i = 0; i < _audios.Length; i++) {
 
-            if (audios[i].name.Equals(audioName))
+            if (_audios[i].name.Equals(audioName))
             {
-                if (canPlayOther || !audios[i].audio.isPlaying)
-                    audios[i].audio.Play();
+                if (canPlayOther || !_audios[i].audio.isPlaying)
+                    _audios[i].audio.Play();
             }
             else if (!canPlayOther) {
-                audios[i].audio.Stop();
+                _audios[i].audio.Stop();
             }
 
         }

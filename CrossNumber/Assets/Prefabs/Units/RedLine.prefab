@@ -178,5 +178,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f662868310365449ab8b57ac8a5f851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coverImage: {fileID: 4145036135179121324}
-  playTime: 0.2
+  _coverImage: {fileID: 4145036135179121324}
+  _playTimeSecond: 0.2

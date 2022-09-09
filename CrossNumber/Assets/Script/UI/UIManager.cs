@@ -23,12 +23,12 @@ public class UIManager : MonoBehaviour {
     }
 
     public void GetBack() {
-        MoveDataManager.GetBack();
+        MoveData.GetBack();
     }
 
     public void Foward()
     {
-        MoveDataManager.Foward();
+        MoveData.Foward();
     }
 
     public void StartAnimation(int i) {

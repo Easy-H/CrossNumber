@@ -27,21 +27,19 @@ public class UIAnimationGenerator
     public string actionName;
     
     [SerializeField] UIAnimation[] animations = null;
-
-    UIAnimation ua;
-
-    int actnum = 0;
+    
+    int _actnum = 0;
 
     public void Action()
     {
-        if (actnum >= animations.Length)
+        if (_actnum >= animations.Length)
         {
-            actnum = 0;
+            _actnum = 0;
             return;
         }
-        ua = animations[actnum];
+        UIAnimation ua = animations[_actnum];
 
-        actnum++;
+        _actnum++;
 
         if (ua.sound)
             ua.sound.Play();

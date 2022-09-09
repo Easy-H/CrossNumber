@@ -4,33 +4,43 @@ using UnityEngine;
 
 public class OverUnit : Unit
 {
-    [SerializeField] Unit overedUnit;
-    [SerializeField] string defaultValue = null;
+    [SerializeField] Unit _overedUnit;
+    [SerializeField] string _defaultValue = null;
 
-    protected override void SetStateUnCalced() {
+    public override void SetStateUnCalced() {
 
         base.SetStateUnCalced();
 
-        gameObject.layer = defaultLayer;
+        gameObject.layer = _defaultLayer;
 
-        if (overedUnit) {
-            overedUnit.gameObject.layer = 0;
-            overedUnit.BreakOvered();
+        if (_overedUnit) {
+            _overedUnit.gameObject.layer = 0;
+            _overedUnit.BreakOvered();
         }
         
         RaycastHit2D hit = ObjectCheck(transform.position, 1);
 
         if (hit) {
-            overedUnit = hit.collider.GetComponent<Unit>();
-            value = overedUnit.value + defaultValue;
+            _overedUnit = hit.collider.GetComponent<Unit>();
+
+            _value = _overedUnit.value + _defaultValue;
             gameObject.layer = 0;
-            overedUnit.Overed();
+
+            _overedUnit.Overed();
         }
         else {
-            value = null;
+            _value = null;
         }
-        if (peaked)
+        if (_peaked)
             gameObject.layer = 2;
+    }
+
+    public override void Calced()
+    {
+        base.Calced();
+        if (_overedUnit) {
+            UnitManager.instance.unCalcedUnitCount--;
+        }
     }
 
 }

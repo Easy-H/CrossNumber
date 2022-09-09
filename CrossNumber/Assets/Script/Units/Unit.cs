@@ -5,118 +5,87 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
 
-    static Unit[] units = null;
-    static int unitCount;
-    static int uncalcedUnitCount;
+    public bool _overed = false;
 
-    public bool overed = false;
+    [SerializeField] Protector[] _protector = null;
+    [SerializeField] GameObject _underline = null;
 
-    [SerializeField] Protector[] protector = null;
-    [SerializeField] GameObject underline = null;
+    protected int _defaultLayer;
+    [SerializeField] int[] _carefulLayer = null;
+    int _careful;
 
-    protected int defaultLayer;
-    [SerializeField] int[] carefulLayer = null;
-    int careful;
+    [SerializeField] protected string _value = "1";
 
-    public string value = "1";
-
-    protected bool peaked = false;
-    bool calced = true;
-
-    public static void WhenNewSceneLoaded() {
-        unitCount = 0;
-        units = null;
-    }
-
-    public static void SetUnitsStateUncalced() {
-        if (unitCount == 0)
-            return;
-
-        if (units == null) {
-            GameObject[] finder = GameObject.FindGameObjectsWithTag("Unit");
-            units = new Unit[finder.Length];
-            for (int i = 0; i < units.Length; i++) {
-                units[i] = finder[i].GetComponent<Unit>();
-                units[i].SetStateUnCalced();
-            }
+    public string value {
+        get {
+            return _value;
         }
-        else {
-            for (int i = 0; i < units.Length; i++) {
-                units[i].SetStateUnCalced();
-            }
-        }
-
-        uncalcedUnitCount = unitCount;
-
     }
 
-    public static bool AllCalcCheck() {
-        if (uncalcedUnitCount > 0)
-            return false;
-        return true;
-    }
-
+    protected bool _peaked = false;
+    bool _isCalced = true;
+    
     protected virtual void Start() {
-        unitCount++;
-        careful = 0;
-        defaultLayer = gameObject.layer;
+        
+        _careful = 0;
+        _defaultLayer = gameObject.layer;
 
         // carefulLayer를 계산한다
-        for (int i = 0; i < carefulLayer.Length; i++) {
-            careful = careful | (1 << carefulLayer[i]);
+        for (int i = 0; i < _carefulLayer.Length; i++) {
+            _careful = _careful | (1 << _carefulLayer[i]);
         }
     }
 
-    protected virtual void SetStateUnCalced() {
-        if (!overed) {
-            calced = false;
+    public virtual void SetStateUnCalced() {
+        if (!_overed) {
+            _isCalced = false;
             StartCoroutine(DrawUnderline());
         }
         SetProtector();
     }
 
     public void Overed() {
-        Calced();
         gameObject.GetComponent<Collider2D>().enabled = false;
-        enabled = false;
-        overed = true;
+        _overed = true;
+        Calced();
     }
 
     public void BreakOvered() {
-        overed = false;
-        enabled = true;
+        _overed = false;
         gameObject.GetComponent<Collider2D>().enabled = true;
     }
 
-    public void Calced() {
-        if (!calced) {
-            uncalcedUnitCount--;
-            underline.SetActive(false);
+    public virtual void Calced()
+    {
+        if (!_isCalced) {
+            UnitManager.instance.unCalcedUnitCount--;
+            _underline.SetActive(false);
         }
 
-        calced = true;
+        _isCalced = true;
+        
     }
 
     IEnumerator DrawUnderline()
     {
         yield return new WaitForEndOfFrame();
 
-        if (!calced) {
-            underline.SetActive(true);
+        if (!_isCalced) {
+            _underline.SetActive(true);
         }
 
     }
 
     public int Pick() {
         gameObject.layer = 2;
-        peaked = true;
+        _peaked = true;
         ClearProtector();
-        return careful;
+        return _careful;
     }
 
     public bool Hold(Vector3 pos) {
 
-        if (ObjectCheck(pos, careful))
+        if (ObjectCheck(pos, _careful))
             return false;
 
         Vector3 resultPos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), 0);
@@ -124,33 +93,36 @@ public class Unit : MonoBehaviour
         if ((transform.position - resultPos).magnitude < 0.1f)
             return false;
 
-        GameManager.instance.CheckClear();
+        UnitManager.instance.CalculateWorld();
         SoundManager.instance.PlayAudio("moveSound", true);
         transform.position = resultPos;
-
-
+        
         return true;
         
     }
 
     public Vector3 Place() {
-        gameObject.layer = defaultLayer;
-        peaked = false;
+
+        UnitManager.instance.CheckClear();
+
+        gameObject.layer = _defaultLayer;
+        _peaked = false;
+
         return transform.position;
     }
 
     void ClearProtector() {
-        for (int i = 0; i < protector.Length; i++) {
-            protector[i].Clear();
+        for (int i = 0; i < _protector.Length; i++) {
+            _protector[i].Clear();
         }
     }
 
     protected void SetProtector() {
-        if (peaked)
+        if (_peaked)
             return;
         
-        for (int i = 0; i < protector.Length; i++) {
-            protector[i].Set();
+        for (int i = 0; i < _protector.Length; i++) {
+            _protector[i].Set();
         }
     }
 

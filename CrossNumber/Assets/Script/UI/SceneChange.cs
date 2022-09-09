@@ -6,22 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    [SerializeField] RawImage img = null;
-    [SerializeField] float aniTime = 2f;
+    [SerializeField] RawImage _capturedImage = null;
+    [SerializeField] float _playTimeSecond = 2f;
 
-    static Texture2D texture;
+    static Texture2D _texture;
 
-    RectTransform tr;
+    RectTransform _tr;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (texture) {
-            img.texture = texture;
-            img.color = Color.white;
+        if (_texture) {
+            _capturedImage.texture = _texture;
+            _capturedImage.color = Color.white;
         }
 
-        tr = gameObject.GetComponent<RectTransform>();
+        _tr = gameObject.GetComponent<RectTransform>();
 
         StartCoroutine(Animation());
     }
@@ -30,27 +30,27 @@ public class SceneChange : MonoBehaviour
     {
         float spendTime = 0;
         float angle;
-        while (spendTime < aniTime)
+        while (spendTime < _playTimeSecond)
         {
-            angle = Mathf.Lerp(0, 1, spendTime / aniTime);
-            tr.anchorMin -= Vector2.one * Time.deltaTime;
-            tr.anchorMax -= Vector2.one * Time.deltaTime;
-            tr.eulerAngles = Vector3.forward * 45 * angle;
+            angle = Mathf.Lerp(0, 1, spendTime / _playTimeSecond);
+            _tr.anchorMin -= Vector2.one * Time.deltaTime;
+            _tr.anchorMax -= Vector2.one * Time.deltaTime;
+            _tr.eulerAngles = Vector3.forward * 45 * angle;
             spendTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 
-        tr.anchorMax = new Vector2(Mathf.Cos(90 * Mathf.Deg2Rad), 1);
-        tr.eulerAngles += Vector3.up * 90;
+        _tr.anchorMax = new Vector2(Mathf.Cos(90 * Mathf.Deg2Rad), 1);
+        _tr.eulerAngles += Vector3.up * 90;
     }
 
     public IEnumerator CaptureScreen()
     {
-        texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        _texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         yield return new WaitForEndOfFrame();
 
-        texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0, false);
-        texture.Apply();
+        _texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0, false);
+        _texture.Apply();
     }
 
 }

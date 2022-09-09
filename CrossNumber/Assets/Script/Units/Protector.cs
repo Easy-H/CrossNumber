@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Protector : MonoBehaviour
 {
-    [SerializeField] int[] carefulLayer = null;
-    [SerializeField] protected int careful;
+    [SerializeField] int[] _carefulLayer = null;
+    [SerializeField] protected int _careful;
 
     protected virtual void Start()
     {
-        careful = 0;
-        for (int i = 0; i < carefulLayer.Length; i++)
-        {
-            careful = careful | (1 << carefulLayer[i]);
+        _careful = 0;
+        for (int i = 0; i < _carefulLayer.Length; i++) {
+            _careful = _careful | (1 << _carefulLayer[i]);
         }
     }
 
@@ -21,10 +20,10 @@ public class Protector : MonoBehaviour
     }
 
     public virtual void Set() {
-        if (Unit.ObjectCheck(transform.position, careful)) {
+        if (Unit.ObjectCheck(transform.position, _careful)) {
             gameObject.SetActive(false);
-            if (careful == 0)
-                Debug.Log(Unit.ObjectCheck(transform.position, careful).collider.gameObject);
+            if (_careful == 0)
+                Debug.Log(Unit.ObjectCheck(transform.position, _careful).collider.gameObject);
             return;
         }
 
