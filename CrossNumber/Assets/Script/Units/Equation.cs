@@ -2,42 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equation
-{
-    public int containCharCount { get; private set; }
+public class Equation {
+    public int ContainCharCount { get; private set; }
 
     private string _value;
     private string[] _words;
 
     private bool _lastIsNum;
-    
-    public Equation()
-    {
+
+    public Equation() {
         _value = "";
-        containCharCount = 0;
+        ContainCharCount = 0;
         _lastIsNum = false;
     }
 
-    public Equation(string s)
-    {
+    public Equation(string s) {
         _value = s;
-        containCharCount = 0;
+        ContainCharCount = 0;
         _lastIsNum = false;
     }
 
     // 필드에 있는 유닛을 문자열 수식으로 만든다.
-    public void MakeEquation(Vector3 pos, Vector3 dir, bool back)
-    {
+    public void MakeEquation(Vector3 pos, Vector3 dir, bool back) {
         while (true) {
-            RaycastHit2D hit = Unit.ObjectCheck(pos + dir, 5);
+            Unit unit = Unit.ObjectCheck(pos + dir, 5);
 
-            if (hit) {
-                Unit touched = hit.collider.GetComponent<Unit>();
-                if (touched.value == null)
+            if (unit) {
+                if (unit.Value == null)
                     break;
 
-                touched.Calced();
-                AddValue(touched.value, back);
+                unit.Calced();
+                AddValue(unit.Value, back);
 
                 pos += dir;
             }
@@ -46,34 +41,31 @@ public class Equation
         }
 
         _value = _value.Trim();
-        
+
     }
 
-    public void AddValue(string str, bool addback)
-    {
+    public void AddValue(string str, bool addback) {
         bool isNum = int.TryParse(str.Substring(0, 1), out int i);
 
-        if (isNum != _lastIsNum)
-        {
+        if (isNum != _lastIsNum) {
             if (addback)
                 _value = str + " " + _value;
             else
                 _value = _value + " " + str;
         }
-        else
-        {
+        else {
             if (addback)
                 _value = str + _value;
             else
                 _value = _value + str;
         }
         _lastIsNum = isNum;
-        containCharCount++;
+        ContainCharCount++;
 
     }
 
     public bool TryCalc(out float calcResult) {
-        
+
         if (!CalcAbleCheck()) {
             calcResult = 0;
             return false;
@@ -89,7 +81,7 @@ public class Equation
 
     public bool CalcAbleCheck() {
 
-        if (containCharCount == 0)
+        if (ContainCharCount == 0)
             return false;
         // 첫 문자가 +, -가 아닌 문자일 경우 false
 
@@ -117,12 +109,16 @@ public class Equation
         int length = _words.Length;
 
         if (_words[wordIdx] == "-") {
+
             wordIdx++;
             nums[numsNum++] = -1;
             ops[opsNum++] = "*";
+
         }
         else if (_words[wordIdx] == "+") {
+
             wordIdx++;
+
         }
 
         while (true) {
@@ -133,15 +129,20 @@ public class Equation
 
             if (numsNum == 3) {
                 if (ops[0] == "^") {
+
                     nums[0] = Calc(nums[0], ops[0], nums[1]);
 
                     ops[0] = ops[1];
                     nums[1] = nums[2];
+
                 }
                 else if (ops[1] != "+" && ops[1] != "-") {
+
                     nums[1] = Calc(nums[1], ops[1], nums[2]);
+
                 }
                 else {
+
                     nums[0] = Calc(nums[0], ops[0], nums[1]);
 
                     ops[0] = ops[1];
@@ -155,10 +156,12 @@ public class Equation
             }
 
             if (length == wordIdx || _words[wordIdx] == ")") {
-                if (numsNum == 2)
+                if (numsNum == 2) {
                     nums[0] = Calc(nums[0], ops[0], nums[1]);
+                }
 
                 return nums[0];
+
             }
 
             ops[opsNum++] = _words[wordIdx++];
@@ -167,8 +170,7 @@ public class Equation
 
 
         // 숫자와 기호를 넣으면 결과를 출력한다.
-        float Calc(float Num1, string Char, float Num2)
-        {
+        float Calc(float Num1, string Char, float Num2) {
 
             if (Char == "+")
                 return Num1 + Num2;

@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance { get; private set; }
+    public static GameManager Instance { get; private set; }
 
-    [SerializeField] Camera _subCamera = null;
     [SerializeField] Camera _traceCamera = null;
 
     [SerializeField] Transform _trCamera = null;
     [SerializeField] Transform _trBoard = null;
     
     public bool _isMoving = false;
-    [SerializeField] bool _moveField = false;
 
     Unit _selectedUnit;
 
@@ -28,9 +26,9 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
         UnitManager.WhenNewSceneLoaded();
-        MoveData.WhenNewSceneLoaded();
+        MoveData.Instance.WhenNewSceneLoaded();
 
-        instance = this;
+        Instance = this;
     }
 
     private void Update () {
@@ -39,22 +37,19 @@ public class GameManager : MonoBehaviour
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
-            RaycastHit2D hit = Unit.ObjectCheck(mousePos, Camera.main.cullingMask);
-            
-            if (!hit) {
-                if (_moveField) {
-                    _isMoving = true;
-                    _originMouseInput = _traceCamera.ScreenToWorldPoint(Input.mousePosition);
-                }
-            }
-            else if (hit.collider.CompareTag("Unit")) {
+            _selectedUnit = Unit.ObjectCheck(mousePos, Camera.main.cullingMask);
 
-                _selectedUnit = hit.collider.GetComponent<Unit>();
-                _subCamera.cullingMask = _selectedUnit.Pick();
-                _originUnitPos = _selectedUnit.transform.position;
+            if (!_selectedUnit) {
+                _isMoving = true;
+                _originMouseInput = _traceCamera.ScreenToWorldPoint(Input.mousePosition);
+
+            }
+            else {
+                _selectedUnit.Pick();
 
             }
             return;
+
         }
 
         if (Input.GetMouseButton(0)) {
@@ -83,15 +78,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
 
-            Vector3 result = _selectedUnit.Place();
-
-            if ((result - _originUnitPos).magnitude > 0.5f) {
-                MoveData.AddData(_selectedUnit.gameObject, _originUnitPos, result);
-
-            }
-
-            _subCamera.cullingMask = 0;
-
+            _selectedUnit.Place();
             _selectedUnit = null;
 
         }

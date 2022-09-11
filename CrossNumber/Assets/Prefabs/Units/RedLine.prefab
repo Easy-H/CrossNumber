@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4145036135179121324}
   - component: {fileID: 8918505987444908086}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: coverImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 8303385140825893574}
   - component: {fileID: 2601953690544764375}
   - component: {fileID: 5449500370870951671}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: RedLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

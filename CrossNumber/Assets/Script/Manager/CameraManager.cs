@@ -40,7 +40,7 @@ public class CameraManager : MonoBehaviour
 
     public IEnumerator ZoomAction(float delta) {
         while (true) {
-            GameManager.instance._isMoving = false;
+            GameManager.Instance._isMoving = false;
             yield return new WaitForEndOfFrame();
             CameraSizeSet(_size + delta);
         }
@@ -48,7 +48,7 @@ public class CameraManager : MonoBehaviour
 
     
     public void ZoomStart(float delta) {
-        GameManager.instance._isMoving = false;
+        GameManager.Instance._isMoving = false;
         coroutine = ZoomAction(delta);
         StartCoroutine(coroutine);
 

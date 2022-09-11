@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class Protector : MonoBehaviour
 {
-    [SerializeField] int[] _carefulLayer = null;
-    [SerializeField] protected int _careful;
-
-    protected virtual void Start()
-    {
-        _careful = 0;
-        for (int i = 0; i < _carefulLayer.Length; i++) {
-            _careful = _careful | (1 << _carefulLayer[i]);
-        }
-    }
-
+    [SerializeField] UnitType[] _apearAtThisSelected = null;
+    
     public void Clear() {
         gameObject.SetActive(false);
     }
 
-    public virtual void Set() {
-        if (Unit.ObjectCheck(transform.position, _careful)) {
-            gameObject.SetActive(false);
-            if (_careful == 0)
-                Debug.Log(Unit.ObjectCheck(transform.position, _careful).collider.gameObject);
+    public virtual void SetProtectorApear() {
+        gameObject.SetActive(false);
+
+        if (!IsNeedExcute()) {
+            return;
+        }
+
+        if (Unit.ObjectCheck(transform.position)) {
             return;
         }
 
         gameObject.SetActive(true);
+    }
+
+    protected bool IsNeedExcute() {
+        
+
+        for (int i = 0; i < _apearAtThisSelected.Length; i++) {
+            if (_apearAtThisSelected[i] == UnitManager.Instance.SelectedUnitType) {
+                return true;
+            }
+
+        }
+        return false;
+
     }
 
 }

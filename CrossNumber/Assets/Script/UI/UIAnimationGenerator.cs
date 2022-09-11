@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class UIAnimation
-{
-    public string eventType;
-    public float eventValue;
-    public Image panel;
-    public float time;
-    public AudioSource sound;
-    
+public class UiAnimation {
+
+    public UiAnimationType _eventType;
+
+    public Image _target = null;
+
+    public float _eventValue = 0f;
+    public float _eventTime = 0f;
+
+    public AudioSource _sound;
+
 }
 
-public enum AnimationAction {
+public enum UiAnimationType {
     Rest,
     FadeIn,
     FillImage,
@@ -22,94 +25,107 @@ public enum AnimationAction {
 }
 
 [System.Serializable]
-public class UIAnimationGenerator
-{
+public class UIAnimationGenerator {
+
     public string actionName;
-    
-    [SerializeField] UIAnimation[] animations = null;
-    
+
+    [SerializeField] UiAnimation[] animations = null;
+
     int _actnum = 0;
 
-    public void Action()
-    {
-        if (_actnum >= animations.Length)
-        {
+    public void Action() {
+        if (_actnum >= animations.Length) {
+
             _actnum = 0;
             return;
+
         }
-        UIAnimation ua = animations[_actnum];
+
+        UiAnimation ua = animations[_actnum];
 
         _actnum++;
 
-        if (ua.sound)
-            ua.sound.Play();
+        if (ua._sound)
+            ua._sound.Play();
 
-        if (ua.eventType == "JustRest")
-        {
-            UIManager.instance.StartCoroutine(Justrest(ua.time));
+        if (ua._eventType == UiAnimationType.Rest) {
+            UIManager.Instance.StartCoroutine(Justrest(ua._eventTime));
         }
-        else
-        {
-            ua.panel.gameObject.SetActive(true);
+        else {
+            ua._target.gameObject.SetActive(true);
 
-            if (ua.eventType == "FadeIn")
-            {
-                ua.panel.color = new Color(ua.panel.color.r, ua.panel.color.r, ua.panel.color.r, 0f);
-                UIManager.instance.StartCoroutine(Fade(ua.eventValue, ua.panel, ua.time));
-            }
-            else if (ua.eventType == "FillImage")
-            {
-                UIManager.instance.StartCoroutine(FillImage(ua.eventValue, ua.panel, ua.time));
-            }
-            else if (ua.eventType == "Close")
-            {
-                ua.panel.gameObject.SetActive(false);
-                Action();
+            switch (ua._eventType) {
+                case UiAnimationType.FadeIn:
+                    UIManager.Instance.StartCoroutine(Fade(ua._target, ua._eventValue, ua._eventTime));
+                    break;
+                case UiAnimationType.FillImage:
+                    UIManager.Instance.StartCoroutine(FillImage(ua._target, ua._eventValue, ua._eventTime));
+                    break;
+                case UiAnimationType.Close:
+                    ua._target.gameObject.SetActive(false);
+                    Action();
+                    break;
+                default:
+                    break;
+                    
             }
         }
 
     }
 
-    IEnumerator FillImage(float goalFill, Image panel, float time)
-    {
+    IEnumerator FillImage(Image panel, float goalFill,  float time) {
         float useTime = 0;
         float firstFill = panel.fillAmount;
 
-        while (useTime < time)
-        {
+        while (useTime < time) {
+
             useTime += Time.deltaTime;
             panel.fillAmount = Mathf.Lerp(firstFill, goalFill, useTime / time);
-            yield return new WaitForSeconds(0.01f);
+
+            yield return new WaitForEndOfFrame();
+
         }
         panel.fillAmount = goalFill;
 
         Action();
+
     }
 
-    IEnumerator Justrest(float time)
-    {
+    IEnumerator Justrest(float time) {
+
         float useTime = 0;
-        while (useTime < time)
-        {
+
+        while (useTime < time) {
+
             useTime += Time.deltaTime;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForEndOfFrame();
+
         }
+
         Action();
+
     }
 
-    IEnumerator Fade(float goalAlpha, Image panel, float time)
-    {
-        float useTime = 0;
-        float firstAlpha = panel.color.a;
+    IEnumerator Fade(Image target, float goalAlpha,  float time) {
 
-        while (useTime < time)
-        {
+        float useTime = 0;
+        float firstAlpha = target.color.a;
+
+        target.color = new Color(target.color.r, target.color.r, target.color.r, firstAlpha);
+
+        while (useTime < time) {
+
             useTime += Time.deltaTime;
+
             float alpha = Mathf.Lerp(firstAlpha, goalAlpha, useTime / time);
-            yield return new WaitForSeconds(0.01f);
-            panel.color = new Color(panel.color.r, panel.color.r, panel.color.r, alpha);
+
+            yield return new WaitForEndOfFrame();
+
+            target.color = new Color(target.color.r, target.color.r, target.color.r, alpha);
+
         }
-        panel.color = new Color(panel.color.r, panel.color.r, panel.color.r, goalAlpha);
+
+        target.color = new Color(target.color.r, target.color.r, target.color.r, goalAlpha);
 
         Action();
 

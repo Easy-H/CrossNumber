@@ -2,20 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExponetProtector : Protector
-{
+public class ExponetProtector : Protector {
 
-    public override void Set()
-    {
-        RaycastHit2D hit = Unit.ObjectCheck(transform.position, 1);
-        if (hit)
-        {
-            if (!hit.collider.GetComponent<CharUnit>())
-            {
+    public override void SetProtectorApear() {
+
+        if (!IsNeedExcute()) {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        Unit unit = Unit.ObjectCheck(transform.position, 1);
+
+        if (unit) {
+
+            if (!unit.GetComponent<CharUnit>()) {
+
                 gameObject.SetActive(true);
                 return;
+
             }
+
         }
+
         gameObject.SetActive(false);
+
     }
 }

@@ -45,7 +45,7 @@ public class EqualUnit : CharUnit
         e1.MakeEquation(transform.position, Vector3.left, true);
         e2.MakeEquation(transform.position, Vector3.right, false);
 
-        if (e1.containCharCount + e2.containCharCount != 0) {
+        if (e1.ContainCharCount + e2.ContainCharCount != 0) {
             CompareEquation(e1, e2, Vector3.right, 0);
             used = true;
         }
@@ -60,7 +60,7 @@ public class EqualUnit : CharUnit
         e1.MakeEquation(transform.position, Vector3.up, true);
         e2.MakeEquation(transform.position, Vector3.down, false);
 
-        if (e1.containCharCount + e2.containCharCount != 0) {
+        if (e1.ContainCharCount + e2.ContainCharCount != 0) {
             CompareEquation(e1, e2, Vector3.down, 1);
             used = true;
         }
@@ -82,18 +82,18 @@ public class EqualUnit : CharUnit
         bool canCalc = true;
         
         if (!e1.TryCalc(out float e1Result)) {
-            Error(transform.position - direction * (e1.containCharCount + 1));
+            Error(transform.position - direction * (e1.ContainCharCount + 1));
             canCalc = false;
         }
         if (!e2.TryCalc(out float e2Result)) {
-            Error(transform.position + direction * (e2.containCharCount + 1));
+            Error(transform.position + direction * (e2.ContainCharCount + 1));
             canCalc = false;
         }
 
         if (e1Result != e2Result && canCalc) {
             _calcResultError[i].DrawLine
-                (transform.position - direction * (e1.containCharCount - e2.containCharCount) * 0.5f,
-                direction, e1.containCharCount + e2.containCharCount + 1);
+                (transform.position - direction * (e1.ContainCharCount - e2.ContainCharCount) * 0.5f,
+                direction, e1.ContainCharCount + e2.ContainCharCount + 1);
             _errorOccurred = true;
             return;
         }

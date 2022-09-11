@@ -2,134 +2,164 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
-{
+public enum UnitType {
+    NumUnit,            NumZero,
+    UseCalcAndSignChar, UseOnlyCalcChar,    EqualUnit,
+    OverUnit,           Null
+};
 
-    public bool _overed = false;
+public class Unit : MonoBehaviour {
+
+    [SerializeField] public UnitType _unitType = UnitType.Null;
 
     [SerializeField] Protector[] _protector = null;
     [SerializeField] GameObject _underline = null;
+    
+    private int _defaultLayer;
 
-    protected int _defaultLayer;
-    [SerializeField] int[] _carefulLayer = null;
-    int _careful;
+    private Vector3 posWhenPeak;
 
     [SerializeField] protected string _value = "1";
+    public string Value { get { return _value; } }
 
-    public string value {
-        get {
-            return _value;
-        }
-    }
-
-    protected bool _peaked = false;
+    protected bool _isPeaked = false;
     bool _isCalced = true;
-    
+
     protected virtual void Start() {
-        
-        _careful = 0;
         _defaultLayer = gameObject.layer;
 
-        // carefulLayer를 계산한다
-        for (int i = 0; i < _carefulLayer.Length; i++) {
-            _careful = _careful | (1 << _carefulLayer[i]);
-        }
     }
 
     public virtual void SetStateUnCalced() {
-        if (!_overed) {
-            _isCalced = false;
-            StartCoroutine(DrawUnderline());
-        }
+
+        _isCalced = false;
+
+        StartCoroutine(DrawUnderline());
         SetProtector();
-    }
 
-    public void Overed() {
-        gameObject.GetComponent<Collider2D>().enabled = false;
-        _overed = true;
-        Calced();
     }
+    
+    // 연산이 되지 않은 상태였다면 UnitManager의 연산되지 않은 유닛 개수 카운트 변수를 1 감소하고 계산된 상태로 바꾸어준다.
+    public virtual void Calced() {
 
-    public void BreakOvered() {
-        _overed = false;
-        gameObject.GetComponent<Collider2D>().enabled = true;
-    }
-
-    public virtual void Calced()
-    {
         if (!_isCalced) {
-            UnitManager.instance.unCalcedUnitCount--;
+            UnitManager.Instance.unCalcedUnitCount--;
             _underline.SetActive(false);
         }
 
         _isCalced = true;
-        
+
     }
 
-    IEnumerator DrawUnderline()
-    {
+    IEnumerator DrawUnderline() {
+
         yield return new WaitForEndOfFrame();
 
+        // 연산이 되지 않았더라면 유닛 밑에 빨간 밑줄을 긋는다.
         if (!_isCalced) {
             _underline.SetActive(true);
         }
 
     }
 
-    public int Pick() {
+    public void Pick() {
+
+        posWhenPeak = transform.position;
+
         gameObject.layer = 2;
-        _peaked = true;
+        _isPeaked = true;
+
+        UnitManager.Instance.CalculateWorld();
+        UnitManager.Instance.SelectedUnitType = _unitType;
         ClearProtector();
-        return _careful;
+        
     }
 
-    public bool Hold(Vector3 pos) {
+    protected virtual bool CanPlace(Vector3 pos) {
 
-        if (ObjectCheck(pos, _careful))
+        if (ObjectCheck(pos))
             return false;
 
+        return true;
+    }
+
+    public void Hold(Vector3 pos) {
+
+        if (!CanPlace(pos))
+            return;
+
+        // 직전의 위치와 이동하고자 하는 위치를 비교했을 때 변화가 있는지 확인한다.
         Vector3 resultPos = new Vector3(Mathf.Round(pos.x), Mathf.Round(pos.y), 0);
 
         if ((transform.position - resultPos).magnitude < 0.1f)
-            return false;
+            return;
 
-        UnitManager.instance.CalculateWorld();
-        SoundManager.instance.PlayAudio("moveSound", true);
+
+        // 위치에 변화가 있다면 위치를 옮기고 스테이지에 대한 연산을 시작한다.
         transform.position = resultPos;
-        
-        return true;
-        
+        UnitManager.Instance.CalculateWorld();
+        SoundManager.instance.PlayAudio("moveSound", true);
+
+        return;
+
     }
 
-    public Vector3 Place() {
+    public void Place() {
 
-        UnitManager.instance.CheckClear();
+        if ((posWhenPeak - transform.position).magnitude > 0.1f)
+            MoveData.Instance.AddData(this, posWhenPeak, transform.position);
+
+        UnitManager.Instance.CalculateCanClear();
+
+        SetProtector();
 
         gameObject.layer = _defaultLayer;
-        _peaked = false;
+        _isPeaked = false;
 
-        return transform.position;
     }
 
     void ClearProtector() {
+
         for (int i = 0; i < _protector.Length; i++) {
             _protector[i].Clear();
         }
+
     }
 
     protected void SetProtector() {
-        if (_peaked)
+
+        if (_isPeaked) {
             return;
-        
-        for (int i = 0; i < _protector.Length; i++) {
-            _protector[i].Set();
         }
+
+        for (int i = 0; i < _protector.Length; i++) {
+            _protector[i].SetProtectorApear();
+        }
+
     }
 
-    public static RaycastHit2D ObjectCheck(Vector3 pos, int layerValue) {
+    public static Unit ObjectCheck(Vector3 pos) {
+
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f);
+
+        if (hit) {
+            return hit.transform.GetComponent<Unit>();
+        }
+
+        return null;
+
+    }
+
+    public static Unit ObjectCheck(Vector3 pos, int layerValue) {
+
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, layerValue);
 
-        return hit;
+        if (hit) {
+            return hit.transform.GetComponent<Unit>();
+        }
+
+        return null;
+
     }
-    
+
 }

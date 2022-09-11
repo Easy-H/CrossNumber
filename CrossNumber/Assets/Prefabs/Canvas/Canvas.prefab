@@ -1509,70 +1509,70 @@ MonoBehaviour:
   actions:
   - actionName: OpenPause
     animations:
-    - eventType: FadeIn
-      eventValue: 0
-      panel: {fileID: 7951516993913186374}
-      time: 0
-      sound: {fileID: 5022349488940457474}
-    - eventType: FillImage
-      eventValue: 1
-      panel: {fileID: 2039779360044408012}
-      time: 0.2
-      sound: {fileID: 0}
-    - eventType: JustRest
-      eventValue: 0
-      panel: {fileID: 5370635560783054879}
-      time: 0
-      sound: {fileID: 0}
-    - eventType: FadeIn
-      eventValue: 0
-      panel: {fileID: 5370635560783054879}
-      time: 0
-      sound: {fileID: 0}
+    - _eventType: 1
+      _target: {fileID: 7951516993913186374}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 5022349488940457474}
+    - _eventType: 2
+      _target: {fileID: 2039779360044408012}
+      _eventValue: 1
+      _eventTime: 0.2
+      _sound: {fileID: 0}
+    - _eventType: 0
+      _target: {fileID: 0}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 0}
+    - _eventType: 1
+      _target: {fileID: 5370635560783054879}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 0}
   - actionName: ClosePause
     animations:
-    - eventType: Close
-      eventValue: 0
-      panel: {fileID: 5370635560783054879}
-      time: 0
-      sound: {fileID: 5022349488940457474}
-    - eventType: FillImage
-      eventValue: 0
-      panel: {fileID: 2039779360044408012}
-      time: 0.2
-      sound: {fileID: 0}
-    - eventType: Close
-      eventValue: 0
-      panel: {fileID: 2039779360044408012}
-      time: 0
-      sound: {fileID: 0}
-    - eventType: Close
-      eventValue: 0
-      panel: {fileID: 7951516993913186374}
-      time: 0
-      sound: {fileID: 0}
+    - _eventType: 3
+      _target: {fileID: 5370635560783054879}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 5022349488940457474}
+    - _eventType: 2
+      _target: {fileID: 2039779360044408012}
+      _eventValue: 0
+      _eventTime: 0.2
+      _sound: {fileID: 0}
+    - _eventType: 3
+      _target: {fileID: 2039779360044408012}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 0}
+    - _eventType: 3
+      _target: {fileID: 7951516993913186374}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 0}
   - actionName: Clear
     animations:
-    - eventType: FadeIn
-      eventValue: 0
-      panel: {fileID: 3666990184202528000}
-      time: 0
-      sound: {fileID: 4195112862500647513}
-    - eventType: FillImage
-      eventValue: 1
-      panel: {fileID: 3050359903855588274}
-      time: 0.5
-      sound: {fileID: 0}
-    - eventType: JustRest
-      eventValue: 0
-      panel: {fileID: 0}
-      time: 0
-      sound: {fileID: 0}
-    - eventType: FadeIn
-      eventValue: 0
-      panel: {fileID: 3286626309021698276}
-      time: 0
-      sound: {fileID: 0}
+    - _eventType: 1
+      _target: {fileID: 3666990184202528000}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 4195112862500647513}
+    - _eventType: 2
+      _target: {fileID: 3050359903855588274}
+      _eventValue: 1
+      _eventTime: 0.5
+      _sound: {fileID: 0}
+    - _eventType: 0
+      _target: {fileID: 0}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 0}
+    - _eventType: 1
+      _target: {fileID: 3286626309021698276}
+      _eventValue: 0
+      _eventTime: 0
+      _sound: {fileID: 0}
   - actionName: ChangeScene
     animations: []
   changer: {fileID: 4293461597713941394}

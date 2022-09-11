@@ -5,30 +5,26 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
+
+    public static UIManager Instance { get; private set; }
     
-    public static UIManager instance;
-
-
     [SerializeField] UIAnimationGenerator[] actions = null;
     [SerializeField] SceneChange changer = null;
 
-    private void Start()
-    {
-        instance = this;
+    private void Start() {
+        Instance = this;
     }
 
-    public void Reset()
-    {
+    public void Reset() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GetBack() {
-        MoveData.GetBack();
+        MoveData.Instance.GetBack();
     }
 
-    public void Foward()
-    {
-        MoveData.Foward();
+    public void Foward() {
+        MoveData.Instance.Foward();
     }
 
     public void StartAnimation(int i) {
@@ -45,13 +41,11 @@ public class UIManager : MonoBehaviour {
         }
 
     }
-    public void GoNextScene()
-    {
+    public void GoNextScene() {
         StartCoroutine(changer.CaptureScreen());
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    public void GoScene(int i)
-    {
+    public void GoScene(int i) {
         StartCoroutine(changer.CaptureScreen());
         SceneManager.LoadScene(i);
     }

@@ -2,75 +2,74 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class MoveDataUnit {
+    public Unit unit { get; private set; }
+
+    public Vector3 beforeMovePos { get; private set; }
+    public Vector3 afterMovePos { get; private set; }
+
+    public MoveDataUnit(Unit u, Vector3 origin, Vector3 moved)
+    {
+        unit = u;
+        beforeMovePos = origin;
+        afterMovePos = moved;
+    }
+    
+}
+
 [System.Serializable]
 public class MoveData
 {
-    static List<MoveData> moves = null;
-    static int movesCount = 0;
+    List<MoveDataUnit> _data;
 
-    [SerializeField] GameObject unit;
+    static MoveData _instance;
+    public static MoveData Instance {
+        get {
+            if (_instance == null)
+                _instance = new MoveData();
+            return _instance;
+        }
+    }
 
-    [SerializeField] Vector3 originPos;
-    [SerializeField] Vector3 movedPos;
+    int _idx;
 
-    public MoveData(GameObject u, Vector3 origin, Vector3 moved)
+    public void WhenNewSceneLoaded() {
+        _data = new List<MoveDataUnit>();
+    }
+
+    public void AddData(Unit unitData, Vector3 originPos, Vector3 resultPos)
     {
-        unit = u;
-        originPos = origin;
-        movedPos = moved;
+        if (_idx < _data.Count)
+            _data.RemoveRange(_idx, _data.Count - _idx);
+
+        _data.Add(new MoveDataUnit(unitData, originPos, resultPos));
+        _idx++;
     }
 
-    public GameObject GetObject()
-    {
-        return unit;
-    }
-
-    public Vector3 GetOriginPos()
-    {
-        return originPos;
-    }
-
-    public Vector3 GetMovedPos()
-    {
-        return movedPos;
-    }
-
-    public static void WhenNewSceneLoaded() {
-        moves = new List<MoveData>();
-        movesCount = 0;
-    }
 
     // 뒤로가기 기능
-    public static void GetBack()
+    public void GetBack()
     {
-        if (movesCount < 1)
+        if (_idx < 1)
             return;
-        Unit unit = moves[--movesCount].GetObject().GetComponent<Unit>();
+        Unit unit = _data[--_idx].unit;
 
         unit.Pick();
-        unit.Hold(moves[movesCount].GetOriginPos());
-        unit.Place();
-        
-    }
-
-    public static void Foward()
-    {
-        if (movesCount > moves.Count - 1)
-            return;
-        Unit unit = moves[movesCount].GetObject().GetComponent<Unit>();
-
-        unit.Pick();
-        unit.Hold(moves[movesCount++].GetMovedPos());
+        unit.Hold(_data[_idx].beforeMovePos);
         unit.Place();
 
     }
+    
+    public void Foward()
+    {
+        if (_idx > _data.Count - 1)
+            return;
+        Unit unit = _data[_idx].unit;
 
-    public static void AddData(GameObject unitData, Vector3 originPos, Vector3 resultPos) {
-        if (movesCount < moves.Count)
-            moves.RemoveRange(movesCount, moves.Count - movesCount);
+        unit.Pick();
+        unit.Hold(_data[_idx++].afterMovePos);
+        unit.Place();
 
-        moves.Add(new MoveData(unitData, originPos, resultPos));
-        movesCount++;
     }
 
 

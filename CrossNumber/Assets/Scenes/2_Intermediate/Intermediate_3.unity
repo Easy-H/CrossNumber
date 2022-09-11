@@ -1490,6 +1490,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Exponet (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6151177695659561443, guid: 68f0b06a37d65ec42ac8b4b4ddab51ff,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300004, guid: 85598f2bc7c0cea48a76faca075eb6a6,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68f0b06a37d65ec42ac8b4b4ddab51ff, type: 3}
 --- !u!1001 &1644230870

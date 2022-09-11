@@ -4,43 +4,83 @@ using UnityEngine;
 
 public class OverUnit : Unit
 {
-    [SerializeField] Unit _overedUnit;
+    NumUnit _overedUnit;
+
     [SerializeField] string _defaultValue = null;
+
+    [SerializeField] UnitType[] _canOverType = null;
 
     public override void SetStateUnCalced() {
 
         base.SetStateUnCalced();
-
-        gameObject.layer = _defaultLayer;
-
-        if (_overedUnit) {
-            _overedUnit.gameObject.layer = 0;
-            _overedUnit.BreakOvered();
-        }
         
-        RaycastHit2D hit = ObjectCheck(transform.position, 1);
+        // 기존의 겹쳐진 유닛과 좌표차이가 없다면 함수를 종료한다.
+        // 기존의 겹쳐진 유닛과 좌표차이가 생겼다면 _overedUnit을 초기화한다.
+        if (_overedUnit) {
 
-        if (hit) {
-            _overedUnit = hit.collider.GetComponent<Unit>();
+            if ((_overedUnit.transform.position - transform.position).magnitude < 0.1f) {
+                return;
+            }
 
-            _value = _overedUnit.value + _defaultValue;
-            gameObject.layer = 0;
+            _overedUnit.BreakOvered();
+            _overedUnit = null;
+
+        }
+
+        int layerBeforeChange = gameObject.layer;
+
+        // 동일한 위치에 유닛이 존재하는지 확인한다.
+        Unit unit = ObjectCheck(transform.position, 1);
+
+        if (unit) {
+
+            // 존재한다면 그 유닛을 _overedUnit으로 설정하고,
+            // 이 유닛의 _value를 _overedUnit.value + _defualtValue로 설정한다.
+            _overedUnit = unit.GetComponent<NumUnit>();
+            _value = _overedUnit.Value + _defaultValue;
 
             _overedUnit.Overed();
+
         }
         else {
+            // 존재하지 않는다면 _value를 null로 설정한다.
             _value = null;
         }
-        if (_peaked)
-            gameObject.layer = 2;
+
+        // 유닛이 있는지 확인하기 위해 변경한 layer를 원래 상태로 돌린다.
+        gameObject.layer = layerBeforeChange;
+
     }
 
+    // 만약 계산된다면 _overedUnit도 함께 계산된 것으로 처리한다.
     public override void Calced()
     {
         base.Calced();
-        if (_overedUnit) {
-            UnitManager.instance.unCalcedUnitCount--;
+
+        if (_overedUnit)
+            _overedUnit.Calced();
+
+    }
+
+    // 유닛이 있는지, 있다면 겹칠 수 있는 유닛인지 확인한다.
+    protected override bool CanPlace(Vector3 pos) {
+
+        Unit existUnit = ObjectCheck(pos, 5);
+
+        if (!existUnit) {
+            return true;
         }
+
+        bool result = false;
+
+        for (int i = 0; i < _canOverType.Length; i++) {
+            if (existUnit._unitType == _canOverType[i]) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 
 }
