@@ -11,7 +11,7 @@ public class ExponetProtector : Protector {
             return;
         }
 
-        Unit unit = Unit.ObjectCheck(transform.position, 1);
+        Unit unit = Unit.ObjectCheck<Unit>(transform.position, 5);
 
         if (unit) {
 

@@ -10,8 +10,8 @@ public class UiAnimation {
 
     public Image _target = null;
 
-    public float _eventValue = 0f;
-    public float _eventTime = 0f;
+    public float _valueOfEvent = 0f;
+    public float _timeOfEvent = 0f;
 
     public AudioSource _sound;
 
@@ -25,7 +25,7 @@ public enum UiAnimationType {
 }
 
 [System.Serializable]
-public class UIAnimationGenerator {
+public class UiAnimationGenerator {
 
     public string actionName;
 
@@ -35,7 +35,6 @@ public class UIAnimationGenerator {
 
     public void Action() {
         if (_actnum >= animations.Length) {
-
             _actnum = 0;
             return;
 
@@ -49,17 +48,17 @@ public class UIAnimationGenerator {
             ua._sound.Play();
 
         if (ua._eventType == UiAnimationType.Rest) {
-            UIManager.Instance.StartCoroutine(Justrest(ua._eventTime));
+            UiManager.Instance.StartCoroutine(Justrest(ua._timeOfEvent));
         }
         else {
             ua._target.gameObject.SetActive(true);
 
             switch (ua._eventType) {
                 case UiAnimationType.FadeIn:
-                    UIManager.Instance.StartCoroutine(Fade(ua._target, ua._eventValue, ua._eventTime));
+                    UiManager.Instance.StartCoroutine(Fade(ua._target, ua._valueOfEvent, ua._valueOfEvent));
                     break;
                 case UiAnimationType.FillImage:
-                    UIManager.Instance.StartCoroutine(FillImage(ua._target, ua._eventValue, ua._eventTime));
+                    UiManager.Instance.StartCoroutine(FillImage(ua._target, ua._valueOfEvent, ua._timeOfEvent));
                     break;
                 case UiAnimationType.Close:
                     ua._target.gameObject.SetActive(false);
@@ -74,13 +73,17 @@ public class UIAnimationGenerator {
     }
 
     IEnumerator FillImage(Image panel, float goalFill,  float time) {
-        float useTime = 0;
+
+        float startTime = Time.realtimeSinceStartup;
+        float useTime = startTime;
+        float goalTime = startTime + time;
+
         float firstFill = panel.fillAmount;
 
-        while (useTime < time) {
+        while (useTime < goalTime) {
 
-            useTime += Time.deltaTime;
-            panel.fillAmount = Mathf.Lerp(firstFill, goalFill, useTime / time);
+            useTime = Time.realtimeSinceStartup;
+            panel.fillAmount = Mathf.Lerp(firstFill, goalFill, (useTime - startTime) / time);
 
             yield return new WaitForEndOfFrame();
 
@@ -93,11 +96,13 @@ public class UIAnimationGenerator {
 
     IEnumerator Justrest(float time) {
 
-        float useTime = 0;
+        float startTime = Time.realtimeSinceStartup;
+        float useTime = startTime;
+        float goalTime = startTime + time;
 
-        while (useTime < time) {
+        while (useTime < goalTime) {
 
-            useTime += Time.deltaTime;
+            useTime = Time.realtimeSinceStartup;
             yield return new WaitForEndOfFrame();
 
         }
@@ -108,16 +113,19 @@ public class UIAnimationGenerator {
 
     IEnumerator Fade(Image target, float goalAlpha,  float time) {
 
-        float useTime = 0;
+        float startTime = Time.realtimeSinceStartup;
+        float useTime = startTime;
+        float goalTime = startTime + time;
+
         float firstAlpha = target.color.a;
 
         target.color = new Color(target.color.r, target.color.r, target.color.r, firstAlpha);
 
-        while (useTime < time) {
+        while (useTime < goalTime) {
 
-            useTime += Time.deltaTime;
+            useTime = Time.realtimeSinceStartup;
 
-            float alpha = Mathf.Lerp(firstAlpha, goalAlpha, useTime / time);
+            float alpha = Mathf.Lerp(firstAlpha, goalAlpha, (useTime - startTime) / time);
 
             yield return new WaitForEndOfFrame();
 

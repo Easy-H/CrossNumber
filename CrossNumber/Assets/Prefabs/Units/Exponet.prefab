@@ -113,7 +113,6 @@ MonoBehaviour:
   - {fileID: 8605771079041859952}
   _underline: {fileID: 6241136284107456223}
   _value: 
-  _overedUnit: {fileID: 0}
   _defaultValue: ' ^ 2'
   _canOverType: 0000000001000000
 --- !u!1 &6151177695659561445
@@ -126,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6151177695659561444}
   - component: {fileID: 6151177695659561443}
+  - component: {fileID: 4581561753847727349}
   m_Layer: 8
   m_Name: Number
   m_TagString: Untagged
@@ -198,6 +198,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4581561753847727349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151177695659561445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f51f338eda3f84f8138523f7016558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinNeed: 1
+  _sprite: {fileID: 6151177695659561443}
 --- !u!1001 &325987572206493075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +402,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1970574203}
     m_Modifications:
+    - target: {fileID: 1753698563687001289, guid: a690854e34946424a8a4716f703b14ed,
+        type: 3}
+      propertyPath: _apearAtThisSelected.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753698563687001289, guid: a690854e34946424a8a4716f703b14ed,
+        type: 3}
+      propertyPath: _apearAtThisSelected.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753698563687001289, guid: a690854e34946424a8a4716f703b14ed,
+        type: 3}
+      propertyPath: _apearAtThisSelected.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2522580988851956603, guid: a690854e34946424a8a4716f703b14ed,
         type: 3}
       propertyPath: m_Name

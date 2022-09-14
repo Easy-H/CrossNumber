@@ -25,7 +25,7 @@ public class Equation {
     // 필드에 있는 유닛을 문자열 수식으로 만든다.
     public void MakeEquation(Vector3 pos, Vector3 dir, bool back) {
         while (true) {
-            Unit unit = Unit.ObjectCheck(pos + dir, 5);
+            Unit unit = Unit.ObjectCheck<Unit>(pos + dir, 5);
 
             if (unit) {
                 if (unit.Value == null)

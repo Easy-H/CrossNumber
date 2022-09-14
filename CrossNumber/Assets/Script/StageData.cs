@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class StageData:MonoBehaviour
 {
-    public string overworld;
+    public OverWorldName overworld;
     public int level;
 }

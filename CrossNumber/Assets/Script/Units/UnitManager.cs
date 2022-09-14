@@ -95,12 +95,11 @@ public class UnitManager : MonoBehaviour {
 
         if (_canClear) {
 
-            UIManager.Instance.StartAnimation("Clear");
+            UiManager.Instance.StartAnimation("Clear");
 
             StageData stage = GameObject.FindWithTag("Data").GetComponent<StageData>();
-
-            DataManager.Instance.LoadGameData(stage.overworld);
-            DataManager.Instance.gameData.SetStageClear(stage.level, true);
+            
+            DataManager.Instance.gameData.GetOverWorld(stage.overworld).SetStageClear(stage.level, true);
             DataManager.Instance.SaveGameData();
 
         }

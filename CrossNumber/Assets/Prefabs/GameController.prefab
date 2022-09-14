@@ -40,8 +40,8 @@ Camera:
   m_GameObject: {fileID: 470395663}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.8980392, g: 0.8980392, b: 0.67058825, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 1976318833640172854}
   - component: {fileID: 7842722006727861509}
   - component: {fileID: 7711470385806910028}
+  - component: {fileID: 3663810945639748517}
   - component: {fileID: 952787253444739855}
   m_Layer: 0
   m_Name: GameController
@@ -525,11 +526,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea5d75b2e7ba6d48ac3d4ef67663131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skinInfor: {fileID: 3663810945639748517}
   _traceCamera: {fileID: 4202790243368022336}
   _trCamera: {fileID: 470395666}
   _trBoard: {fileID: 6944657902540077493}
   _isMoving: 0
-  _moveField: 0
 --- !u!114 &7711470385806910028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +543,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55fc175262a5ab4b919669a6eb3c8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _subCamera: {fileID: 0}
+--- !u!114 &3663810945639748517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6634196492011064395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a181c142f6fdb2f4688e647e884b3696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinSet:
+  - _background: {r: 1, g: 1, b: 1, a: 1}
+    _unit: {r: 0, g: 0, b: 0, a: 1}
+    _redLine: {r: 1, g: 0, b: 0, a: 1}
+    _uiPanel: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 1}
+    _uiBoard: {r: 1, g: 1, b: 1, a: 1}
+  - _background: {r: 0.15294118, g: 0.29803923, b: 0.2627451, a: 1}
+    _unit: {r: 0.98039216, g: 0.98039216, b: 0.8784314, a: 1}
+    _redLine: {r: 0.92941177, g: 0.46666667, b: 0.46666667, a: 1}
+    _uiPanel: {r: 0.7921569, g: 0.6431373, b: 0.44705883, a: 1}
+    _uiBoard: {r: 0.7921569, g: 0.6431373, b: 0.44705883, a: 1}
 --- !u!81 &952787253444739855
 AudioListener:
   m_ObjectHideFlags: 0
@@ -692,8 +715,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Board
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3847547613136168885, guid: d084f37f31e859449a5b67d6f8a84f2b, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d084f37f31e859449a5b67d6f8a84f2b, type: 3}
 --- !u!4 &6944657902540077493 stripped
 Transform:

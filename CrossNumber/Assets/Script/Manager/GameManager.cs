@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    [SerializeField] SkinData _skinInfor = null;
+    public SkinData SkinInfor { get { return _skinInfor; } }
+
     [SerializeField] Camera _traceCamera = null;
 
     [SerializeField] Transform _trCamera = null;
@@ -20,15 +23,14 @@ public class GameManager : MonoBehaviour
 
     bool canClear;
 
-    private void Awake()
-    {
+    private void Awake() {
+        Instance = this;
     }
 
     private void Start() {
         UnitManager.WhenNewSceneLoaded();
         MoveData.Instance.WhenNewSceneLoaded();
 
-        Instance = this;
     }
 
     private void Update () {
@@ -36,8 +38,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            _selectedUnit = Unit.ObjectCheck(mousePos, Camera.main.cullingMask);
+
+            _selectedUnit = Unit.ObjectCheck<Unit>(mousePos, Camera.main.cullingMask);
 
             if (!_selectedUnit) {
                 _isMoving = true;
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour
                 Vector3 mousePos = _traceCamera.ScreenToWorldPoint(Input.mousePosition);
 
                 _trCamera.Translate(_originMouseInput - mousePos);
-                _trBoard.position = new Vector3(Mathf.Round(_trCamera.position.x), Mathf.Round(_trCamera.position.y), 1);
+                _trBoard.position = new Vector3(Mathf.Round(_trCamera.position.x), Mathf.Round(_trCamera.position.y), 10);
 
                 _originMouseInput = mousePos;
                 

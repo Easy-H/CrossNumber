@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3625975194188114383}
   - component: {fileID: 3625975194188114382}
   - component: {fileID: 5925928147892557185}
+  - component: {fileID: 6118025811286569735}
   m_Layer: 0
   m_Name: CharUnit
   m_TagString: Unit
@@ -133,6 +134,20 @@ MonoBehaviour:
   - {fileID: 4475749597117028965}
   _underline: {fileID: 49457358991463205}
   _value: 1
+--- !u!114 &6118025811286569735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625975194188114380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f51f338eda3f84f8138523f7016558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinNeed: 1
+  _sprite: {fileID: 3625975194188114383}
 --- !u!1 &5218299594207947855
 GameObject:
   m_ObjectHideFlags: 0

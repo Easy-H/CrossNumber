@@ -77,7 +77,7 @@ public class Unit : MonoBehaviour {
 
     protected virtual bool CanPlace(Vector3 pos) {
 
-        if (ObjectCheck(pos))
+        if (Physics2D.Raycast(pos, Vector2.down, 0.1f))
             return false;
 
         return true;
@@ -93,8 +93,7 @@ public class Unit : MonoBehaviour {
 
         if ((transform.position - resultPos).magnitude < 0.1f)
             return;
-
-
+        
         // 위치에 변화가 있다면 위치를 옮기고 스테이지에 대한 연산을 시작한다.
         transform.position = resultPos;
         UnitManager.Instance.CalculateWorld();
@@ -138,28 +137,27 @@ public class Unit : MonoBehaviour {
 
     }
 
-    public static Unit ObjectCheck(Vector3 pos) {
+
+    public static T ObjectCheck<T>(Vector3 pos) {
+        T unit = default(T);
 
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f);
 
-        if (hit) {
-            return hit.transform.GetComponent<Unit>();
-        }
+        if (hit)
+            unit = hit.transform.GetComponent<T>();
 
-        return null;
-
+        return unit;
     }
 
-    public static Unit ObjectCheck(Vector3 pos, int layerValue) {
+    public static T ObjectCheck<T>(Vector3 pos, int layerValue) {
+        T unit = default(T);
 
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, layerValue);
 
-        if (hit) {
-            return hit.transform.GetComponent<Unit>();
-        }
+        if (hit)
+            unit = hit.transform.GetComponent<T>();
 
-        return null;
-
+        return unit;
     }
 
 }
