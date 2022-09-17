@@ -25,12 +25,8 @@ public class SoundManager : MonoBehaviour {
         for (int i = 0; i < _audios.Length; i++) {
 
             if (_audios[i].name.Equals(audioName)) {
-                if (canPlayOther || !_audios[i].audio.isPlaying)
-                    _audios[i].audio.Play();
-                else {
-                    _audios[i].audio.Stop();
-                    _audios[i].audio.Play();
-                }
+                _audios[i].audio.Stop();
+                _audios[i].audio.Play();
             }
             else if (!canPlayOther) {
                 _audios[i].audio.Stop();

@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Transform _trCamera = null;
     [SerializeField] Transform _trBoard = null;
-    
+
+    public bool _pause = false;
+    public bool _canMoving = true;
     public bool _isMoving = false;
 
     Unit _selectedUnit;
@@ -30,10 +32,14 @@ public class GameManager : MonoBehaviour
     private void Start() {
         UnitManager.WhenNewSceneLoaded();
         MoveData.Instance.WhenNewSceneLoaded();
+        _pause = false;
 
     }
 
     private void Update () {
+
+        if (_pause == true)
+            return;
         
         if (Input.GetMouseButtonDown(0)) {
 
@@ -41,13 +47,13 @@ public class GameManager : MonoBehaviour
 
             _selectedUnit = Unit.ObjectCheck<Unit>(mousePos, Camera.main.cullingMask);
 
-            if (!_selectedUnit) {
-                _isMoving = true;
-                _originMouseInput = _traceCamera.ScreenToWorldPoint(Input.mousePosition);
+            if (_selectedUnit) {
+                _selectedUnit.Pick();
 
             }
-            else {
-                _selectedUnit.Pick();
+            else if (_canMoving){
+                _isMoving = true;
+                _originMouseInput = _traceCamera.ScreenToWorldPoint(Input.mousePosition);
 
             }
             return;
@@ -80,7 +86,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
 
-            _selectedUnit.Place();
+            _selectedUnit.Place(true);
             _selectedUnit = null;
 
         }

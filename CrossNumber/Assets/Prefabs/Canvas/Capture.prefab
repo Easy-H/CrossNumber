@@ -86,4 +86,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _capturedImage: {fileID: 2407935896379638421}
-  _playTimeSecond: 2
+  _playTimeSecond: 1

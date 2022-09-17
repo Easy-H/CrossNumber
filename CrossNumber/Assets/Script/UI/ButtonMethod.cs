@@ -8,6 +8,7 @@ public class ButtonMethod: MonoBehaviour {
     [SerializeField] SceneChange changer = null;
 
     public void ResetScene() {
+        StartCoroutine(changer.CaptureScreen());
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -25,15 +26,38 @@ public class ButtonMethod: MonoBehaviour {
         Application.OpenURL(link);
     }
 
-    public void GetBack() {
-        MoveData.Instance.GetBack();
+    public void Undo() {
+        MoveData.Instance.Undo();
     }
 
-    public void Foward() {
-        MoveData.Instance.Foward();
+    public void Redo() {
+        MoveData.Instance.Redo();
     }
 
     public void ChangeTheme(int idx) {
+
+        if (idx == GameManager.Instance.SkinInfor.Idx)
+            return;
+
+        SoundManager.instance.PlayAudio("changeScene", true);
+
+        StartCoroutine(SetSkin(idx));
+    }
+
+    IEnumerator SetSkin(int idx) {
+
+        StartCoroutine(changer.CaptureScreen());
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(changer.Animation());
+        yield return new WaitForEndOfFrame();
+
         GameManager.Instance.SkinInfor.SetSkinIdx(idx);
+    }
+
+    public void Pause() {
+        GameManager.Instance._pause = true;
+    }
+    public void Continue() {
+        GameManager.Instance._pause = false;
     }
 }

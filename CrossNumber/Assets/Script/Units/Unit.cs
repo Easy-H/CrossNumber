@@ -103,9 +103,9 @@ public class Unit : MonoBehaviour {
 
     }
 
-    public void Place() {
+    public void Place(bool addData) {
 
-        if ((posWhenPeak - transform.position).magnitude > 0.1f)
+        if ((posWhenPeak - transform.position).magnitude > 0.1f && addData)
             MoveData.Instance.AddData(this, posWhenPeak, transform.position);
 
         UnitManager.Instance.CalculateCanClear();

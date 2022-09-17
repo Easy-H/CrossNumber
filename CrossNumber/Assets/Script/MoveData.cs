@@ -8,18 +8,16 @@ public class MoveDataUnit {
     public Vector3 beforeMovePos { get; private set; }
     public Vector3 afterMovePos { get; private set; }
 
-    public MoveDataUnit(Unit u, Vector3 origin, Vector3 moved)
-    {
+    public MoveDataUnit(Unit u, Vector3 origin, Vector3 moved) {
         unit = u;
         beforeMovePos = origin;
         afterMovePos = moved;
     }
-    
+
 }
 
 [System.Serializable]
-public class MoveData
-{
+public class MoveData {
     List<MoveDataUnit> _data;
 
     static MoveData _instance;
@@ -37,8 +35,7 @@ public class MoveData
         _data = new List<MoveDataUnit>();
     }
 
-    public void AddData(Unit unitData, Vector3 originPos, Vector3 resultPos)
-    {
+    public void AddData(Unit unitData, Vector3 originPos, Vector3 resultPos) {
         if (_idx < _data.Count)
             _data.RemoveRange(_idx, _data.Count - _idx);
 
@@ -48,27 +45,26 @@ public class MoveData
 
 
     // 뒤로가기 기능
-    public void GetBack()
-    {
+    public void Undo() {
         if (_idx < 1)
             return;
         Unit unit = _data[--_idx].unit;
 
         unit.Pick();
         unit.Hold(_data[_idx].beforeMovePos);
-        unit.Place();
+        unit.Place(false);
 
     }
-    
-    public void Foward()
-    {
+
+    public void Redo() {
         if (_idx > _data.Count - 1)
             return;
         Unit unit = _data[_idx].unit;
 
         unit.Pick();
         unit.Hold(_data[_idx++].afterMovePos);
-        unit.Place();
+        unit.Place(false);
+
 
     }
 

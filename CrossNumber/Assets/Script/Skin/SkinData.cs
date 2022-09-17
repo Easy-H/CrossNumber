@@ -45,7 +45,7 @@ public class SkinData : MonoBehaviour {
 
     [SerializeField] SkinDataUnit[] _skinSet = null;
 
-    int _idx;
+    public int Idx { get; set; }
     bool _idxSet = false;
     
     public SkinDataUnit Skin {
@@ -55,7 +55,7 @@ public class SkinData : MonoBehaviour {
 
             //_idx = 1;
 
-            return _skinSet[_idx];
+            return _skinSet[Idx];
         }
     }
 
@@ -65,14 +65,14 @@ public class SkinData : MonoBehaviour {
             PlayerPrefs.SetInt("Skin", 0);
         }
 
-        _idx = PlayerPrefs.GetInt("Skin");
+        Idx = PlayerPrefs.GetInt("Skin");
 
     }
 
     public void SetSkinIdx(int idx) {
 
-        _idx = idx;
-        PlayerPrefs.SetInt("Skin", _idx);
+        Idx = idx;
+        PlayerPrefs.SetInt("Skin", Idx);
 
         SkinSetter[] setters = FindObjectsOfType<SkinSetter>();
 

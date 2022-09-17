@@ -126,6 +126,8 @@ MonoBehaviour:
     name: moveSound
   - audio: {fileID: 2706183122326370806}
     name: wrongSound
+  - audio: {fileID: 5031409825919864323}
+    name: changeScene
 --- !u!82 &5031409825919864323
 AudioSource:
   m_ObjectHideFlags: 0
@@ -566,6 +568,11 @@ MonoBehaviour:
     _redLine: {r: 0.92941177, g: 0.46666667, b: 0.46666667, a: 1}
     _uiPanel: {r: 0.7921569, g: 0.6431373, b: 0.44705883, a: 1}
     _uiBoard: {r: 0.7921569, g: 0.6431373, b: 0.44705883, a: 1}
+  - _background: {r: 0, g: 0, b: 0, a: 1}
+    _unit: {r: 1, g: 1, b: 0.572327, a: 1}
+    _redLine: {r: 1, g: 0.42138356, b: 0.42138356, a: 1}
+    _uiPanel: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    _uiBoard: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
 --- !u!81 &952787253444739855
 AudioListener:
   m_ObjectHideFlags: 0

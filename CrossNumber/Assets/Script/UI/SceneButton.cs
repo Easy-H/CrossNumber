@@ -29,7 +29,7 @@ public class SceneButton : MonoBehaviour
     }
     
     public void GoScene() {
-        SceneManager.LoadScene(_thisLevel + _addLevel);
+        UiManager.Instance.GetComponent<ButtonMethod>().GoScene(_thisLevel + _addLevel);
     }
     
 }
