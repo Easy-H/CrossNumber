@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum NeedColor {
-    Background,     Unit,       RedLine,        UiPanel,    UiBoard
+    Background,     Unit,       RedLine,        UiPanel,    UiBoard,    UiBoardLine
 };
 
 [System.Serializable]
@@ -14,6 +14,7 @@ public class SkinDataUnit {
     [SerializeField] private Color _redLine = Color.white;
     [SerializeField] private Color _uiPanel = Color.black;
     [SerializeField] private Color _uiBoard = Color.white;
+    [SerializeField] private Color _uiBoardLine = Color.white;
 
     public Color GetSkinColor(NeedColor need) {
         Color color = Color.black;
@@ -33,6 +34,9 @@ public class SkinDataUnit {
                 break;
             case NeedColor.UiBoard:
                 color = _uiBoard;
+                break;
+            case NeedColor.UiBoardLine:
+                color = _uiBoardLine;
                 break;
         }
         return color;

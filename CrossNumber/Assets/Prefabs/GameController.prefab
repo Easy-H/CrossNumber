@@ -532,6 +532,8 @@ MonoBehaviour:
   _traceCamera: {fileID: 4202790243368022336}
   _trCamera: {fileID: 470395666}
   _trBoard: {fileID: 6944657902540077493}
+  _pause: 0
+  _canMoving: 1
   _isMoving: 0
 --- !u!114 &7711470385806910028
 MonoBehaviour:
@@ -563,16 +565,19 @@ MonoBehaviour:
     _redLine: {r: 1, g: 0, b: 0, a: 1}
     _uiPanel: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 1}
     _uiBoard: {r: 1, g: 1, b: 1, a: 1}
+    _uiBoardLine: {r: 0, g: 0, b: 0, a: 0.11764706}
   - _background: {r: 0.15294118, g: 0.29803923, b: 0.2627451, a: 1}
-    _unit: {r: 0.98039216, g: 0.98039216, b: 0.8784314, a: 1}
+    _unit: {r: 0.98039216, g: 0.98039216, b: 0.8784314, a: 0.5882353}
     _redLine: {r: 0.92941177, g: 0.46666667, b: 0.46666667, a: 1}
     _uiPanel: {r: 0.7921569, g: 0.6431373, b: 0.44705883, a: 1}
     _uiBoard: {r: 0.7921569, g: 0.6431373, b: 0.44705883, a: 1}
+    _uiBoardLine: {r: 0, g: 0, b: 0, a: 0.11764706}
   - _background: {r: 0, g: 0, b: 0, a: 1}
     _unit: {r: 1, g: 1, b: 0.572327, a: 1}
     _redLine: {r: 1, g: 0.42138356, b: 0.42138356, a: 1}
     _uiPanel: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     _uiBoard: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    _uiBoardLine: {r: 0, g: 0, b: 0, a: 0}
 --- !u!81 &952787253444739855
 AudioListener:
   m_ObjectHideFlags: 0

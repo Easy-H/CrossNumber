@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4338443573369140817}
   - component: {fileID: 4338443573369140822}
-  m_Layer: 9
+  - component: {fileID: 339271846232609657}
+  m_Layer: 0
   m_Name: Board
   m_TagString: Board
   m_Icon: {fileID: 0}
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e3d2ccab9759eab428268a56368377dd, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.13725491}
+  m_Color: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -83,6 +84,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &339271846232609657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4338443573369140823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f51f338eda3f84f8138523f7016558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skinNeed: 5
 --- !u!1 &6013791819684645215
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +108,7 @@ GameObject:
   - component: {fileID: 958272268867130418}
   - component: {fileID: 6799516401635649601}
   - component: {fileID: 6279121306346547592}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BackGroundColor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

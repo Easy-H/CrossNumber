@@ -33,6 +33,7 @@ public class MoveData {
 
     public void WhenNewSceneLoaded() {
         _data = new List<MoveDataUnit>();
+        _idx = 0;
     }
 
     public void AddData(Unit unitData, Vector3 originPos, Vector3 resultPos) {
