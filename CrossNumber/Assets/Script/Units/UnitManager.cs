@@ -95,7 +95,7 @@ public class UnitManager : MonoBehaviour {
 
         if (_canClear) {
 
-            UiManager.Instance.StartAnimation("Clear");
+            UIManager.Instance.StartAnimation("Clear");
 
             StageData stage = GameObject.FindWithTag("Data").GetComponent<StageData>();
             

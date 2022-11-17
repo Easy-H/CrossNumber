@@ -48,17 +48,17 @@ public class UiAnimationGenerator {
             ua._sound.Play();
 
         if (ua._eventType == UiAnimationType.Rest) {
-            UiManager.Instance.StartCoroutine(Justrest(ua._timeOfEvent));
+            UIManager.Instance.StartCoroutine(Justrest(ua._timeOfEvent));
         }
         else {
             ua._target.gameObject.SetActive(true);
 
             switch (ua._eventType) {
                 case UiAnimationType.FadeIn:
-                    UiManager.Instance.StartCoroutine(Fade(ua._target, ua._valueOfEvent, ua._valueOfEvent));
+                    UIManager.Instance.StartCoroutine(Fade(ua._target, ua._valueOfEvent, ua._valueOfEvent));
                     break;
                 case UiAnimationType.FillImage:
-                    UiManager.Instance.StartCoroutine(FillImage(ua._target, ua._valueOfEvent, ua._timeOfEvent));
+                    UIManager.Instance.StartCoroutine(FillImage(ua._target, ua._valueOfEvent, ua._timeOfEvent));
                     break;
                 case UiAnimationType.Close:
                     ua._target.gameObject.SetActive(false);
