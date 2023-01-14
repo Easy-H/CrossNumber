@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringData>
+	<String>
+		<name>Korean</name>
+		<value>Korean</value>
+	</String>
+	
+	<String>
+		<name>English</name>
+		<value>English</value>
+	</String>
+	
+	<String>
+		<name>MadeBy</name>
+		<value>Made By</value>
+	</String>
+	
+	<String>
+		<name>FontInfor</name>
+		<value>Used Font</value>
+	</String>
+	
+	<String>
+		<name>IconInfor</name>
+		<value>Icon</value>
+	</String>
+	
+	<String>
+		<name>PrivacyPolicy</name>
+		<value>Privacy Policy</value>
+	</String>
+	
+	<String>
+		<name>ThemeTitle</name>
+		<value>Theme</value>
+	</String>
+	
+	<String>
+		<name>BasicTheme</name>
+		<value>Basic</value>
+	</String>
+	
+	<String>
+		<name>ChalkTheme</name>
+		<value>Chalk Board</value>
+	</String>
+	
+	<String>
+		<name>BlackTheme</name>
+		<value>Black Board</value>
+	</String>
+	
+	<String>
+		<name>Close</name>
+		<value>Close</value>
+	</String>
+	
+</StringData>

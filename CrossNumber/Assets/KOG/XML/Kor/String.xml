@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringData>
+	<String>
+		<name>Korean</name>
+		<value>한국어</value>
+	</String>
+	
+	<String>
+		<name>English</name>
+		<value>영어</value>
+	</String>
+	
+	<String>
+		<name>MadeBy</name>
+		<value>제작사</value>
+	</String>
+	
+	<String>
+		<name>FontInfor</name>
+		<value>사용 글꼴</value>
+	</String>
+	
+	<String>
+		<name>IconInfor</name>
+		<value>아이콘 출처</value>
+	</String>
+	
+	<String>
+		<name>PrivacyPolicy</name>
+		<value>개인정보 처리방침</value>
+	</String>
+	
+	<String>
+		<name>ThemeTitle</name>
+		<value>테마</value>
+	</String>
+	
+	<String>
+		<name>BasicTheme</name>
+		<value>기본</value>
+	</String>
+	
+	<String>
+		<name>ChalkTheme</name>
+		<value>칠판</value>
+	</String>
+	
+	<String>
+		<name>BlackTheme</name>
+		<value>흑백</value>
+	</String>
+	
+	<String>
+		<name>Close</name>
+		<value>닫기</value>
+	</String>
+	
+</StringData>
