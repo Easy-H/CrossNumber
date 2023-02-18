@@ -16,7 +16,7 @@ public class UISkinSetter : SkinSetter
             return;
 
         Image img = GetComponent<Image>();
-        img.color = GameManager.Instance.SkinInfor.Skin.GetSkinColor(_skinNeed);
+        img.color = SkinManager.Instance.GetSkinColor(_skinNeed);
     }
     
 }

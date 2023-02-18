@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoSingleton<GameManager>
 {
-    public static GameManager Instance { get; private set; }
-
-    [SerializeField] SkinData _skinInfor = null;
-    public SkinData SkinInfor { get { return _skinInfor; } }
 
     [SerializeField] Camera _traceCamera = null;
 
@@ -24,10 +21,6 @@ public class GameManager : MonoBehaviour
     Vector3 _originUnitPos;
 
     bool canClear;
-
-    private void Awake() {
-        Instance = this;
-    }
 
     private void Start() {
         UnitManager.WhenNewSceneLoaded();

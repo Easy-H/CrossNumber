@@ -34,24 +34,24 @@ public class ButtonMethod: MonoBehaviour {
         MoveData.Instance.Redo();
     }
 
-    public void ChangeTheme(int idx) {
+    public void ChangeTheme(string key) {
 
-        if (idx == GameManager.Instance.SkinInfor.Idx)
+        if (key == SkinManager.Instance.nowSkin)
             return;
 
         SoundManager.instance.PlayAudio("changeScene", true);
 
-        StartCoroutine(SetSkin(idx));
+        StartCoroutine(SetSkin(key));
     }
 
-    IEnumerator SetSkin(int idx) {
+    IEnumerator SetSkin(string key) {
 
         StartCoroutine(changer.CaptureScreen());
         yield return new WaitForEndOfFrame();
         StartCoroutine(changer.Animation());
         yield return new WaitForEndOfFrame();
 
-        GameManager.Instance.SkinInfor.SetSkinIdx(idx);
+        SkinManager.Instance.SetSkinIdx(key);
     }
 
     public void Pause() {

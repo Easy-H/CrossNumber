@@ -16,6 +16,6 @@ public class SkinSetter : MonoBehaviour {
             return;
 
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
-        sprite.color = GameManager.Instance.SkinInfor.Skin.GetSkinColor(_skinNeed);
+        sprite.color = SkinManager.Instance.GetSkinColor(_skinNeed);
     }
 }

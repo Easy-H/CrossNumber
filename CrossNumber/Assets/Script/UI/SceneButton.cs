@@ -19,10 +19,11 @@ public class SceneButton : MonoBehaviour
         canvas.worldCamera = Camera.main;
         
         if (DataManager.Instance.gameData.GetOverWorld(_overworld).GetStageClear(_thisLevel)) {
-            txt.color = GameManager.Instance.SkinInfor.Skin.GetSkinColor(NeedColor.Unit);
+            txt.color = SkinManager.Instance.GetSkinColor(NeedColor.Unit);
         }
-        else {
-            txt.color = GameManager.Instance.SkinInfor.Skin.GetSkinColor(NeedColor.RedLine);
+        else
+        {
+            txt.color = SkinManager.Instance.GetSkinColor(NeedColor.RedLine);
 
         }
 
