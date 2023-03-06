@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringData>
+
+  <!-- 세팅 -->
+  <String name="Close"	        value="Close"	/>
+
+  <!-- 언어 세팅 -->
+  <String name="LanguageTitle"  value="Language"  />
+  <String name="Korean"	        value="Korean"	/>
+  <String name="English"	      value="English"	/>
+
+  <!-- 테마 세팅 -->
+  <String name="ThemeTitle"	    value="Theme"	/>
+  <String name="BasicTheme"	    value="Basic"	/>
+  <String name="ChalkTheme"	    value="Chalk Board"	/>
+  <String name="BlackTheme"	    value="Black Board"	/>
+
+  <!-- 크레딧의 내용-->
+  <String name="MadeBy"	        value="Made by"	/>
+  <String name="FontInfor"	    value="Use Font"	/>
+  <String name="IconInfor"	    value="Use Icon"	/>
+  <String name="PrivacyPolicy"	value="Privacy Policy"	/>
+
+  <String name="Beginner"       value="Beginner"  />
+  <String name="Intermediate"   value="Intermediate"  />
+  <String name="Advanced"       value="Advanced"  />
+
+</StringData>

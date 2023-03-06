@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StageData>
+  <Unit type="num"      value="2" xPos="-2"  yPos="1"/>
+  <Unit type="op"       value="+" xPos="-1"  yPos="1"/>
+  <Unit type="num"      value="1" xPos="0"   yPos="1"/>
+  <Unit type="equal"    value="=" xPos="1"   yPos="1"/>
+  <Unit type="num"      value="1" xPos="2"   yPos="1"/>
+	
+</StageData>

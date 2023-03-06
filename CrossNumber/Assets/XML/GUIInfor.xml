@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GUIInfor>
+	<GUIData name="Setting"	    path="Assets/Prefabs/GUI/Setting/GUI_Setting.prefab" />
+  <GUIData name="Credit"	    path="Assets/Prefabs/GUI/GUI_Credit.prefab" />
+  
+  <GUIData name="Capture"	    path="Assets/Prefabs/GUI/GUI_Capture.prefab" />
+  
+  <GUIData name="OverWorld"	  path="Assets/Prefabs/GUI/GUI_CustomFullScreen/GUI_OverWorld.prefab" />
+  
+  <GUIData name="Play"	      path="Assets/Prefabs/GUI/GUI_CustomFullScreen/GUI_Play.prefab" />
+  <GUIData name="Stop"	      path="Assets/Prefabs/GUI/GUI_AnimatedLine/GUI_PlayStop.prefab" />
+  <GUIData name="Clear"	      path="Assets/Prefabs/GUI/GUI_AnimatedLine/GUI_PlayClear.prefab" />
+	
+	
+</GUIInfor>
