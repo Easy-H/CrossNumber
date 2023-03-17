@@ -31,10 +31,9 @@ public class GUIOverWorld : GUICustomFullScreen {
         for (int i = 0; i < length; i++)
         {
             GUIOverWorldButton newButton = Instantiate(_button, Vector3.down * i, Quaternion.identity);
-            newButton.transform.parent = _buttonContainer;
+            StageMetaData data = StageManager.Instance.GetStageMetaData(i);
 
-            StageData data = StageManager.Instance.GetStageData(i);
-
+            newButton.transform.SetParent(_buttonContainer);
             newButton.SetButtonInfor(data.name, i);
         }
 

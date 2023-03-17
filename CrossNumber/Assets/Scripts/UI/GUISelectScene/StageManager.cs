@@ -4,10 +4,57 @@ using UnityEngine;
 using System.Xml;
 using UnityEngine.XR;
 using UnityEngine.Purchasing;
+using UnityEditor.SceneManagement;
+using System.Data;
+using Newtonsoft.Json.Linq;
 
-public class StageData {
+public class StageMetaData {
     public string name;
     public string value;
+}
+
+public struct UnitData {
+    public string type;
+    public Vector3 pos;
+}
+
+public class StageData {
+
+    public UnitData[] units;
+
+    public StageData()
+    {
+        string stage = StageManager.Instance.GetStageMetaData().value;
+
+        _DataSet(stage);
+    }
+
+    public StageData(string value)
+    {
+        _DataSet(value);
+    }
+
+
+    void _DataSet(string value)
+    {
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.Load("Assets/XML/StageData/" + value + ".xml");
+
+        XmlNodeList nodes = xmlDoc.SelectNodes("StageData/Unit");
+
+        units = new UnitData[nodes.Count];
+
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            string unitValue = nodes[i].Attributes["value"].Value;
+            int x = int.Parse(nodes[i].Attributes["xPos"].Value);
+            int y = int.Parse(nodes[i].Attributes["yPos"].Value);
+
+            units[i].type = unitValue;
+            units[i].pos = new Vector3(x, y);
+        }
+
+    }
 }
 
 public class StageManager : MonoSingleton<StageManager> {
@@ -20,17 +67,17 @@ public class StageManager : MonoSingleton<StageManager> {
     class OverWorldData {
         internal string name;
         internal int size = 0;
-        internal List<StageData> _stages;
+        internal List<StageMetaData> _stages;
 
         public void Read(XmlNode node)
         {
             name = node.Attributes["name"].Value;
-            _stages = new List<StageData>();
+            _stages = new List<StageMetaData>();
 
             XmlNodeList nodes = node.SelectNodes("Stage");
             for (int i = 0; i < nodes.Count; i++)
             {
-                StageData stageData = new StageData();
+                StageMetaData stageData = new StageMetaData();
                 stageData.name = nodes[i].Attributes["name"].Value;
                 stageData.value = nodes[i].Attributes["value"].Value;
 
@@ -40,7 +87,7 @@ public class StageManager : MonoSingleton<StageManager> {
             size = nodes.Count;
         }
 
-        public StageData ReturnStageData(int i) {
+        public StageMetaData ReturnStageData(int i) {
             return _stages[i];
         }
     }
@@ -69,17 +116,33 @@ public class StageManager : MonoSingleton<StageManager> {
     public int GetStageCount() {
         return _dic[WorldIdx].size;
     }
+
     public string GetWorldName()
     {
         return _dic[WorldIdx].name;
     }
 
-    public StageData GetStageData(int idx)
+    public StageMetaData GetStageMetaData(int idx)
     {
         return _dic[WorldIdx].ReturnStageData(idx);
+    }
+    public StageMetaData GetStageMetaData()
+    {
+        return GetStageMetaData(StageIdx);
+    }
+
+    public StageData GetStageData() {
+        StageData data = new StageData();
+
+        return data;
 
     }
-    public StageData GetStageData() {
-        return GetStageData(StageIdx);
+    public StageData GetStageData(string value)
+    {
+        StageData data = new StageData(value);
+
+        return data;
+
     }
+
 }

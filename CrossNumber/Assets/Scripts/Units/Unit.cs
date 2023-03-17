@@ -44,22 +44,18 @@ public class Unit : MonoBehaviour {
             _txt.text = "÷";
         else
             _txt.text = Value;
-
-        UnitManager.Instance._units.Add(this);
     }
 
     public virtual void SetStateUnCalced() {
 
         _isCalced = false;
 
-        StartCoroutine(DrawUnderline());
         SetProtector();
 
     }
-    public virtual void Calced() {
+    public virtual void SetStateCalced() {
 
         if (!_isCalced) {
-            UnitManager.Instance.unCalcedUnitCount--;
             _underline.SetActive(false);
         }
 
@@ -67,15 +63,10 @@ public class Unit : MonoBehaviour {
 
     }
 
-    IEnumerator DrawUnderline() {
-
-        yield return new WaitForEndOfFrame();
-
-        // 연산이 되지 않았더라면 유닛 밑에 빨간 밑줄을 긋는다.
-        if (!_isCalced) {
-            _underline.SetActive(true);
-        }
-
+    public bool IsCalced()
+    {
+        _underline.SetActive(!_isCalced);
+        return _isCalced;
     }
 
     public void Pick() {
@@ -85,7 +76,6 @@ public class Unit : MonoBehaviour {
         gameObject.layer = 2;
         _isPeaked = true;
 
-        UnitManager.Instance.CalculateWorld();
         UnitManager.Instance.SelectedUnitType = _unitType;
         ClearProtector();
         

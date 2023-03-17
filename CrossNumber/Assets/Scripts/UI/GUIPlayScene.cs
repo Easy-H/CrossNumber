@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GUIPlayScene : GUICustomFullScreen
 {
     [SerializeField] Transform _container = null;
     [SerializeField] GUIAnimatedOpen _clearAnim = null;
+    [SerializeField] StageSetter _setter;
 
     MoveStack _moves;
+
+    Unit[] _units;
+    EqualUnit[] _equalUnits;
 
     protected override void Open()
     {
@@ -17,39 +19,23 @@ public class GUIPlayScene : GUICustomFullScreen
         SetStage();
     }
 
-    public void SetStage() {
-
-        UnitManager.Instance.SetInitial();
-
+    public void SetStage()
+    {
         _moves = new MoveStack();
 
-        string stage = StageManager.Instance.GetStageData().value;
+        _setter.SetStage();
 
-        XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.Load("Assets/XML/StageData/" + stage + ".xml");
+        _units = GameObject.FindObjectsOfType<Unit>();
+        _equalUnits = GameObject.FindObjectsOfType<EqualUnit>();
 
-        XmlNodeList nodes = xmlDoc.SelectNodes("StageData/Unit");
+        CalculateWorld();
 
-        for (int i = 0; i < nodes.Count; i++) {
-            string value = nodes[i].Attributes["value"].Value;
-            int x = int.Parse(nodes[i].Attributes["xPos"].Value);
-            int y = int.Parse(nodes[i].Attributes["yPos"].Value);
-
-            Transform temp = UnitManager.Instance.CreateUnit(value, new Vector3(x, y)).transform;
-
-            temp.SetParent(_container);
-        }
-
-        UnitManager.Instance.CalculateWorld();
     }
 
-    public void PlayAnim(GUIAnimatedOpen gui) {
-        gui.Open();
-    }
-    public override void Close()
+    protected override void UnitHold()
     {
-        base.Close();
-
+        base.UnitHold();
+        CalculateWorld();
     }
 
     protected override void UnitPlace()
@@ -57,28 +43,81 @@ public class GUIPlayScene : GUICustomFullScreen
         _selectedUnit.Place();
         _moves.AddMoveData(_selectedUnit, _selectedUnit.GetPeakPos(), _selectedUnit.transform.position);
 
-        if (UnitManager.Instance.CanClear())
-        {
-            ClearDataManager.Instance.Clear(StageManager.Instance.GetStageData().value);
-            _clearAnim.Open();
-        }
-
+        CalculateWorld();
         _selectedUnit = null;
     }
 
     // 뒤로가기 기능
 
+    void SetAllUnitsStateUncalced()
+    {
+
+        for (int i = 0; i < _units.Length; i++)
+        {
+            _units[i].SetStateUnCalced();
+        }
+
+    }
+
+
+    public void CalculateWorld()
+    {
+
+        StartCoroutine(CalculateWorldAction());
+
+    }
+
+    IEnumerator CalculateWorldAction()
+    {
+
+        yield return new WaitForFixedUpdate();
+
+        SetAllUnitsStateUncalced();
+
+        bool playErrorSound = true;
+        bool canClear = true;
+
+        for (int i = 0; i < _equalUnits.Length; i++)
+        {
+            if (!_equalUnits[i].Check())
+            {
+                canClear = false;
+            }
+
+        }
+        if (playErrorSound)
+        {
+            SoundManager.Instance.PlayAudio("Wrong", false);
+        }
+
+        for (int i = 0; i < _units.Length; i++) {
+            if (!_units[i].IsCalced())
+                canClear = false;
+        }
+
+        if (canClear && _state == MotionState.Idle)
+        {
+            _StageClear();
+        }
+
+    }
+
+    void _StageClear() {
+        ClearDataManager.Instance.Clear(StageManager.Instance.GetStageMetaData().value);
+        PlayAnim(_clearAnim);
+    }
+
     public void MoveUndo()
     {
         _moves.Pop();
-        UnitManager.Instance.CalculateWorld();
+        CalculateWorld();
 
     }
 
     public void MoveRedo()
     {
         _moves.Back();
-        UnitManager.Instance.CalculateWorld();
+        CalculateWorld();
 
 
     }

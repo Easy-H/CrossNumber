@@ -4,9 +4,6 @@ using System.Xml.Linq;
 using UnityEngine;
 
 public class UnitManager : MonoSingleton<UnitManager> {
-    
-    public List<Unit> _units;
-    public List<EqualUnit> _equalUnits;
 
     string _path = "Assets/Prefabs/Units/";
 
@@ -21,18 +18,10 @@ public class UnitManager : MonoSingleton<UnitManager> {
     {
         base.OnCreate();
 
-        _units = new List<Unit>();
-        _equalUnits = new List<EqualUnit>();
-    }
-
-    public void SetInitial()
-    {
-        _units.Clear();
-        _equalUnits.Clear();
-
     }
 
     public Unit CreateUnit(string name, Vector3 pos) {
+        
         Unit created;
 
         if (name.Equals("="))
@@ -55,52 +44,11 @@ public class UnitManager : MonoSingleton<UnitManager> {
         }
 
         created.transform.position = pos;
+
         return created;
 
     }
 
-    public void SetAllUnitsStateUncalced() {
-
-        for (int i = 0; i < _units.Count; i++) {
-            _units[i].SetStateUnCalced();
-        }
-
-        unCalcedUnitCount = _units.Count;
-
-    }
-
-    public void CalculateWorld() {
-
-        StartCoroutine(CalculateWorldAction());
-
-    }
-
-    IEnumerator CalculateWorldAction() {
-
-        playErrorSound = false;
-
-        yield return new WaitForFixedUpdate();
-
-        SetAllUnitsStateUncalced();
-
-        _canClear = true;
-
-        for (int i = 0; i < _equalUnits.Count; i++) {
-
-            if (!_equalUnits[i].Check()) {
-                _canClear = false;
-            }
-
-        }
-        if (playErrorSound) {
-            SoundManager.Instance.PlayAudio("Wrong", false);
-        }
-
-        if (unCalcedUnitCount != 0) {
-            _canClear = false;
-        }
-
-    }
 
     public bool CanClear() {
 

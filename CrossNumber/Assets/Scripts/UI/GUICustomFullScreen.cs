@@ -14,8 +14,8 @@ public class GUICustomFullScreen : GUIFullScreen {
 
     bool _isMoving;
 
-    enum MotionState { Idle, CameraMoving, UnitMoving }
-    MotionState _state = MotionState.Idle;
+    protected enum MotionState { Idle, CameraMoving, UnitMoving }
+    protected MotionState _state = MotionState.Idle;
 
     protected override void Open()
     {
@@ -38,7 +38,11 @@ public class GUICustomFullScreen : GUIFullScreen {
         GameManager.Instance._pause = false;
         SceneManager.LoadScene(idx);
     }
-    private void Update()
+    public void PlayAnim(GUIAnimatedOpen gui)
+    {
+        gui.Open();
+    }
+    protected virtual void Update()
     {
 
         if (GameManager.Instance._pause == true)
@@ -135,7 +139,6 @@ public class GUICustomFullScreen : GUIFullScreen {
         if (changed)
         {
             SoundManager.Instance.PlayAudio("Move", false);
-            UnitManager.Instance.CalculateWorld();
 
         }
     }

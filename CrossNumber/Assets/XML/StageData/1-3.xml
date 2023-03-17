@@ -1,0 +1,12 @@
+<StageData>
+  <Unit value="6" xPos="2" yPos="0" />
+  <Unit value="2" xPos="2" yPos="2" />
+  <Unit value="5" xPos="0" yPos="2" />
+  <Unit value="=" xPos="-1" yPos="0" />
+  <Unit value="7" xPos="-2" yPos="0" />
+  <Unit value="+" xPos="1" yPos="0" />
+  <Unit value="=" xPos="1" yPos="2" />
+  <Unit value="3" xPos="-2" yPos="2" />
+  <Unit value="*" xPos="-1" yPos="2" />
+  <Unit value="2" xPos="0" yPos="0" />
+</StageData>

@@ -31,7 +31,7 @@ public class Equation {
                 if (unit.Value == null)
                     break;
 
-                unit.Calced();
+                unit.SetStateCalced();
                 AddValue(unit.Value, back);
 
                 pos += dir;

@@ -53,12 +53,12 @@ public class OverUnit : Unit
     }
 
     // 만약 계산된다면 _overedUnit도 함께 계산된 것으로 처리한다.
-    public override void Calced()
+    public override void SetStateCalced()
     {
-        base.Calced();
+        base.SetStateCalced();
 
         if (_overedUnit)
-            _overedUnit.Calced();
+            _overedUnit.SetStateCalced();
 
     }
 

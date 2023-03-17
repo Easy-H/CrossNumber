@@ -14,7 +14,6 @@ public class EqualUnit : CharUnit
     
     protected override void Start() {
         base.Start();
-        UnitManager.Instance._equalUnits.Add(this);
 
     }
 
@@ -69,7 +68,7 @@ public class EqualUnit : CharUnit
         }
 
         if (used) {
-            Calced();
+            SetStateCalced();
         }
 
         return !_errorOccurred;

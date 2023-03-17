@@ -100,10 +100,8 @@ public class SkinManager: MonoSingleton<SkinManager> {
 
         if (!PlayerPrefs.HasKey("Skin")) {
             PlayerPrefs.SetString("Skin", "Basic");
-            Debug.Log("??");
         }
 
-        //Debug.Log("Why");
         nowSkin = PlayerPrefs.GetString("Skin");
 
     }
@@ -118,15 +116,10 @@ public class SkinManager: MonoSingleton<SkinManager> {
         nowSkin = skinType;
         SkinData skin = _dic[nowSkin];
 
-        StartCoroutine(_Change(skin));
+        OnSkinChanged.Invoke(skin);
 
         PlayerPrefs.SetString("Skin", nowSkin);
 
-    }
-
-    IEnumerator _Change(SkinData skin) {
-        yield return null;
-        OnSkinChanged.Invoke(skin);
     }
 
 }

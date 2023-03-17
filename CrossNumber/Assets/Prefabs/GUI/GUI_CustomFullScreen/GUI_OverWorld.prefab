@@ -348,7 +348,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Beginner
   m_Key: 
 --- !u!114 &5528791866075293920
 MonoBehaviour:

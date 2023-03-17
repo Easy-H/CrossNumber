@@ -76,6 +76,7 @@ public class GameData {
     }
 }
 
+/*
 public class DataManager : MonoSingleton<DataManager> {
     // ---싱글톤으로 선언--- 
 
@@ -130,7 +131,6 @@ public class DataManager : MonoSingleton<DataManager> {
     }
 }
 
-/*
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;

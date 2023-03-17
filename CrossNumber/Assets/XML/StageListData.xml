@@ -10,7 +10,7 @@
     <Stage name ="7 = 3 + 4"      value ="1-7" />
     <Stage name ="8 = 2 x 4"      value ="1-8" />
     <Stage name ="9 = 3 x 3"      value ="1-9" />
-    <Stage name ="1 0 = 1 x 1 0"     value ="1-1" />
+    <Stage name ="1 0 = 1 x 1 0"     value ="1-10" />
   </OverWorld>
   <OverWorld name ="Intermediate">
     <Stage name ="1 + 1 + 1 = 3"  value ="2-1" />
