@@ -26,7 +26,7 @@ public class GUIWindow : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void OpenWindow(string key) {
+    public virtual void OpenWindow(string key) {
         UIManager.OpenGUI<GUIWindow>(key);
     }
 

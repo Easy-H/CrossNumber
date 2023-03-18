@@ -7,10 +7,16 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class StageSetter : MonoBehaviour
 {
+
+    public bool _testScene = false;
+
     // Start is called before the first frame update
     public void SetStage() {
-
-        StageData stage = StageManager.Instance.GetStageData();
+        StageData stage;
+        if (!_testScene)
+            stage = StageManager.Instance.GetStageData();
+        else
+            stage = StageManager.Instance.GetStageData("temp");
 
         _CreateWorld(stage);
     }

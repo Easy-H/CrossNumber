@@ -424,7 +424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8, y: 0.43}
   m_AnchorMax: {x: 1, y: 0.83}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6237103107201553370
@@ -546,7 +546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4, y: 0.43}
   m_AnchorMax: {x: 0.6, y: 0.83}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6833732609755077866
@@ -930,6 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8e2b3b699e9a847b34fecd3aa04b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _testScene: 0
 --- !u!1 &6043501764524212750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7170965750178131603, guid: 41f8371956cd2594198ac0c027753317,

@@ -15,4 +15,5 @@ public class GUIFullScreen : GUIWindow
         UIManager.Instance.Pop();
         base.Close();
     }
+
 }

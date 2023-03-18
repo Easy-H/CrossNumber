@@ -25,8 +25,8 @@ public class GUIPlayScene : GUICustomFullScreen
 
         _setter.SetStage();
 
-        _units = GameObject.FindObjectsOfType<Unit>();
-        _equalUnits = GameObject.FindObjectsOfType<EqualUnit>();
+        _units = FindObjectsOfType<Unit>();
+        _equalUnits = FindObjectsOfType<EqualUnit>();
 
         CalculateWorld();
 

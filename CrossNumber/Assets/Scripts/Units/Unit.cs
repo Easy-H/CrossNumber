@@ -42,6 +42,8 @@ public class Unit : MonoBehaviour {
 
         if (Value.Equals("/"))
             _txt.text = "÷";
+        else if (Value.Equals("*"))
+            _txt.text = "x";
         else
             _txt.text = Value;
     }

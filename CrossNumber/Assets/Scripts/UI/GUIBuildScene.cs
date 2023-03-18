@@ -6,6 +6,9 @@ using UnityEngine.XR;
 public class GUIBuildScene : GUICustomFullScreen {
 
     [SerializeField] StageSetter _setter;
+    [SerializeField] GUIAnimatedOpen _editToolContainer;
+    [SerializeField] Transform _container;
+
     enum BuildState {
         Idle, Create, Erase
     }
@@ -47,7 +50,9 @@ public class GUIBuildScene : GUICustomFullScreen {
         pos.z = 0;
 
         _selectedUnit = UnitManager.Instance.CreateUnit(_createValue, pos);
+        _selectedUnit.transform.SetParent(_container);
 
+        _editToolContainer.Open();
         _state = MotionState.UnitMoving;
         _buildState = BuildState.Idle;
     }

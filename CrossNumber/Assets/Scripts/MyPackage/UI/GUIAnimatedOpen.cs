@@ -125,6 +125,8 @@ public class GUIAnimatedOpen : MonoBehaviour {
     [SerializeField] UIAnimSequence openSequence;
     [SerializeField] UIAnimSequence closeSequence;
 
+    [SerializeField] bool _stopAll = true;
+
     bool _isActive = false;
     bool _isAnimating = false;
 
@@ -136,7 +138,7 @@ public class GUIAnimatedOpen : MonoBehaviour {
         gameObject.SetActive(true);
         _isActive = true;
 
-        GameManager.Instance._pause = true;
+        GameManager.Instance._pause = _stopAll;
         Action(openSequence);
     }
 
@@ -155,7 +157,7 @@ public class GUIAnimatedOpen : MonoBehaviour {
 
     public void Toggle()
     {
-        if (_isActive)
+        if (gameObject.activeSelf)
         {
             Close();
             return;

@@ -31,12 +31,24 @@ public class GUICustomFullScreen : GUIFullScreen {
         _effect.GetComponent<RectTransform>().SetParent(_canvas.transform);
         _effect.Show();
 
+        UIManager.Instance.EnrollmentGUI(this);
+
+    }
+
+    public override void Close() {
+        base.Close();
+        GameManager.Instance._pause = false;
     }
 
     public void OpenScene(int idx)
     {
         GameManager.Instance._pause = false;
         SceneManager.LoadScene(idx);
+    }
+
+    public override void OpenWindow(string key) {
+        base.OpenWindow(key);
+        _state = MotionState.Idle;
     }
     public void PlayAnim(GUIAnimatedOpen gui)
     {

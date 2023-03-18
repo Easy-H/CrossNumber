@@ -11,5 +11,8 @@
   <GUIData name="Stop"	      path="Assets/Prefabs/GUI/GUI_AnimatedLine/GUI_PlayStop.prefab" />
   <GUIData name="Clear"	      path="Assets/Prefabs/GUI/GUI_AnimatedLine/GUI_PlayClear.prefab" />
 	
-	
+  <GUIData name="Build"	      path="Assets/Prefabs/GUI/GUI_CustomFullScreen/GUI_Build.prefab" />
+  <GUIData name="BuildTest"   path="Assets/Prefabs/GUI/GUI_CustomFullScreen/GUI_BuildTest.prefab" />
+
+
 </GUIInfor>
