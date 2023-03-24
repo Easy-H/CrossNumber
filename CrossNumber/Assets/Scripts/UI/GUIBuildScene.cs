@@ -40,6 +40,7 @@ public class GUIBuildScene : GUICustomFullScreen {
     }
 
     void _CreateRoutine() {
+
         if (!Input.GetMouseButtonDown(0)) return;
 
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -63,7 +64,7 @@ public class GUIBuildScene : GUICustomFullScreen {
 
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Unit selectedUnit = Unit.ObjectCheck(pos, Camera.main.cullingMask);
+        Unit selectedUnit = Unit.ObjectCheck(pos);
 
         if (selectedUnit)
             Destroy(selectedUnit.gameObject);

@@ -17,10 +17,12 @@ public class DrawRedLine : MonoBehaviour
 
         pos += Vector3.forward * 2;
 
-        if ((transform.position - pos).magnitude < 0.1f &&
-            (transform.localScale - new Vector3(size, 1, 1)).magnitude < 0.1f) {
+        if ((transform.position - pos).sqrMagnitude < 0.1f &&
+            (transform.localScale - new Vector3(size, 1, 1)).sqrMagnitude < 0.1f) {
             return;
         }
+
+        SoundManager.Instance.PlayAudio("Wrong", false);
 
         transform.position = pos;
         transform.right = direct;

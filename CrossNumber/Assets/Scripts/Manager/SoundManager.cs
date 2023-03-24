@@ -47,9 +47,22 @@ public class SoundManager : MonoSingleton<SoundManager> {
         _audio = gameObject.AddComponent<AudioSource>();
     }
 
-    public void PlayAudio(string audioName, bool canPlayOther) {
+    public void PlayAudio(string audioName, bool canPlayOther = false) {
 
-        _audio.clip = Resources.Load(_dic[audioName]) as AudioClip;
+        if (_dic.TryGetValue(audioName, out string value))
+        {
+            _audio.clip = Resources.Load(value) as AudioClip;
+
+        }
+        else if (audioName.Equals("NoSound"))
+        {
+            return;
+        }
+        else
+        {
+            _audio.clip = Resources.Load(_dic["Error"]) as AudioClip;
+        }
+
         _audio.Play();
     }
 

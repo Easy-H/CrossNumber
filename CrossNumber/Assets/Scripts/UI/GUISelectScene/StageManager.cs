@@ -13,14 +13,14 @@ public class StageMetaData {
     public string value;
 }
 
-public struct UnitData {
+public struct UnitInfor {
     public string type;
     public Vector3 pos;
 }
 
 public class StageData {
 
-    public UnitData[] units;
+    public UnitInfor[] units;
 
     public StageData()
     {
@@ -42,7 +42,7 @@ public class StageData {
 
         XmlNodeList nodes = xmlDoc.SelectNodes("StageData/Unit");
 
-        units = new UnitData[nodes.Count];
+        units = new UnitInfor[nodes.Count];
 
         for (int i = 0; i < nodes.Count; i++)
         {

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SoundData>
-	<Audio name="Wrong"	    path="Audio/WrongSound" />
-  <Audio name="Move"	    path="Audio/MoveSound" />
-  <Audio name="Clear"	    path="Audio/ClearSound" />
-  <Audio name="Change"    path="Assets/Prefabs/Sound/ChangeSound.m4a" />
+  <Audio name="Error"	      path="Audio/ErrorSound" />
+	<Audio name="Wrong"	      path="Audio/WrongSound" />
+  <Audio name="Move"	      path="Audio/MoveSound" />
+  <Audio name="Clear"	      path="Audio/ClearSound" />
+  <Audio name="OpenPopUp"   path="Audio/OpenPopUpSound" />
+  <Audio name="ClosePopUp"  path="Audio/OpenPopUpSound" />
+  
+  <Audio name="Change"      path="Assets/Prefabs/Sound/ChangeSound.m4a" />
 	
 	
 </SoundData>

@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openSequence:
     actionName: Open
+    audioName: OpenPopUp
     animations:
     - _eventType: 1
       EventTarget: {fileID: 2238688835433670023}
@@ -110,6 +111,7 @@ MonoBehaviour:
       _sound: {fileID: 0}
   closeSequence:
     actionName: Close
+    audioName: ClosePopUp
     animations:
     - _eventType: 3
       EventTarget: {fileID: 4522485572723266979}
@@ -131,6 +133,7 @@ MonoBehaviour:
       EventValue: 0
       EventTime: 0
       _sound: {fileID: 0}
+  _stopAll: 1
 --- !u!1 &1000971118451053894
 GameObject:
   m_ObjectHideFlags: 0

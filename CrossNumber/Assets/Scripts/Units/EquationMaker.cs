@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equation {
+public class EquationMaker {
     public int ContainCharCount { get; private set; }
 
     private string _value;
@@ -10,50 +11,57 @@ public class Equation {
 
     private bool _lastIsNum;
 
-    public Equation() {
+    public float Value { get; private set; }
+    public bool IsNormal { get; private set; }
+
+    public EquationMaker()
+    {
         _value = "";
         ContainCharCount = 0;
         _lastIsNum = false;
     }
 
-    public Equation(string s) {
+    public EquationMaker(string s)
+    {
         _value = s;
         ContainCharCount = 0;
         _lastIsNum = false;
     }
 
     // 필드에 있는 유닛을 문자열 수식으로 만든다.
-    public void MakeEquation(Vector3 pos, Vector3 dir, bool back) {
-        while (true) {
-            Unit unit = Unit.ObjectCheck(pos + dir, 5);
+    public string MakeEquation(Vector3 pos, Vector3 dir, bool back)
+    {
+        _value = "";
 
-            if (unit) {
-                if (unit.Value == null)
-                    break;
-
-                unit.SetStateCalced();
-                AddValue(unit.Value, back);
-
-                pos += dir;
-            }
-            else
+        for (Unit unit = Unit.ObjectCheck(pos + dir, 5); unit; unit = Unit.ObjectCheck(pos + dir, 5))
+        {
+            if (unit.Value == null)
                 break;
+
+            unit.SetStateCalced();
+            _AddValue(unit.Value, back);
+
+            pos += dir;
         }
 
         _value = _value.Trim();
 
+        return _value;
     }
 
-    public void AddValue(string str, bool addback) {
+    void _AddValue(string str, bool addback)
+    {
         bool isNum = int.TryParse(str.Substring(0, 1), out int i);
 
-        if (isNum != _lastIsNum) {
+        if (isNum != _lastIsNum)
+        {
             if (addback)
                 _value = str + " " + _value;
             else
                 _value = _value + " " + str;
         }
-        else {
+        else
+        {
             if (addback)
                 _value = str + _value;
             else
@@ -64,41 +72,49 @@ public class Equation {
 
     }
 
-    public bool TryCalc(out float calcResult) {
+}
 
-        if (!CalcAbleCheck()) {
-            calcResult = 0;
-            return false;
-        }
+public class Equation {
 
-        _words = _value.Split(' ');
+    string Input;
 
-        calcResult = CalculateEquation();
+    public float Value { get; private set; }
+    public bool CanCalc { get; private set; }
 
-        return true;
-
+    public Equation()
+    {
+        CanCalc = false;
     }
 
-    public bool CalcAbleCheck() {
+    public Equation(string s)
+    {
+        CanCalc = CanCalcCheck(s);
 
-        if (ContainCharCount == 0)
-            return false;
+        if (CanCalc)
+            Value = Calculate(s);
+    }
+
+    public bool CanCalcCheck(string Input)
+    {
         // 첫 문자가 +, -가 아닌 문자일 경우 false
+        if (Input.Length < 1) return false;
 
-        string str = _value.Substring(0, 1);
+        string str = Input.Substring(0, 1);
         bool isNum = int.TryParse(str, out int i);
 
         if (!isNum && str != "+" && str != "-")
             return false;
 
         //마지막 문자가 숫자면 true, 아니면 false
-        str = _value.Substring(_value.Length - 1);
+        str = Input.Substring(Input.Length - 1);
         isNum = int.TryParse(str, out i);
 
         return isNum;
     }
 
-    float CalculateEquation() {
+    float Calculate(string _value)
+    {
+        string[] _words = _value.Split(' ');
 
         float[] nums = new float[3];
         string[] ops = new string[2];
@@ -108,46 +124,44 @@ public class Equation {
         int wordIdx = 0;
         int length = _words.Length;
 
-        if (_words[wordIdx] == "-") {
-
+        if (_words[wordIdx] == "-")
+        {
             wordIdx++;
             nums[numsNum++] = -1;
             ops[opsNum++] = "*";
-
         }
-        else if (_words[wordIdx] == "+") {
-
+        else if (_words[wordIdx] == "+")
+        {
             wordIdx++;
-
         }
 
-        while (true) {
-            if (_words[wordIdx] == "(") {
+        while (true)
+        {
+            if (_words[wordIdx] == "(")
+            {
                 // 재귀로 실행하면 괄호가 구현될듯 함
             }
             nums[numsNum++] = int.Parse(_words[wordIdx++]);
 
-            if (numsNum == 3) {
-                if (ops[0] == "^") {
-
+            if (numsNum == 3)
+            {
+                if (ops[0] == "^")
+                {
                     nums[0] = Calc(nums[0], ops[0], nums[1]);
 
                     ops[0] = ops[1];
                     nums[1] = nums[2];
-
                 }
-                else if (ops[1] != "+" && ops[1] != "-") {
-
+                else if (ops[1] != "+" && ops[1] != "-")
+                {
                     nums[1] = Calc(nums[1], ops[1], nums[2]);
-
                 }
-                else {
-
+                else
+                {
                     nums[0] = Calc(nums[0], ops[0], nums[1]);
 
                     ops[0] = ops[1];
                     nums[1] = nums[2];
-
                 }
 
                 numsNum--;
@@ -155,8 +169,10 @@ public class Equation {
 
             }
 
-            if (length == wordIdx || _words[wordIdx] == ")") {
-                if (numsNum == 2) {
+            if (length == wordIdx || _words[wordIdx] == ")")
+            {
+                if (numsNum == 2)
+                {
                     nums[0] = Calc(nums[0], ops[0], nums[1]);
                 }
 
@@ -168,22 +184,22 @@ public class Equation {
 
         }
 
+    }
 
-        // 숫자와 기호를 넣으면 결과를 출력한다.
-        float Calc(float Num1, string Char, float Num2) {
-
-            if (Char == "+")
-                return Num1 + Num2;
-            else if (Char == "-")
-                return Num1 - Num2;
-            else if (Char == "*")
-                return Num1 * Num2;
-            else if (Char == "^")
-                return Mathf.Pow(Num1, Num2);
-            else
-                return Num1 / Num2;
-
-        }
+    // 숫자와 기호를 넣으면 결과를 출력한다.
+    static float Calc(float Num1, string Char, float Num2)
+    {
+        if (Char == "+")
+            return Num1 + Num2;
+        else if (Char == "-")
+            return Num1 - Num2;
+        else if (Char == "*")
+            return Num1 * Num2;
+        else if (Char == "^")
+            return Mathf.Pow(Num1, Num2);
+        else
+            return Num1 / Num2;
 
     }
+
 }

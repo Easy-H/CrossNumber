@@ -496,6 +496,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2053961407090670898, guid: 23cb81be9adacb647b197a9a3faca14b,
+        type: 3}
+      propertyPath: openSequence.audioName
+      value: Clear
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053961407090670898, guid: 23cb81be9adacb647b197a9a3faca14b,
+        type: 3}
+      propertyPath: closeSequence.audioName
+      value: CloseClear
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053961407090670898, guid: 23cb81be9adacb647b197a9a3faca14b,
+        type: 3}
+      propertyPath: openSequence.animations.Array.data[1].EventTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5328858568214808056, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_RootOrder

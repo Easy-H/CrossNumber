@@ -111,6 +111,7 @@ public class UIAnimUnit {
 public class UIAnimSequence {
 
     public string actionName;
+    public string audioName;
 
     public void InitialSet() { 
     
@@ -120,14 +121,14 @@ public class UIAnimSequence {
     
 }
 
+[RequireComponent(typeof(CanvasRenderer))]
 public class GUIAnimatedOpen : MonoBehaviour {
 
     [SerializeField] UIAnimSequence openSequence;
     [SerializeField] UIAnimSequence closeSequence;
 
     [SerializeField] bool _stopAll = true;
-
-    bool _isActive = false;
+    
     bool _isAnimating = false;
 
     public void Open()
@@ -136,7 +137,6 @@ public class GUIAnimatedOpen : MonoBehaviour {
             return;
 
         gameObject.SetActive(true);
-        _isActive = true;
 
         GameManager.Instance._pause = _stopAll;
         Action(openSequence);
@@ -146,8 +146,6 @@ public class GUIAnimatedOpen : MonoBehaviour {
     {
         if (_isAnimating)
             return;
-
-        _isActive = false;
 
         GameManager.Instance._pause = false;
         Action(closeSequence, true);
@@ -173,6 +171,7 @@ public class GUIAnimatedOpen : MonoBehaviour {
 
     IEnumerator _UIAnim(UIAnimSequence sequence, bool isClose)
     {
+        SoundManager.Instance.PlayAudio(sequence.audioName);
         _isAnimating = true;
 
         for (int i = 0; i < sequence.animations.Length; i++) {

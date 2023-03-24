@@ -37,30 +37,28 @@ public class EqualUnit : CharUnit
         bool used = false;
         _errorOccurred = false;
 
-        Equation e1 = new Equation();
-        Equation e2 = new Equation();
+        EquationMaker maker = new EquationMaker();
 
         //side check;
-        e1.MakeEquation(transform.position, Vector3.left, true);
-        e2.MakeEquation(transform.position, Vector3.right, false);
+        string equation1 = maker.MakeEquation(transform.position, Vector3.left, true);
+        string equation2 = maker.MakeEquation(transform.position, Vector3.right, false);
 
-        if (e1.ContainCharCount + e2.ContainCharCount != 0) {
-            CompareEquation(e1, e2, Vector3.right, 0);
+        if (equation1.Length + equation1.Length != 0) {
+            CompareEquation(equation1, equation2, Vector3.right, 0);
             used = true;
         }
         else {
             _calcResultError[0].EraseLine();
         }
+
         //upside-down check;
 
-        e1 = new Equation();
-        e2 = new Equation();
+        equation1 = maker.MakeEquation(transform.position, Vector3.up, true);
+        equation2 = maker.MakeEquation(transform.position, Vector3.down, false);
 
-        e1.MakeEquation(transform.position, Vector3.up, true);
-        e2.MakeEquation(transform.position, Vector3.down, false);
-
-        if (e1.ContainCharCount + e2.ContainCharCount != 0) {
-            CompareEquation(e1, e2, Vector3.down, 1);
+        if (equation1.Length + equation1.Length != 0)
+        {
+            CompareEquation(equation1, equation2, Vector3.down, 1);
             used = true;
         }
         else {
@@ -76,23 +74,28 @@ public class EqualUnit : CharUnit
     }
 
     // 두 식이 계산이 되는지, 계산이 된다면 그 결과가 같은지 확인한다.
-    void CompareEquation(Equation e1, Equation e2, Vector3 direction, int i)
+    void CompareEquation(string e1, string e2, Vector3 direction, int i)
     {
         bool canCalc = true;
-        
-        if (!e1.TryCalc(out float e1Result)) {
-            Error(transform.position - direction * (e1.ContainCharCount + 1));
+
+        Equation equation1 = new Equation(e1);
+        Equation equation2 = new Equation(e2);
+
+        if (!equation1.CanCalc) {
+            Error(transform.position - direction * (e1.Length + 1));
             canCalc = false;
         }
-        if (!e2.TryCalc(out float e2Result)) {
-            Error(transform.position + direction * (e2.ContainCharCount + 1));
+        if (!equation2.CanCalc) {
+            Error(transform.position + direction * (e2.Length + 1));
             canCalc = false;
         }
 
-        if (e1Result != e2Result && canCalc) {
-            _calcResultError[i].DrawLine
-                (transform.position - direction * (e1.ContainCharCount - e2.ContainCharCount) * 0.5f,
-                direction, e1.ContainCharCount + e2.ContainCharCount + 1);
+        if (equation1.Value != equation2.Value && canCalc) {
+            int factor1 = e1.Length / 2 + 1;
+            int factor2 = e2.Length / 2 + 1;
+
+            _calcResultError[i].DrawLine (transform.position - direction * (factor1 - factor2) * 0.5f, direction, (factor1 + factor2) + 1);
+
             _errorOccurred = true;
             return;
         }

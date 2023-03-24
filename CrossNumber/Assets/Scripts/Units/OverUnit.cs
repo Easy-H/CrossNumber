@@ -8,8 +8,6 @@ public class OverUnit : Unit
 
     [SerializeField] string _defaultValue = null;
 
-    [SerializeField] UnitType[] _canOverType = null;
-
     public override void SetStateUnCalced() {
 
         base.SetStateUnCalced();
@@ -63,7 +61,7 @@ public class OverUnit : Unit
     }
 
     // 유닛이 있는지, 있다면 겹칠 수 있는 유닛인지 확인한다.
-    protected override bool CanPlace(Vector3 pos) {
+    public override bool CanPlace(Vector3 pos) {
 
         Unit existUnit = ObjectCheck(pos, 5);
 
@@ -72,13 +70,6 @@ public class OverUnit : Unit
         }
 
         bool result = false;
-
-        for (int i = 0; i < _canOverType.Length; i++) {
-            if (existUnit._unitType == _canOverType[i]) {
-                result = true;
-                break;
-            }
-        }
 
         return result;
     }

@@ -33,7 +33,7 @@ public class StageSetter : MonoBehaviour
     {
         for (int i = 0; i < stage.units.Length; i++)
         {
-            UnitData data = stage.units[i];
+            UnitInfor data = stage.units[i];
 
             Unit temp = UnitManager.Instance.CreateUnit(data.type, data.pos);
             temp.transform.SetParent(transform);

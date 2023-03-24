@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GUIPlayScene : GUICustomFullScreen
 {
-    [SerializeField] Transform _container = null;
     [SerializeField] GUIAnimatedOpen _clearAnim = null;
     [SerializeField] StageSetter _setter;
 
@@ -32,9 +31,9 @@ public class GUIPlayScene : GUICustomFullScreen
 
     }
 
-    protected override void UnitHold()
+    protected override void UnitPosChangeEvent()
     {
-        base.UnitHold();
+        base.UnitPosChangeEvent();
         CalculateWorld();
     }
 
@@ -74,7 +73,6 @@ public class GUIPlayScene : GUICustomFullScreen
 
         SetAllUnitsStateUncalced();
 
-        bool playErrorSound = true;
         bool canClear = true;
 
         for (int i = 0; i < _equalUnits.Length; i++)
@@ -84,10 +82,6 @@ public class GUIPlayScene : GUICustomFullScreen
                 canClear = false;
             }
 
-        }
-        if (playErrorSound)
-        {
-            SoundManager.Instance.PlayAudio("Wrong", false);
         }
 
         for (int i = 0; i < _units.Length; i++) {
@@ -103,8 +97,9 @@ public class GUIPlayScene : GUICustomFullScreen
     }
 
     void _StageClear() {
-        ClearDataManager.Instance.Clear(StageManager.Instance.GetStageMetaData().value);
         PlayAnim(_clearAnim);
+        SoundManager.Instance.PlayAudio("Clear");
+        ClearDataManager.Instance.Clear(StageManager.Instance.GetStageMetaData().value);
     }
 
     public void MoveUndo()

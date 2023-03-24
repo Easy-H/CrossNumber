@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.PlayerSettings;
 
 public class GUICustomFullScreen : GUIFullScreen {
 
@@ -83,7 +84,7 @@ public class GUICustomFullScreen : GUIFullScreen {
             return;
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        _selectedUnit = Unit.ObjectCheck(mousePos, Camera.main.cullingMask);
+        _selectedUnit = Unit.ObjectCheck(mousePos);
 
         if (_selectedUnit)
         {
@@ -146,13 +147,26 @@ public class GUICustomFullScreen : GUIFullScreen {
 
     virtual protected void UnitHold()
     {
-        _selectedUnit.SetPos(Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10, out bool changed);
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10;
 
-        if (changed)
-        {
-            SoundManager.Instance.PlayAudio("Move", false);
-
+        if (!_selectedUnit.CanPlace(mousePos)) {
+            return;
         }
+
+        Vector3 placePos = new Vector3(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y), 0);
+
+        if ((placePos - _selectedUnit.transform.position).sqrMagnitude < 0.1f)
+        {
+            return;
+        }
+
+        _selectedUnit.SetPos(placePos);
+        SoundManager.Instance.PlayAudio("Move", false);
+        UnitPosChangeEvent();
+    }
+
+    virtual protected void UnitPosChangeEvent() {
+
     }
 
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Protector : MonoBehaviour
 {
-    [SerializeField] UnitType[] _apearAtThisSelected = null;
     
     public void Clear() {
         gameObject.SetActive(false);
@@ -27,13 +26,15 @@ public class Protector : MonoBehaviour
     protected bool IsNeedExcute() {
         
 
-        for (int i = 0; i < _apearAtThisSelected.Length; i++) {
-            if (_apearAtThisSelected[i] == UnitManager.Instance.SelectedUnitType) {
+        //for (int i = 0; i < _apearAtThisSelected.Length; i++)
+        {
+            //if (_apearAtThisSelected[i] == UnitManager.Instance.SelectedUnitType)
+            {
                 return true;
             }
 
         }
-        return false;
+        //return false;
 
     }
 

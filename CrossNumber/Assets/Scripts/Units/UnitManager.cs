@@ -7,8 +7,6 @@ public class UnitManager : MonoSingleton<UnitManager> {
 
     string _path = "Assets/Prefabs/Units/";
 
-    public UnitType SelectedUnitType { get; set; }
-
     public int unCalcedUnitCount { get; set; }
 
     public bool playErrorSound { get; set; }
@@ -20,14 +18,14 @@ public class UnitManager : MonoSingleton<UnitManager> {
 
     }
 
-    public Unit CreateUnit(string name, Vector3 pos) {
+    public Unit CreateUnit(string value, Vector3 pos) {
         
         Unit created;
 
-        if (name.Equals("="))
+        if (value.Equals("="))
         {
             created = AssetOpener.Import<EqualUnit>(_path + "EqualUnit.prefab");
-            created.Value = name;
+            created.SetValue(value);
             created.transform.position = pos;
 
             return created;
@@ -35,9 +33,9 @@ public class UnitManager : MonoSingleton<UnitManager> {
         }
 
         created = AssetOpener.Import<Unit>(_path + "Unit.prefab");
-        created.Value = name;
+        created.SetValue(value);
 
-        if (int.TryParse(name, out _))
+        if (int.TryParse(value, out _))
         {
             created.transform.position = pos;
             return created;
@@ -49,16 +47,14 @@ public class UnitManager : MonoSingleton<UnitManager> {
 
     }
 
+    public Unit CreateBuildUnit(string value, Vector3 pos) {
 
-    public bool CanClear() {
+        Unit created = AssetOpener.Import<Unit>(_path + "BuildUnit.prefab");
 
-        if (_canClear)
-        {
+        created.SetValue(value);
+        created.transform.position = pos;
 
-            return true;
-
-        }
-        return false;
+        return created;
     }
 
 }

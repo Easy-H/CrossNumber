@@ -43,7 +43,7 @@ public class MoveStack {
             return;
 
         Unit unit = _moveData[--_moveIdx].unit;
-        unit.SetPos(_moveData[_moveIdx].beforeMovePos, out bool isChanged);
+        unit.SetPos(_moveData[_moveIdx].beforeMovePos);
 
     }
 
@@ -54,7 +54,7 @@ public class MoveStack {
 
         Unit unit = _moveData[_moveIdx].unit;
 
-        unit.SetPos(_moveData[_moveIdx].beforeMovePos, out bool isChanged);
+        unit.SetPos(_moveData[_moveIdx].beforeMovePos);
         
     }
 }
