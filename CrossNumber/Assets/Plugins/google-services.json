@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "613218175110",
+    "project_id": "crossnumber-64212",
+    "storage_bucket": "crossnumber-64212.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613218175110:android:ca02db0f99a8ea63b1e907",
+        "android_client_info": {
+          "package_name": "com.hash6799FA.CrossNumber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613218175110-vqbf30d3eunf399omf14o4kacsnufp41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBZib3vMzPzTDeqENvj_NULe7Zxwkykdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613218175110-vqbf30d3eunf399omf14o4kacsnufp41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
