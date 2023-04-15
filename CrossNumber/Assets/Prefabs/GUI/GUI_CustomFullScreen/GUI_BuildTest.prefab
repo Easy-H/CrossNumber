@@ -125,6 +125,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUI_BuildTest
       objectReference: {fileID: 0}
+    - target: {fileID: 7176026419757296507, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6860961844979170369}
+    - target: {fileID: 7176026419757296507, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Upload
+      objectReference: {fileID: 0}
+    - target: {fileID: 7176026419757296507, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GUIUploadCloud, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8433130214303708516, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
       propertyPath: m_IsActive
@@ -147,3 +162,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf31ea3b34196849b11a8e1c8c3b455, type: 3}
+--- !u!1 &3107480299671425878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6043501764524212750, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+    type: 3}
+  m_PrefabInstance: {fileID: 8701279985208987992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6860961844979170369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107480299671425878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b17b5c2638b3e14aa4654849ed77946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
