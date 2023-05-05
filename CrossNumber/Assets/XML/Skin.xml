@@ -17,7 +17,7 @@
 		<UIBoard 			red="255" 	green="255" blue="255"	alpha="255"/>
 		<UIBoardLine	red="0" 		green="0" 	blue="0"		alpha="30"/>
 	</Skin>
-	
+  
 	<Skin name="Chalk">
 		<Background 	red="39"		green="76"	blue="67"		alpha="255"/>
 		<Unit 				red="250"		green="250"	blue="224"	alpha="150"/>
@@ -26,7 +26,7 @@
 		<UIBoard 			red="202"		green="164" blue="114"	alpha="255"/>
 		<UIBoardLine	red="0" 		green="0" 	blue="0"		alpha="30"/>
 	</Skin>
-	
+  
 	<Skin name="Black">
 		<Background 	red="0" 		green="0" 	blue="0"		alpha="255"/>
 		<Unit 				red="255"		green="255"	blue="146"	alpha="255"/>

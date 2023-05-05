@@ -84,7 +84,7 @@ public class GUICustomFullScreen : GUIFullScreen {
             return;
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        _selectedUnit = Unit.ObjectCheck(mousePos);
+        _selectedUnit = UnitManager.GetUnitControllerAt(mousePos);
 
         if (_selectedUnit)
         {

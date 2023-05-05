@@ -23,7 +23,7 @@ public class GUIOverWorldButton : MonoBehaviour
     }
 
     public void GotoStage() {
-        StageManager.StageIdx = _value;
+        StageManager.Instance.StageIdx = _value;
         SceneManager.LoadScene(2);
     }
     

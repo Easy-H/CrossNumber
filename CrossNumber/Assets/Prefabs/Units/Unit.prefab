@@ -313,7 +313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6fe53406526c0749b19f747d91defa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 6
   _txt: {fileID: 3524806639154124820}
   _protector: []
   _underline: {fileID: 256957276023674902}

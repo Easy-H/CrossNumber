@@ -64,7 +64,7 @@ public class GUIBuildScene : GUICustomFullScreen {
 
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Unit selectedUnit = Unit.ObjectCheck(pos);
+        Unit selectedUnit = UnitManager.GetUnitControllerAt(pos);
 
         if (selectedUnit)
             Destroy(selectedUnit.gameObject);
@@ -97,7 +97,7 @@ public class GUIBuildScene : GUICustomFullScreen {
         for (int i = 0; i < units.Length; i++)
         {
             XmlElement FElement = Document.CreateElement("Unit");
-            FElement.SetAttribute("value", units[i].Value);
+            FElement.SetAttribute("value", units[i].GetData().Value);
             FElement.SetAttribute("xPos", units[i].transform.position.x.ToString());
             FElement.SetAttribute("yPos", units[i].transform.position.y.ToString());
 

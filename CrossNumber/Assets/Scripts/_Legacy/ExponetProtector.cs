@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class ExponetProtector : Protector {
 
     public override void SetProtectorApear() {
@@ -11,7 +12,7 @@ public class ExponetProtector : Protector {
             return;
         }
 
-        Unit unit = Unit.ObjectCheck(transform.position, 5);
+        Unitdata unit = UnitManager.ObjectCheck(transform.position, 5);
 
         if (unit) {
 
@@ -28,3 +29,4 @@ public class ExponetProtector : Protector {
 
     }
 }
+*/

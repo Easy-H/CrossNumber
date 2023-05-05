@@ -1,11 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class UnitData {
+
+    public UnitData() {
+        Value = "1";
+        IsCalced = false;
+    }
+
+    public string Value { get; set; }
+    public bool IsCalced;
+
+    public void SetStateCalced() {
+        IsCalced = true;
+    }
+}
+
 public class Unit : MonoBehaviour {
+
+    UnitData _data = new UnitData();
 
     public static readonly int PlaceUnitLayer = 5;
     public static readonly int AllUnitLayer = 0;
@@ -19,19 +37,7 @@ public class Unit : MonoBehaviour {
 
     private Vector3 posWhenPeak;
 
-    [SerializeField] protected string _value = "1";
-
-    public string Value {
-        get {
-            return _value;
-        }
-        private set {
-            _value = value;
-        }
-    }
-
     //protected bool _isPeaked = false;
-    bool _isCalced = true;
     bool _isPeaked = false;
 
     protected virtual void Start() {
@@ -41,16 +47,21 @@ public class Unit : MonoBehaviour {
 
     public void SetValue(string value)
     {
-        Value = value;
+        _data.Value = value;
 
-        if (Value.Equals("/"))
+        if (_data.Value.Equals("/"))
             _txt.text = "÷";
-        else if (Value.Equals("*"))
+        else if (_data.Value.Equals("*"))
             _txt.text = "x";
         else
-            _txt.text = Value;
+            _txt.text = _data.Value;
 
     }
+
+    public UnitData GetData() {
+        return _data;
+    }
+
     // 요건 GUIPlayScene에서 유닛을 선택했을 때 작동하도록 함
     protected void SetProtector()
     {
@@ -68,21 +79,22 @@ public class Unit : MonoBehaviour {
 
     public bool IsCalced()
     {
-        _underline.SetActive(!_isCalced);
-        return _isCalced;
+        _underline.SetActive(!_data.IsCalced);
+        return _data.IsCalced;
     }
+
     public virtual void SetStateUnCalced() {
 
-        _isCalced = false;
+        _data.IsCalced = false;
 
     }
     public virtual void SetStateCalced() {
 
-        if (!_isCalced) {
+        if (!_data.IsCalced) {
             _underline.SetActive(false);
         }
 
-        _isCalced = true;
+        _data.IsCalced = true;
 
     }
 
@@ -121,38 +133,6 @@ public class Unit : MonoBehaviour {
             return false;
 
         return true;
-    }
-
-    public static T ObjectCheck<T>(Vector3 pos) {
-        T unit = default;
-
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f);
-
-        if (hit)
-            unit = hit.transform.GetComponent<T>();
-
-        return unit;
-    }
-    public static Unit ObjectCheck(Vector3 pos, int layerValue) {
-        Unit unit = default;
-
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, layerValue);
-
-        if (hit)
-            unit = hit.transform.GetComponent<Unit>();
-
-        return unit;
-    }
-    public static Unit ObjectCheck(Vector3 pos)
-    {
-        Unit unit = default;
-
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f);
-
-        if (hit)
-            unit = hit.transform.GetComponent<Unit>();
-
-        return unit;
     }
 
 }

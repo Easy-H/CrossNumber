@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class OverUnit : Unit
 {
     NumUnit _overedUnit;
@@ -28,7 +29,7 @@ public class OverUnit : Unit
         int layerBeforeChange = gameObject.layer;
 
         // 동일한 위치에 유닛이 존재하는지 확인한다.
-        Unit unit = ObjectCheck(transform.position, 1);
+        Unit unit = UnitManager.ObjectCheck(transform.position, 1);
 
         if (unit) {
 
@@ -63,7 +64,7 @@ public class OverUnit : Unit
     // 유닛이 있는지, 있다면 겹칠 수 있는 유닛인지 확인한다.
     public override bool CanPlace(Vector3 pos) {
 
-        Unit existUnit = ObjectCheck(pos, 5);
+        Unit existUnit = UnitManager.ObjectCheck(pos, 5);
 
         if (!existUnit) {
             return true;
@@ -75,3 +76,4 @@ public class OverUnit : Unit
     }
 
 }
+*/

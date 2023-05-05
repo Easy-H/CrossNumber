@@ -511,16 +511,6 @@ PrefabInstance:
       propertyPath: openSequence.animations.Array.data[1].EventTime
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5328858568214808056, guid: 23cb81be9adacb647b197a9a3faca14b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8646214450240878747, guid: 23cb81be9adacb647b197a9a3faca14b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8663200740538180508, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_Pivot.x

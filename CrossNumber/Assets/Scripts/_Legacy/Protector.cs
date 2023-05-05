@@ -16,7 +16,7 @@ public class Protector : MonoBehaviour
             return;
         }
 
-        if (Unit.ObjectCheck<Unit>(transform.position)) {
+        if (UnitManager.GetUnitControllerAt(transform.position)) {
             return;
         }
 

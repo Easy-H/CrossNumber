@@ -5,9 +5,10 @@ using UnityEngine;
 using UnityEngine.Diagnostics;
 using static UnityEngine.UI.CanvasScaler;
 
+[System.Serializable]
 public class StageSetter : MonoBehaviour
 {
-
+    public Transform _parent = null;
     public bool _testScene = false;
 
     // Start is called before the first frame update
@@ -23,7 +24,6 @@ public class StageSetter : MonoBehaviour
 
     public void SetStage(string value)
     {
-
         StageData stage = StageManager.Instance.GetStageData(value);
 
         _CreateWorld(stage);
@@ -36,7 +36,7 @@ public class StageSetter : MonoBehaviour
             UnitInfor data = stage.units[i];
 
             Unit temp = UnitManager.Instance.CreateUnit(data.type, data.pos);
-            temp.transform.SetParent(transform);
+            temp.transform.SetParent(_parent);
         }
 
     }

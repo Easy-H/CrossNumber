@@ -2,12 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class MoveData {
+    public Unit unit { get; private set; }
+
+    public Vector3 beforeMovePos { get; private set; }
+    public Vector3 afterMovePos { get; private set; }
+
+    public MoveData(Unit u, Vector3 origin, Vector3 moved)
+    {
+        unit = u;
+        beforeMovePos = origin;
+        afterMovePos = moved;
+    }
+
+}
+
 public class GUIPlayScene : GUICustomFullScreen
 {
+
     [SerializeField] GUIAnimatedOpen _clearAnim = null;
     [SerializeField] StageSetter _setter;
 
-    MoveStack _moves;
+    CustomStack<MoveData> _moves;
 
     Unit[] _units;
     EqualUnit[] _equalUnits;
@@ -20,7 +37,7 @@ public class GUIPlayScene : GUICustomFullScreen
 
     public void SetStage()
     {
-        _moves = new MoveStack();
+        _moves = new CustomStack<MoveData>();
 
         _setter.SetStage();
 
@@ -40,7 +57,7 @@ public class GUIPlayScene : GUICustomFullScreen
     protected override void UnitPlace()
     {
         _selectedUnit.Place();
-        _moves.AddMoveData(_selectedUnit, _selectedUnit.GetPeakPos(), _selectedUnit.transform.position);
+        _moves.AddData(new (_selectedUnit, _selectedUnit.GetPeakPos(), _selectedUnit.transform.position));
 
         CalculateWorld();
         _selectedUnit = null;
@@ -104,14 +121,20 @@ public class GUIPlayScene : GUICustomFullScreen
 
     public void MoveUndo()
     {
-        _moves.Pop();
+        MoveData temp = _moves.Pop();
+        if (temp == null) return;
+
+        temp.unit.SetPos(temp.beforeMovePos);
         CalculateWorld();
 
     }
 
     public void MoveRedo()
     {
-        _moves.Back();
+        MoveData temp = _moves.Back();
+        if (temp == null) return;
+
+        temp.unit.SetPos(temp.afterMovePos);
         CalculateWorld();
 
 
@@ -122,8 +145,9 @@ public class GUIPlayScene : GUICustomFullScreen
     }
 
     public void GoNextStage() {
-        if (StageManager.StageIdx + 1 < StageManager.Instance.GetStageCount()) {
-            StageManager.StageIdx += 1;
+
+        if (StageManager.Instance.StageIdx + 1 < StageManager.Instance.GetStageCount()) {
+            StageManager.Instance.StageIdx += 1;
             ReloadScene();
             
             return;

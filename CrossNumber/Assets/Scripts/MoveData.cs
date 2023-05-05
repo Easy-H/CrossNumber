@@ -2,59 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class MoveData {
-    public Unit unit { get; private set; }
 
-    public Vector3 beforeMovePos { get; private set; }
-    public Vector3 afterMovePos { get; private set; }
+public class CustomStack<T> {
 
-    public MoveData(Unit u, Vector3 origin, Vector3 moved) {
-        unit = u;
-        beforeMovePos = origin;
-        afterMovePos = moved;
-    }
-
-}
-
-public class MoveStack {
-
-    public List<MoveData> _moveData;
+    public List<T> _moveData;
     int _moveIdx;
 
-    public MoveStack() { 
-        _moveData = new List<MoveData>();
+    public CustomStack() { 
+        _moveData = new List<T>();
         _moveIdx = 0;
 
     }
 
-    public void AddMoveData(Unit unitData, Vector3 originPos, Vector3 resultPos)
+    public void AddData(T data)
     {
         if (_moveIdx < _moveData.Count)
             _moveData.RemoveRange(_moveIdx, _moveData.Count - _moveIdx);
 
-        _moveData.Add(new MoveData(unitData, originPos, resultPos));
+        _moveData.Add(data);
         _moveIdx++;
     }
 
-    public void Pop()
+    public T Pop()
     {
         if (_moveIdx < 1)
-            return;
+            return default;
 
-        Unit unit = _moveData[--_moveIdx].unit;
-        unit.SetPos(_moveData[_moveIdx].beforeMovePos);
+        return _moveData[--_moveIdx];
 
     }
 
-    public void Back()
+    public T Back()
     {
         if (_moveIdx > _moveData.Count - 1)
-            return;
+            return default;
 
-        Unit unit = _moveData[_moveIdx].unit;
-
-        unit.SetPos(_moveData[_moveIdx].beforeMovePos);
+        return _moveData[_moveIdx++];
         
     }
 }

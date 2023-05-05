@@ -62,7 +62,7 @@ public class StageManager : MonoSingleton<StageManager> {
 
     public static int WorldCount { get; private set; }
     public static int WorldIdx = 0;
-    public static int StageIdx = 0;
+    public int StageIdx { get; set; }
 
     class OverWorldData {
         internal string name;

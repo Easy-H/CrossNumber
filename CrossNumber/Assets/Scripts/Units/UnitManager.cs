@@ -7,11 +7,6 @@ public class UnitManager : MonoSingleton<UnitManager> {
 
     string _path = "Assets/Prefabs/Units/";
 
-    public int unCalcedUnitCount { get; set; }
-
-    public bool playErrorSound { get; set; }
-    bool _canClear;
-
     protected override void OnCreate()
     {
         base.OnCreate();
@@ -55,6 +50,42 @@ public class UnitManager : MonoSingleton<UnitManager> {
         created.transform.position = pos;
 
         return created;
+    }
+
+    public static T ObjectCheck<T>(Vector3 pos)
+    {
+        T unit = default;
+
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f);
+
+        if (hit)
+            unit = hit.transform.GetComponent<T>();
+
+        return unit;
+    }
+
+    public static UnitData GetUnitDataAt(Vector3 pos)
+    {
+        UnitData unit = default;
+
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, 5);
+
+        if (hit)
+            unit = hit.transform.GetComponent<Unit>().GetData();
+
+        return unit;
+    }
+
+    public static Unit GetUnitControllerAt(Vector3 pos)
+    {
+        Unit unit = default;
+
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f);
+
+        if (hit)
+            unit = hit.transform.GetComponent<Unit>();
+
+        return unit;
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Xml;
 using UnityEngine.Events;
 
-public class StringManager : MonoSingleton<StringManager> {
+public class StringManager : Singleton<StringManager> {
     // Start is called before the first frame update
 
     public static UnityEvent OnLangChanged = new UnityEvent();

@@ -990,6 +990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8e2b3b699e9a847b34fecd3aa04b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parent: {fileID: 3812820445122863072}
   _testScene: 0
 --- !u!224 &7277832475731485816 stripped
 RectTransform:

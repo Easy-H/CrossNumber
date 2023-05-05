@@ -94,6 +94,11 @@ MonoBehaviour:
     actionName: Open
     audioName: OpenPopUp
     animations:
+    - _eventType: 0
+      EventTarget: {fileID: 7495551885100646768}
+      EventValue: 1
+      EventTime: 0
+      _sound: {fileID: 0}
     - _eventType: 2
       EventTarget: {fileID: 7495551885100646768}
       EventValue: 1
@@ -107,6 +112,11 @@ MonoBehaviour:
       EventTarget: {fileID: 7495551885100646768}
       EventValue: 0
       EventTime: 0.2
+      _sound: {fileID: 0}
+    - _eventType: 3
+      EventTarget: {fileID: 7495551885100646768}
+      EventValue: 0
+      EventTime: 0
       _sound: {fileID: 0}
   _stopAll: 1
 --- !u!1 &1023506751120203619
@@ -280,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5772932356223840624
 RectTransform:
   m_ObjectHideFlags: 0

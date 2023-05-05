@@ -3,18 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-class Heap<T>{
-    List<T> list;
-    public T Pop() {
-        return list[0];
-    }
-
-    public void Add(T data, int value) { 
-        
-    }
-}
-
-public class UIManager : MonoSingleton<UIManager> {
+public class UIManager : Singleton<UIManager> {
 
     List<GUIFullScreen> uiStack;
 

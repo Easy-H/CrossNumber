@@ -5,19 +5,7 @@ using UnityEngine;
 using Firebase.Firestore;
 using Firebase.Extensions;
 
-public class Singleton<T> where T : new() {
-    T _instance;
-    public T Instance {
-        get {
-            if (_instance == null)
-                _instance = new T();
-
-            return _instance;
-        }
-    }
-}
-
-public class FirebaseManager : MonoSingleton<FirebaseManager>
+public class FirebaseManager : Singleton<FirebaseManager>
 {
 
     public void WriteFireStore()
