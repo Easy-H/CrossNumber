@@ -7,7 +7,7 @@ public class GUIFullScreen : GUIWindow
     protected override void Open()
     {
         base.Open();
-        UIManager.Instance.EnrollmentGUI(this);
+        //UIManager.Instance.EnrollmentGUI(this);
     }
 
     public override void Close()

@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager> {
 
-    List<GUIFullScreen> uiStack;
+    List<GUICustomFullScreen> uiStack;
 
-    public GUIFullScreen NowPopUp { get; set; }
+    public GUICustomFullScreen NowPopUp { get; set; }
     
-    public void EnrollmentGUI(GUIFullScreen newData)
+    public void EnrollmentGUI(GUICustomFullScreen newData)
     {
+        SoundManager.Instance.PlayAudio("Change");
+
         if (NowPopUp == null)
         {
             NowPopUp = newData;
@@ -25,7 +27,6 @@ public class UIManager : Singleton<UIManager> {
 
         }
         Pop();
-
     }
 
     public void Pop()
@@ -35,8 +36,9 @@ public class UIManager : Singleton<UIManager> {
 
         NowPopUp = uiStack[uiStack.Count - 1];
         uiStack.RemoveAt(uiStack.Count - 1);
-        NowPopUp.gameObject.SetActive(true);
+        NowPopUp.Pop();
 
+        SoundManager.Instance.PlayAudio("Change");
     }
 
     class GUIData {
@@ -55,11 +57,10 @@ public class UIManager : Singleton<UIManager> {
     protected override void OnCreate()
     {
         NowPopUp = null;
-        uiStack = new List<GUIFullScreen>();
+        uiStack = new List<GUICustomFullScreen>();
 
         _dic = new Dictionary<string, GUIData>();
-        XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.Load("Assets/XML/GUIInfor.xml");
+        XmlDocument xmlDoc = AssetOpener.ReadXML("GUIInfor");
 
         XmlNodeList nodes = xmlDoc.SelectNodes("GUIInfor/GUIData");
 
@@ -75,7 +76,7 @@ public class UIManager : Singleton<UIManager> {
     public static T OpenGUI<T>(string guiName)
     {
         string path = Instance._dic[guiName].path;
-        T result = AssetOpener.Import<GameObject>(path).GetComponent<T>();
+        T result = AssetOpener.ImportGameObject(path).GetComponent<T>();
 
         return result;
     }

@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Xml;
 using UnityEditor;
 using UnityEngine;
 
-public class AssetOpener : MonoBehaviour
-{
-    public static T Import<T>(string path) where T: Object
+public class AssetOpener : MonoBehaviour {
+    public static T Import<T>(string path) where T : Object
     {
-        T source = (T)AssetDatabase.LoadAssetAtPath(path, typeof(T));
+        T source = Resources.Load(path) as T;
         return Instantiate(source);
     }
-    public static T Import<T>(string path, string parentName) where T : Object
+    public static GameObject ImportGameObject(string path)
     {
-        T source = (T)AssetDatabase.LoadAssetAtPath(path, typeof(T));
-        return Instantiate(source, GameObject.Find(parentName).transform);
+        GameObject source = Resources.Load(path) as GameObject;
+        return Instantiate(source);
+    }
+
+    public static XmlDocument ReadXML(string path)
+    {
+        TextAsset xmlData = new TextAsset();
+        xmlData = (TextAsset)Resources.Load("XML/" + path, typeof(TextAsset));
+
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.LoadXml(xmlData.text);
+
+        return xmlDoc;
     }
 }

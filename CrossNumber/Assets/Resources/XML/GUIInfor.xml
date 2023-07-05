@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GUIInfor>
+  <GUIData name="Setting"	    path="Prefabs/GUI/Setting/GUI_Setting" />
+  <GUIData name="Credit"	    path="Prefabs/GUI/GUI_Credit" />
+  
+  <GUIData name="Capture"	    path="Prefabs/GUI/GUI_Capture" />
+  
+  <GUIData name="OverWorld"	  path="Prefabs/GUI/GUI_CustomFullScreen/GUI_OverWorld" />
+  
+  <GUIData name="Play"	      path="Prefabs/GUI/GUI_CustomFullScreen/GUI_Play" />
+  <GUIData name="Stop"	      path="Prefabs/GUI/GUI_AnimatedLine/GUI_PlayStop" />
+  <GUIData name="Clear"	      path="Prefabs/GUI/GUI_AnimatedLine/GUI_PlayClear" />
+	
+  <GUIData name="Build"	      path="Prefabs/GUI/GUI_CustomFullScreen/GUI_Build" />
+  <GUIData name="BuildTest"   path="Prefabs/GUI/GUI_CustomFullScreen/GUI_BuildTest" />
+
+
+</GUIInfor>

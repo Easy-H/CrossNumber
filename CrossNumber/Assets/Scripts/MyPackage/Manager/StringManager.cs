@@ -22,7 +22,6 @@ public class StringManager : Singleton<StringManager> {
     Dictionary<string, StringData> _dic;
 
     string _nowLang = "Kor";
-    string _fileName = "String.xml";
 
     protected override void OnCreate()
     {
@@ -32,8 +31,7 @@ public class StringManager : Singleton<StringManager> {
     public void ReadStringFromXml(string lang)
     {
         _dic = new Dictionary<string, StringData>();
-        XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.Load("Assets/XML/" + lang + "/" + _fileName);
+        XmlDocument xmlDoc = AssetOpener.ReadXML(lang + "/String");
 
         XmlNodeList nodes = xmlDoc.SelectNodes("StringData/String");
 
