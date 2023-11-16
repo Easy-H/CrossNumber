@@ -1,5 +1,7 @@
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GUIPlayScene : GUICustomFullScreen {
@@ -9,20 +11,27 @@ public class GUIPlayScene : GUICustomFullScreen {
 
     ClearChecker _checker;
 
+    string _levelName;
+    LevelData _data;
+
     protected override void Open()
     {
         base.Open();
-        SetStage();
     }
 
-    public void SetStage()
+    public void SetStage(string path)
     {
-        _setter.MakeLevel();
+        _levelName = path;
+        _data = new LevelData(AssetOpener.ReadXML("StageData/" + path));
 
-        _checker = new ClearChecker();
+        Generate();
+
+    }
+    private void Generate() {
+        _setter.MakeLevel(_data);
+        _checker = new ClearChecker(_setter.Units, _setter.EqualUnits);
 
         CalculateWorld();
-
     }
 
     protected override void UnitPosChangeEvent()
@@ -61,7 +70,7 @@ public class GUIPlayScene : GUICustomFullScreen {
     {
         PlayAnim(_clearAnim);
         SoundManager.Instance.PlayAudio("Clear");
-        ClearDataManager.Instance.Clear(StageManager.Instance.GetStageMetaData().value);
+        //ClearDataManager.Instance.Clear(StageManager.Instance.GetStageMetaData().value);
     }
 
     public void MoveUndo()
@@ -79,22 +88,18 @@ public class GUIPlayScene : GUICustomFullScreen {
 
     public void ReloadScene()
     {
-        SetStage();
+        UIManager.OpenGUI<GUIPlayScene>("Play").SetStage(_levelName);
+        Close();
     }
 
     public void GoNextStage()
     {
-
-        if (StageManager.Instance.StageIdx + 1 < StageManager.Instance.GetStageCount())
-        {
-            StageManager.Instance.StageIdx += 1;
-            ReloadScene();
-
+        if (_data._nextStagePath == null) {
+            Close();
             return;
         }
 
-        StageManager.WorldIdx++;
-        GoToOverWorld();
+        SetStage(_data._nextStagePath);
 
     }
 
@@ -102,10 +107,10 @@ public class GUIPlayScene : GUICustomFullScreen {
     {
         Close();
     }
+
     public override void Close()
     {
         base.Close();
-        UnitManager.Instance.DestroyAllUnit();
     }
 
 }

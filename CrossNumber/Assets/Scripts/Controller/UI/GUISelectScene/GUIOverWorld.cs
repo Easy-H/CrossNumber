@@ -34,7 +34,7 @@ public class GUIOverWorld : GUICustomFullScreen {
             StageMetaData data = StageManager.Instance.GetStageMetaData(i);
 
             newButton.transform.SetParent(_buttonContainer);
-            newButton.SetButtonInfor(data.name, i);
+            newButton.SetButtonInfor(data.name, data.value);
         }
 
         _buttonContainer.position = Vector3.up * (length / 2);

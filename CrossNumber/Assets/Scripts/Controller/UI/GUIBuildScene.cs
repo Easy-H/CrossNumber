@@ -20,7 +20,7 @@ public class GUIBuildScene : GUICustomFullScreen {
     protected override void Open()
     {
         base.Open();
-        _setter.MakeLevel("Temp");
+        //_setter.MakeLevel("Temp");
     }
 
     protected override void Update()
@@ -50,10 +50,7 @@ public class GUIBuildScene : GUICustomFullScreen {
 
         pos.z = 0;
 
-        Unit unit = UnitManager.Instance.CreateUnit(_createValue, pos);
-        UnitController cntl = UnitManager.Instance.CreateUnitController(unit);
-
-        cntl.transform.SetParent(_container);
+        _setter.CreateUnit(_createValue, pos);
 
         _editToolContainer.Open();
         _state = MotionState.UnitMoving;

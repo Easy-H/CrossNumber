@@ -7,6 +7,7 @@ using UnityEngine.Purchasing;
 using UnityEditor.SceneManagement;
 using System.Data;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 public class StageMetaData {
     public string name;
@@ -21,23 +22,16 @@ public struct UnitInfor {
 public class LevelData {
 
     public UnitInfor[] units;
+    public string _nextStagePath;
 
-    public LevelData()
+    public LevelData(XmlDocument xmlDoc)
     {
-        string stage = StageManager.Instance.GetStageMetaData().value;
-
-        _DataSet(stage);
-    }
-
-    public LevelData(string value)
-    {
-        _DataSet(value);
-    }
-
-
-    void _DataSet(string value)
-    {
-        XmlDocument xmlDoc = AssetOpener.ReadXML("StageData/" + value);
+        /*
+        if (xmlDoc.Attributes["nextStage"] == null)
+            _nextStagePath = null;
+        else
+            _nextStagePath = xmlDoc.Attributes["nextStage"].Value;
+        */
 
         XmlNodeList nodes = xmlDoc.SelectNodes("StageData/Unit");
 
@@ -52,8 +46,8 @@ public class LevelData {
             units[i].type = unitValue;
             units[i].pos = new Vector3(x, y);
         }
-
     }
+
 }
 
 public class StageManager : MonoSingleton<StageManager> {
@@ -61,7 +55,6 @@ public class StageManager : MonoSingleton<StageManager> {
 
     public static int WorldCount { get; private set; }
     public static int WorldIdx = 0;
-    public int StageIdx { get; set; }
 
     class OverWorldData {
         internal string name;
@@ -124,23 +117,6 @@ public class StageManager : MonoSingleton<StageManager> {
     {
         return _dic[WorldIdx].ReturnStageData(idx);
     }
-    public StageMetaData GetStageMetaData()
-    {
-        return GetStageMetaData(StageIdx);
-    }
 
-    public LevelData GetStageData() {
-        LevelData data = new LevelData();
-
-        return data;
-
-    }
-    public LevelData GetStageData(string value)
-    {
-        LevelData data = new LevelData(value);
-
-        return data;
-
-    }
 
 }

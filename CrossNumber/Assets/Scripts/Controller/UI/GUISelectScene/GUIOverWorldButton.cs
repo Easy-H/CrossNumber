@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Newtonsoft.Json.Linq;
 
 public class GUIOverWorldButton : MonoBehaviour
 {
     [SerializeField] Canvas canvas = null;
     [SerializeField] float temp = 1;
 
-    int _value = 0;
+    [SerializeField] string _value = string.Empty;
 
     [SerializeField] TextMeshProUGUI txt = null;
 
-    public void SetButtonInfor(string name, int value) {
+    public void SetButtonInfor(string name, string value) {
         txt.text = "<mspace=\""+ (temp * 2).ToString() + "\">" + name.Replace(" ", "") + "</mspace>";
         _value = value;
 
@@ -21,8 +22,8 @@ public class GUIOverWorldButton : MonoBehaviour
     }
 
     public void GotoStage() {
-        StageManager.Instance.StageIdx = _value;
-        UIManager.OpenGUI<GUIPlayScene>("Play");
+        GUIPlayScene window = UIManager.OpenGUI<GUIPlayScene>("Play");
+        window.SetStage(_value);
     }
     
 }

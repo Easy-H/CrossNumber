@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class UnitMover {
 
     Transform _target;
-    Unit _targetUnit;
     Vector3 startPos;
 
     CustomStack<MoveData> _moves = new CustomStack<MoveData>();
@@ -14,7 +14,6 @@ public class UnitMover {
     {
         _target = target;
         startPos = target.position;
-        _targetUnit = UnitManager.GetUnitDataAt(target.position);
     }
 
     public void UnitMoveTo(Vector3 pos)
@@ -24,7 +23,7 @@ public class UnitMover {
             return;
 
         _target.position = pos;
-        _targetUnit.Pos = pos;
+        Unit.GetUnitDataAt(_target.position).Pos = pos;
 
         SoundManager.Instance.PlayAudio("Move");
     }

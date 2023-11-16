@@ -9,52 +9,46 @@ using static UnityEngine.UI.CanvasScaler;
 [System.Serializable]
 public class LevelMaker : MonoBehaviour
 {
-    public Transform _parent = null;
-    public bool _testScene = false;
-    private void _Clear()
+    [SerializeField] Transform _parent = null;
+    [SerializeField] UnitController _unit;
+    [SerializeField] EqualUnitController _equalUnit;
+
+    public List<Unit> Units { get; private set; }
+    public List<EqualUnit> EqualUnits { get; private set; }
+
+    public void MakeLevel(LevelData stage)
     {
-        for (int i = 0; i < _parent.childCount; i++)
-        {
-            _parent.GetChild(i).gameObject.SetActive(false);
-            Destroy(_parent.GetChild(i).gameObject);
-        }
-        UnitManager.Instance.DestroyAllUnit();
-    }
-
-    // Start is called before the first frame update
-    public void MakeLevel()
-    {
-        LevelData stage;
-        if (!_testScene)
-            stage = StageManager.Instance.GetStageData();
-        else
-            stage = StageManager.Instance.GetStageData("temp");
-
-        _Clear();
-        _CreateWorld(stage);
-    }
-
-    public void MakeLevel(string value)
-    {
-        UnitManager.Instance.DestroyAllUnit();
-        LevelData stage = StageManager.Instance.GetStageData(value);
-
-        _Clear();
-        _CreateWorld(stage);
-    }
-
-    void _CreateWorld(LevelData stage)
-    {
+        Units = new List<Unit>();
+        EqualUnits = new List<EqualUnit>();
 
         for (int i = 0; i < stage.units.Length; i++)
         {
             UnitInfor data = stage.units[i];
-
-            Unit unit = UnitManager.Instance.CreateUnit(data.type, data.pos);
-            UnitController cntl = UnitManager.Instance.CreateUnitController(unit);
-
-            cntl.transform.SetParent(_parent);
+            CreateUnit(data.type, data.pos);
         }
 
+    }
+
+    public void CreateUnit(string value, Vector3 pos)
+    {
+        if (value.Equals("="))
+        {
+            EqualUnitController equalUnit = Instantiate(_equalUnit);
+
+            equalUnit.transform.SetParent(_parent);
+            equalUnit.SetValue(value, pos);
+
+            Units.Add(equalUnit.GetData());
+            EqualUnits.Add((EqualUnit)equalUnit.GetData());
+
+            return;
+        }
+
+        UnitController unit = Instantiate(_unit);
+
+        unit.transform.SetParent(_parent);
+        unit.SetValue(value, pos);
+
+        Units.Add(unit.GetData());
     }
 }

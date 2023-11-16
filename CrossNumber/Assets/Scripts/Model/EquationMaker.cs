@@ -25,7 +25,7 @@ public class EquationMaker {
     {
         _value = "";
 
-        for (Unit unit = UnitManager.GetUnitDataAt(pos + dir); unit != null; unit = UnitManager.GetUnitDataAt(pos + dir))
+        for (Unit unit = Unit.GetUnitDataAt(pos + dir); unit != null; unit = Unit.GetUnitDataAt(pos + dir))
         {
             string value = unit.Value;
             if (value == null)

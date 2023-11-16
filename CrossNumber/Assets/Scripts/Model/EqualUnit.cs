@@ -124,16 +124,4 @@ public class EqualUnit : Unit {
         _calcResultError[i].EraseLine();
 
     }
-
-    public void Destroy()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            Object.Destroy(_error[i].gameObject);
-        }
-
-        Object.Destroy(_calcResultError[0].gameObject);
-        Object.Destroy(_calcResultError[0].gameObject);
-    }
-
 }

@@ -6,9 +6,10 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UI;
+
 public class UnitController : MonoBehaviour {
 
-    Unit _data = new Unit();
+    protected Unit _data = new();
 
     public static readonly int PlaceUnitLayer = 5;
     public static readonly int AllUnitLayer = 0;
@@ -18,9 +19,9 @@ public class UnitController : MonoBehaviour {
 
     //protected bool _isPeaked = false;
 
-    public void SetValue(Unit unitData)
+    public virtual void SetValue(string value, Vector3 pos)
     {
-        _data = unitData;
+        _data = new Unit(value, pos);
 
         if (_data.Value.Equals("/"))
             _txt.text = "÷";
@@ -29,7 +30,7 @@ public class UnitController : MonoBehaviour {
         else
             _txt.text = _data.Value;
 
-        transform.position = unitData.Pos;
+        transform.position = pos;
 
     }
 
