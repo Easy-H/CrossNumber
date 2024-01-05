@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GUIInfor>
-  <GUIData name="Setting"	    path="Prefabs/GUI/Setting/GUI_Setting" />
+  <GUIData name="Setting"	    path="Prefabs/GUI/GUI_AnimatedLine/GUI_Setting" />
   <GUIData name="Credit"	    path="Prefabs/GUI/GUI_Credit" />
   
   <GUIData name="Capture"	    path="Prefabs/GUI/GUI_Capture" />

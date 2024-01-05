@@ -501,7 +501,7 @@ PrefabInstance:
     - target: {fileID: 754796902970902962, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_Name
-      value: GUI_PlayStop
+      value: GUI_Play_Stop
       objectReference: {fileID: 0}
     - target: {fileID: 754796902970902962, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
@@ -509,6 +509,11 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000971118451053894, guid: 23cb81be9adacb647b197a9a3faca14b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821358666535938988, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_IsActive
       value: 0

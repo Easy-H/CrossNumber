@@ -4,38 +4,29 @@ using UnityEngine;
 
 public class ClearChecker {
 
-    List<Unit> _units;
-    List<EqualUnit> _equalUnits;
-
-    public ClearChecker(List<Unit> units, List<EqualUnit> equalUnits)
-    {
-        _units = units;
-        _equalUnits = equalUnits;
-    }
-
     public bool LevelCanClear()
     {
 
-        for (int i = 0; i < _units.Count; i++)
+        for (int i = 0; i < UnitManager.Instance.Units.Count; i++)
         {
-            _units[i].SetStateUnCalced();
+            UnitManager.Instance.Units[i].SetStateUnCalced();
         }
 
         bool canClear = true;
 
 
-        for (int i = 0; i < _equalUnits.Count; i++)
+        for (int i = 0; i < UnitManager.Instance.EqualUnits.Count; i++)
         {
-            if (!_equalUnits[i].Check())
+            if (!UnitManager.Instance.EqualUnits[i].Check())
             {
                 canClear = false;
             }
 
         }
 
-        for (int i = 0; i < _units.Count; i++)
+        for (int i = 0; i < UnitManager.Instance.Units.Count; i++)
         {
-            if (!_units[i].IsCalced)
+            if (!UnitManager.Instance.Units[i].IsCalced)
                 canClear = false;
         }
 

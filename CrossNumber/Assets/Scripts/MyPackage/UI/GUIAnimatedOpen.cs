@@ -128,7 +128,8 @@ public class GUIAnimatedOpen : MonoBehaviour {
     [SerializeField] UIAnimSequence closeSequence;
 
     [SerializeField] bool _stopAll = true;
-    
+    [SerializeField] bool _closeDestroy = false;
+
     bool _isAnimating = false;
 
     public void Open()
@@ -179,7 +180,12 @@ public class GUIAnimatedOpen : MonoBehaviour {
             yield return new WaitForSeconds(sequence.animations[i].EventTime);
         }
 
-        gameObject.SetActive(!isClose);
+        if (isClose) {
+            if (_closeDestroy)
+                Destroy(gameObject);
+            else
+                gameObject.SetActive(false);
+        }
 
         _isAnimating = false;
     }

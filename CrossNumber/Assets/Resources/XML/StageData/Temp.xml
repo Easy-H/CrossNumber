@@ -1,1 +1,7 @@
-<StageData />
+<StageData>
+  <Unit value="+" xPos="-1" yPos="1" />
+  <Unit value="=" xPos="1" yPos="1" />
+  <Unit value="0" xPos="2" yPos="1" />
+  <Unit value="3" xPos="0" yPos="1" />
+  <Unit value="3" xPos="-2" yPos="1" />
+</StageData>

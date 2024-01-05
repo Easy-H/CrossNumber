@@ -81,7 +81,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <mspace="">2 + 3 = 0</mspace>
+  m_text: <mspace="0.5">2 + 3 = 0</mspace>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 411d996e14eb554479878e373629611b, type: 2}
   m_sharedMaterial: {fileID: 4800394132903935606, guid: 411d996e14eb554479878e373629611b,
@@ -410,7 +410,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7309828273709211359}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -433,4 +433,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 6970376519112461637}
   temp: 0.5
+  _value: 
   txt: {fileID: 824734626545992334}

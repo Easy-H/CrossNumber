@@ -344,7 +344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4410620578329402046
 RectTransform:
   m_ObjectHideFlags: 0
@@ -999,7 +999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6512854644883057888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1073,6 +1073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openSequence:
     actionName: Open
+    audioName: 
     animations:
     - _eventType: 1
       EventTarget: {fileID: 4416617554639071995}
@@ -1091,6 +1092,7 @@ MonoBehaviour:
       _sound: {fileID: 0}
   closeSequence:
     actionName: Close
+    audioName: 
     animations:
     - _eventType: 3
       EventTarget: {fileID: 2060547792057916127}
@@ -1112,6 +1114,8 @@ MonoBehaviour:
       EventValue: 0
       EventTime: 0
       _sound: {fileID: 0}
+  _stopAll: 1
+  _closeDestroy: 0
 --- !u!1 &2984939052333311315
 GameObject:
   m_ObjectHideFlags: 0
@@ -3794,7 +3798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8234271727114829324
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3849,7 +3853,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

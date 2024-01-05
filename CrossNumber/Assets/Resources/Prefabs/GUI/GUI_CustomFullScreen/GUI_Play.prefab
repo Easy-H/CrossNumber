@@ -31,11 +31,11 @@ RectTransform:
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4819641785878007746}
+  m_Father: {fileID: 3629899749790337717}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.65, y: 0.43}
-  m_AnchorMax: {x: 0.85, y: 0.83}
+  m_AnchorMin: {x: 0.65, y: 0}
+  m_AnchorMax: {x: 0.85, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -164,11 +164,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4819641785878007746}
+  m_Father: {fileID: 3629899749790337717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.15, y: 0.43}
-  m_AnchorMax: {x: 0.35, y: 0.83}
+  m_AnchorMin: {x: 0.15, y: 0}
+  m_AnchorMax: {x: 0.35, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -297,11 +297,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4819641785878007746}
+  m_Father: {fileID: 3629899749790337717}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4, y: 0.43}
-  m_AnchorMax: {x: 0.6, y: 0.83}
+  m_AnchorMin: {x: 0.4, y: 0}
+  m_AnchorMax: {x: 0.6, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -552,6 +552,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 145602938419406376, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7170965750178131600, guid: 41f8371956cd2594198ac0c027753317,
         type: 3}
       propertyPath: m_RootOrder
@@ -626,9 +631,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3484299086435560605}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &4819641785878007746 stripped
+--- !u!224 &3629899749790337717 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8266490319446926175, guid: 41f8371956cd2594198ac0c027753317,
+  m_CorrespondingSourceObject: {fileID: 145602938419406376, guid: 41f8371956cd2594198ac0c027753317,
     type: 3}
   m_PrefabInstance: {fileID: 3484299086435560605}
   m_PrefabAsset: {fileID: 0}
@@ -656,10 +661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8e2b3b699e9a847b34fecd3aa04b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parent: {fileID: 6043501763477525580}
   _unit: {fileID: 2897782484775931976, guid: 2ab826da64a9c8644b0aebe49a1aabee, type: 3}
-  _equalUnit: {fileID: 2897782484775931976, guid: 2ab826da64a9c8644b0aebe49a1aabee,
-    type: 3}
+  _equalUnit: {fileID: 0}
 --- !u!1 &6043501764524212750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7170965750178131603, guid: 41f8371956cd2594198ac0c027753317,
@@ -680,6 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 0
   _canvas: {fileID: 159597653546872787}
+  _trContainer: {fileID: 6043501763477525580}
   _clearAnim: {fileID: 3874819391319317771}
   _setter: {fileID: 3264278888854428558}
 --- !u!1001 &7586634103463951155
@@ -698,6 +702,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GUI_PlayStop
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007733108223021731, guid: 16f617e1c3ffbe0468e3b56986974ad4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6891651892761278501, guid: 16f617e1c3ffbe0468e3b56986974ad4,
         type: 3}

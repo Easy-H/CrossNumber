@@ -513,12 +513,17 @@ PrefabInstance:
     - target: {fileID: 754796902970902962, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_Name
-      value: GUI_PlayClear
+      value: GUI_Play_Clear
       objectReference: {fileID: 0}
     - target: {fileID: 754796902970902962, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821358666535938988, guid: 23cb81be9adacb647b197a9a3faca14b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2053961407090670898, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
@@ -534,6 +539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: openSequence.animations.Array.data[1].EventTime
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7495551885100646768, guid: 23cb81be9adacb647b197a9a3faca14b,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8663200740538180508, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}

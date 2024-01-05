@@ -16,12 +16,15 @@ public class AssetOpener : MonoBehaviour {
 
     public static XmlDocument ReadXML(string path)
     {
-        TextAsset xmlData = new TextAsset();
-        xmlData = (TextAsset)Resources.Load("XML/" + path, typeof(TextAsset));
+        TextAsset xmlData = (TextAsset)Resources.Load("XML/" + path, typeof(TextAsset));
 
         XmlDocument xmlDoc = new XmlDocument();
         xmlDoc.LoadXml(xmlData.text);
 
         return xmlDoc;
+    }
+
+    public static bool SaveXML<T>(string path, T data) {
+        return true;
     }
 }

@@ -192,6 +192,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1060646276 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1464884063582035363, guid: 9224f9a45ba3a58429f5a4389d41c276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1113346505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1113346505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -296,6 +302,11 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 7020064523904116899, guid: 9224f9a45ba3a58429f5a4389d41c276,
+        type: 3}
+      propertyPath: _trContainer
+      value: 
+      objectReference: {fileID: 1060646276}
     - target: {fileID: 8911422873725705558, guid: 9224f9a45ba3a58429f5a4389d41c276,
         type: 3}
       propertyPath: m_LocalPosition.y
