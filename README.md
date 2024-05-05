@@ -25,7 +25,7 @@
   - [ ] Firebase에서 원하는 레벨 불러오기 
 
 ## 라이선스
-MIT 라이센스에 따라 배포됩니다. 자세한 내용은 Licence.txt를 참고해주세요
+MIT 라이센스에 따라 배포됩니다. 자세한 내용은 LICENSE 파일을 참고해주세요
 
 ## 연락
 skysea001010@gmail.com
