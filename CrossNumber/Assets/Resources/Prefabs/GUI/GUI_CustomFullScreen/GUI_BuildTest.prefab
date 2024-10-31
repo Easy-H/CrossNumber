@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 813033846343833795, guid: ccf31ea3b34196849b11a8e1c8c3b455,
@@ -132,6 +133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7176026419757296507, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7176026419757296507, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6860961844979170369}
@@ -145,10 +151,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: GUIUploadCloud, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 7756699354047047187, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      propertyPath: _capture
+      value: 
+      objectReference: {fileID: 9120777958944292216}
+    - target: {fileID: 7756699354047047187, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      propertyPath: _container
+      value: 
+      objectReference: {fileID: 488838977295902613}
     - target: {fileID: 8433130214303708516, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081962189279950541, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9090293942745392846, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
@@ -166,7 +187,20 @@ PrefabInstance:
       value: GUIFullScreen, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6043501764524212750, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6860961844979170369}
   m_SourcePrefab: {fileID: 100100000, guid: ccf31ea3b34196849b11a8e1c8c3b455, type: 3}
+--- !u!1 &488838977295902613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9081962189279950541, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+    type: 3}
+  m_PrefabInstance: {fileID: 8701279985208987992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3107480299671425878 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6043501764524212750, guid: ccf31ea3b34196849b11a8e1c8c3b455,
@@ -183,5 +217,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b17b5c2638b3e14aa4654849ed77946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9120777958944292216 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 455614740862807072, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+    type: 3}
+  m_PrefabInstance: {fileID: 8701279985208987992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107480299671425878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0767287e0967ae94493f200ed30075ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

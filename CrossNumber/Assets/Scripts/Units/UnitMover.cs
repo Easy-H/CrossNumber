@@ -5,25 +5,22 @@ using static UnityEngine.GraphicsBuffer;
 
 public class UnitMover {
 
-    Transform _target;
-    Vector3 startPos;
+    IMoveable _target;
+    Vector2Int startPos;
 
     CustomStack<MoveData> _moves = new CustomStack<MoveData>();
 
-    public void StartMove(Transform target)
+    public void StartMove(IMoveable target)
     {
         _target = target;
-        startPos = target.position;
+        startPos = target.Pos;
     }
 
-    public void UnitMoveTo(Vector3 pos)
+    public void UnitMoveTo(Vector2Int pos)
     {
+        if (!_target.CanPlace(pos.x, pos.y)) return;
 
-        if (Physics2D.Raycast(pos, Vector2.down, 0.1f))
-            return;
-
-        UnitManager.Instance.GetUnitDataAt(_target.position).Pos = pos;
-        _target.position = pos;
+        _target?.SetPosition(pos.x, pos.y);
 
         SoundManager.Instance.PlayAudio("Move");
     }
@@ -50,7 +47,8 @@ public class UnitMover {
 
     public void MoveEnd()
     {
-        _moves.Push(new MoveData(_target, startPos, _target.position));
+        if (_target == null) return;
+        _moves?.Push(new MoveData(_target, startPos, _target.Pos));
         _target = null;
     }
 

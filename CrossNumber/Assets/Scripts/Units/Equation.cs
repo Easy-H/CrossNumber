@@ -68,7 +68,12 @@ public class Equation {
             {
                 // 재귀로 실행하면 괄호가 구현될듯 함
             }
-            nums[numsNum++] = int.Parse(_words[wordIdx++]);
+
+            if (!int.TryParse(_words[wordIdx++], out int tmp)) {
+                CanCalc = false;
+                return 0;
+            }
+            nums[numsNum++] = tmp;
 
             if (numsNum == 3)
             {

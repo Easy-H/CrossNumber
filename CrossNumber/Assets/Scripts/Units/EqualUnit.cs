@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using EHTool;
 using UnityEngine;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public class EqualUnit : Unit {
 
@@ -13,27 +12,26 @@ public class EqualUnit : Unit {
 
     private bool _errorOccurred;
 
-    public EqualUnit(Vector3 pos)
+    public override void SetValue(string value, int x, int y)
     {
-        Value = "=";
-        Pos = pos;
+        base.SetValue(value, x, y);
 
-        IsCalced = true;
+        GameManager.Instance.Playground.AddEqualUnit(this);
 
         for (int i = 0; i < 4; i++)
         {
             _error[i] = AssetOpener.ImportGameObject("Prefabs/Error").transform;
-            _error[i].SetParent(UnitManager.Instance.Container);
+            _error[i].SetParent(transform);
         }
 
-        _calcResultError[0] = AssetOpener.ImportGameObject("Prefabs/RedLine").GetComponent<DrawRedLine>();
-        _calcResultError[1] = AssetOpener.ImportGameObject("Prefabs/RedLine").GetComponent<DrawRedLine>();
+        _calcResultError[0] = AssetOpener.Import<DrawRedLine>("Prefabs/RedLine");
+        _calcResultError[1] = AssetOpener.Import<DrawRedLine>("Prefabs/RedLine");
 
-
-        _calcResultError[0].transform.SetParent(UnitManager.Instance.Container);
-        _calcResultError[1].transform.SetParent(UnitManager.Instance.Container);
+        _calcResultError[0].transform.SetParent(transform);
+        _calcResultError[1].transform.SetParent(transform);
 
     }
+
     public override void SetStateUnCalced()
     {
         base.SetStateUnCalced();
@@ -43,29 +41,28 @@ public class EqualUnit : Unit {
     }
 
     // 수식의 끝이 이상할 때 표시되는 에러
-    void Error(Vector3 pos)
+    void Error(Vector2Int pos)
     {
         _errorOccurred = true;
         _error[_useError].gameObject.SetActive(true);
-        _error[_useError++].position = pos;
+        _error[_useError++].position = new Vector2(pos.x, pos.y);
     }
 
     // 좌우의 수식, 상하의 수식의 값이 각각 동일한지를 확인한다.
     public bool Check()
     {
-
         bool used = false;
         _errorOccurred = false;
 
         EquationMaker maker = new EquationMaker();
 
         //side check;
-        string equation1 = maker.MakeEquation(Pos, Vector3.left, true);
-        string equation2 = maker.MakeEquation(Pos, Vector3.right, false);
+        string equation1 = maker.MakeEquation(Pos, Vector2Int.left, true);
+        string equation2 = maker.MakeEquation(Pos, Vector2Int.right, false);
 
         if (equation1.Length + equation2.Length != 0)
         {
-            CompareEquation(equation1, equation2, Vector3.right, 0);
+            CompareEquation(equation1, equation2, Vector2Int.right, 0);
             used = true;
         }
         else
@@ -75,12 +72,12 @@ public class EqualUnit : Unit {
 
         //upside-down check;
 
-        equation1 = maker.MakeEquation(Pos, Vector3.up, true);
-        equation2 = maker.MakeEquation(Pos, Vector3.down, false);
+        equation1 = maker.MakeEquation(Pos, Vector2Int.up, true);
+        equation2 = maker.MakeEquation(Pos, Vector2Int.down, false);
 
         if (equation1.Length + equation2.Length != 0)
         {
-            CompareEquation(equation1, equation2, Vector3.down, 1);
+            CompareEquation(equation1, equation2, Vector2Int.down, 1);
             used = true;
         }
         else
@@ -98,32 +95,35 @@ public class EqualUnit : Unit {
     }
 
     // 두 식이 계산이 되는지, 계산이 된다면 그 결과가 같은지 확인한다.
-    void CompareEquation(string e1, string e2, Vector3 direction, int i)
+    void CompareEquation(string e1, string e2, Vector2Int direction, int i)
     {
         bool canCalc = true;
 
         Equation equation1 = new Equation(e1);
         Equation equation2 = new Equation(e2);
 
+        int e1Len = e1.Replace(" ", "").Length - Regex.Matches(e1, @"\^").Count * 2;
+        int e2Len = e2.Replace(" ", "").Length - Regex.Matches(e2, @"\^").Count * 2;
+
         if (!equation1.CanCalc)
         {
             int freq = e1.Count(f => (f == ' '));
-            Error(Pos - direction * (e1.Length - freq + 1));
+            Error(Pos - direction * (e1Len + 1));
             canCalc = false;
         }
         if (!equation2.CanCalc)
         {
             int freq = e2.Count(f => (f == ' '));
-            Error(Pos + direction * (e2.Length - freq + 1));
+            Error(Pos + direction * (e2Len + 1));
             canCalc = false;
         }
 
         if (equation1.Value != equation2.Value && canCalc)
         {
-            int factor1 = e1.Length / 2 + 1;
-            int factor2 = e2.Length / 2 + 1;
+            Vector2 dir = new Vector2(direction.x, direction.y);
 
-            _calcResultError[i].DrawLine(Pos - direction * (factor1 - factor2) * 0.5f, direction, (factor1 + factor2) + 1);
+            _calcResultError[i].DrawLine(Pos - (e1Len - e2Len) * 0.5f * dir,
+                dir, (e1Len + e2Len) + 1);
 
             _errorOccurred = true;
             return;

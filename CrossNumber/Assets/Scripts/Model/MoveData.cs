@@ -4,12 +4,12 @@ using UnityEngine;
 
 [System.Serializable]
 public class MoveData {
-    public Transform unit { get; private set; }
+    public IMoveable unit { get; private set; }
 
-    public Vector3 beforeMovePos { get; private set; }
-    public Vector3 afterMovePos { get; private set; }
+    public Vector2Int beforeMovePos { get; private set; }
+    public Vector2Int afterMovePos { get; private set; }
 
-    public MoveData(Transform u, Vector3 origin, Vector3 moved)
+    public MoveData(IMoveable u, Vector2Int origin, Vector2Int moved)
     {
         unit = u;
         beforeMovePos = origin;

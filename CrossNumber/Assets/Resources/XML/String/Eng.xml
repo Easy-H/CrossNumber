@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<List>
+
+  <!-- 세팅 -->
+  <Element key="Close"	        value="Close"	/>
+
+  <!-- 언어 세팅 -->
+  <Element key="LanguageTitle"  value="Language"  />
+  <Element key="Korean"	        value="Korean"	/>
+  <Element key="English"	      value="English"	/>
+
+  <!-- 테마 세팅 -->
+  <Element key="ThemeTitle"	    value="Theme"	/>
+  <Element key="BasicTheme"	    value="Basic"	/>
+  <Element key="ChalkTheme"	    value="Chalk Board"	/>
+  <Element key="BlackTheme"	    value="Black Board"	/>
+
+  <!-- 크레딧의 내용-->
+  <Element key="MadeBy"	        value="Made by"	/>
+  <Element key="FontInfor"	    value="Use Font"	/>
+  <Element key="IconInfor"	    value="Use Icon"	/>
+  <Element key="PrivacyPolicy"	value="Privacy Policy"	/>
+
+  <Element key="Beginner"       value="Beginner"  />
+  <Element key="Intermediate"   value="Intermediate"  />
+  <Element key="Advanced"       value="Advanced"  />
+
+</List>

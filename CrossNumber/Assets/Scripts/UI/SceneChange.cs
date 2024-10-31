@@ -2,52 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class SceneChange : MonoBehaviour
-{
+public class SceneChange : MonoBehaviour {
+
+    [SerializeField] Canvas _canvas;
+    [SerializeField] RectTransform _trImg;
     [SerializeField] RawImage _capturedImage = null;
     [SerializeField] float _playTimeSecond = 2f;
+    [SerializeField] string _audio;
 
-    RectTransform _trImg;
-
-    static Texture2D _texture;
+    CallbackMethod _callback;
 
     // Start is called before the first frame update
+    static IList<SceneChange> list = new List<SceneChange>();
 
-    public void Show()
+    public void Show(Texture2D texture, CallbackMethod callback = null)
     {
-        _texture = null;
-        StopAllCoroutines();
-        gameObject.SetActive(true);
-        StartCoroutine(_Show());
-    }
 
-    IEnumerator _Show()
-    {
-        StartCoroutine(CaptureScreen());
-        yield return null;
-        gameObject.SetActive(true);
-        StartCoroutine(Animation());
-    }
+        foreach (SceneChange sc in list) {
+            sc._canvas.sortingOrder += 1;
+        }
 
-    public void Capture()
-    {
-        StartCoroutine(CaptureScreen());
+        list.Add(this);
 
-    }
-
-    public IEnumerator Animation() {
-
-        _trImg = _capturedImage.GetComponent<RectTransform>();
-
-        if (_texture) {
-            _capturedImage.texture = _texture;
+        _callback += callback;
+        if (texture)
+        {
+            _capturedImage.texture = texture;
             _capturedImage.color = Color.white;
         }
 
         _trImg.anchorMin = Vector2.zero;
         _trImg.anchorMax = Vector2.one;
+        _trImg.eulerAngles = Vector3.zero;
+
+        StopAllCoroutines();
+        gameObject.SetActive(true);
+        StartCoroutine(Animation());
+        SoundManager.Instance.PlayAudio(_audio);
+    }
+
+    private IEnumerator Animation() {
 
         float spendTime = 0;
 
@@ -57,23 +52,16 @@ public class SceneChange : MonoBehaviour
 
             _trImg.anchorMin -= Vector2.one * Time.deltaTime;
             _trImg.anchorMax -= Vector2.one * Time.deltaTime;
-            _trImg.eulerAngles = Vector3.forward * 45 * angle;
+            _trImg.eulerAngles = 23 * angle * Vector3.forward;
 
             spendTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
-    }
+        list.Remove(this);
+        _callback?.Invoke();
+        Destroy(gameObject);
 
-    public IEnumerator CaptureScreen()
-    {
-        _capturedImage.color = Color.clear;
-        _texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-
-        yield return new WaitForEndOfFrame();
-
-        _texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0, false);
-        _texture.Apply();
     }
 
 }

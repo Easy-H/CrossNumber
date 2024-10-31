@@ -1,10 +1,26 @@
 mergeInto(LibraryManager.library, {
+    FirestoreConnect: function(path, firebaseConfigValue) {
+        
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+        var firebaseConfig = JSON.parse(UTF8ToString(firebaseConfigValue));
+        
+        firebaseApp = firebase.initializeApp(firebaseConfig);
+        
+        auth = firebaseApp.auth();
+        db = firebase.firestore();
+
+    },
     PostJSON: function(path, value, objectName, callback, fallback) {
-        var parsedPath = Pointer_stringify(path);
-        var parsedValue = Pointer_stringify(value);
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
-        var parsedFallback = Pointer_stringify(fallback);
+        var parsedPath = UTF8ToString(path);
+        var parsedValue = UTF8ToString(value);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
         
         var newPostKey = firebase.database().ref().child(parsedPath).push().key;
 
@@ -17,19 +33,17 @@ mergeInto(LibraryManager.library, {
         updates['/' + parsedPath + '/' + newPostKey] = postData;
 
         firebase.database().ref().update(updates).then((unityInstance) => {
-            TestAlert("Post Success");
             //fullscreenButton.onclick = () => { unityInstance.SetFullscreen(1); };
         }).catch((message) => {
-            TestAlert("Post Fail");
         });;
 
     },
     UploadMap: function(name, value, objectName, callback, fallback) {
-        var parsedName = Pointer_stringify(name);
-        var parsedValue = Pointer_stringify(value);
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
-        var parsedFallback = Pointer_stringify(fallback);
+        var parsedName = UTF8ToString(name);
+        var parsedValue = UTF8ToString(value);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
         
         var batch = db.batch();
 
@@ -41,37 +55,35 @@ mergeInto(LibraryManager.library, {
           "key": mapUnit.id,
           "name": parsedName
         });
-        TestAlert(parsedValue);
         batch.set(mapUnit, JSON.parse(parsedValue));
 
         batch.commit();
 
+        console.log(parsedValue);
+
     },
     GetLevelData: function(path, objectName, callback) {
         
-        var parsedPath = Pointer_stringify(path);
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
+        var parsedPath = UTF8ToString(path);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
 
         var docRef = db.collection("MapData").doc(parsedPath);
 
         docRef.get().then((doc) => {
             if (doc.exists) {
-                TestAlert(JSON.stringify(doc.data()));
                 window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(doc.data()));
             
             } else {
-                TestAlert("Fail");
             }
         }).catch((error) => {
-            TestAlert("TTT: Fail");
         });
 
 
     },
     GetJSON: function(objectName, callback, fallback) {
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
         db.collection("MapId").get().then((snapshot) => {
             var documents = [];
             snapshot.forEach((documentSnapshot) => {
@@ -88,19 +100,17 @@ mergeInto(LibraryManager.library, {
             randomDocuments.forEach((ds) => {
                 retval[ds.id] = ds.data();
             });
-            TestAlert(JSON.stringify(retval));
             window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(retval));
         });
     },
     WebAlert: function(value) {
-        TestAlert(Pointer_stringify(value));
 
     }
     /*
     GetJSON: function(objectName, callback, fallback) {
         
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
 
         var collectionRef = db.collection("MapId");
 
@@ -128,7 +138,6 @@ mergeInto(LibraryManager.library, {
                 retval[ds.id] = ds.data();
             });
             window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(retval));
-            TestAlert(JSON.stringify(retval));
             
         }).catch(error => {
             console.error('Failed to fetch documents:', error);
@@ -137,16 +146,15 @@ mergeInto(LibraryManager.library, {
     },
     GetJSON: function(path, objectName, callback, fallback) {
         
-        var parsedPath = Pointer_stringify(path);
+        var parsedPath = UTF8ToString(path);
         parsedPath = "Leader";
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
-        var parsedFallback = Pointer_stringify(fallback);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
 
         firebase.database().ref(parsedPath).get().then((snapshot) => {
             if (snapshot.exists()) {
                 window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(snapshot));
-                TestAlert(JSON.stringify(snapshot));
             } else {
                 console.log("No data available");
             }
@@ -156,7 +164,6 @@ mergeInto(LibraryManager.library, {
         
         firebase.database().ref(parsedPath).on('value', (snapshot) => {
             window.unityInstance.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(snapshot));
-            TestAlert(JSON.stringify(snapshot));
         });
 
 

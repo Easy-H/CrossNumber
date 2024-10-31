@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using EHTool.UIKit;
+using System.Collections.Generic;
+using EHTool;
 
 public class GUICustomFullScreen : GUIFullScreen {
 
-    public Canvas _canvas;
     [SerializeField] Transform _trContainer;
-    SceneChange _effect;
+    [SerializeField] GameObject _container;
+    [SerializeField] Capture _capture;
+
+    public Canvas _canvas;
 
     Transform _trCamera;
     Transform _trBoard;
@@ -13,33 +18,72 @@ public class GUICustomFullScreen : GUIFullScreen {
     protected UnitMover mover;
     Vector3 _originMouseInput;
 
+    protected CallbackMethod _captureCallback;
+    protected CallbackMethod _effectCallback;
+
     protected enum MotionState { Idle, CameraMoving, UnitMoving }
     protected MotionState _state = MotionState.Idle;
 
-    protected override void Open()
+    protected void CaptureAndEvent(CallbackMethod callback)
     {
+        _capture.CaptureScreen((texture) =>
+        {
+            AssetOpener.Import<SceneChange>("Prefabs/GUI/GUI_Capture").Show(texture, _effectCallback);
+            callback?.Invoke();
+            _effectCallback = null;
+        });
+
+    }
+
+    public override void Open()
+    {
+        _isSetting = true;
+
         _trCamera = Camera.main.transform;
-        _trBoard = GameObject.FindWithTag("Board").transform;
         _trCamera.position = Vector3.back * 10;
 
-        // 나중에 장면 전환 효과를 넣기
-        
-        //_effect = UIManager.OpenGUI<SceneChange>("Capture");
+        _popupUI = new List<IGUIPopUp>();
 
         _trBoard = GameObject.FindWithTag("Board").transform;
         _state = MotionState.Idle;
 
-
-        UIManager.Instance.EnrollmentGUI(this);
         UnitManager.Instance.Refresh();
 
         mover = new UnitMover();
 
+        _effectCallback = null;
+
+        _container.SetActive(false);
+
+        CaptureAndEvent(() => {
+            UIManager.Instance.OpenFullScreen(this);
+            _container.SetActive(true);
+            _captureCallback?.Invoke();
+
+        });
+
     }
 
-    protected virtual void OnEnable()
+    public override void SetOn()
     {
-        UnitManager.Instance.Container = _trContainer;
+        base.SetOn();
+        GameManager.Instance.Playground.Dispose();
+        _container.SetActive(true);
+    }
+
+    public override void SetOff()
+    {
+        base.SetOff();
+        _container.SetActive(false);
+    }
+
+    public override void Close()
+    {
+        CaptureAndEvent(() => {
+            _container.SetActive(false);
+            base.Close();
+
+        });
     }
 
     public void Pop() {
@@ -47,14 +91,8 @@ public class GUICustomFullScreen : GUIFullScreen {
         gameObject.SetActive(true);
     }
 
-    public override void Close() {
-        base.Close();
-        GameManager.Instance._pause = false;
-    }
-
     public void OpenScene(int idx)
     {
-        GameManager.Instance._pause = false;
         SceneManager.LoadScene(idx);
     }
 
@@ -62,6 +100,7 @@ public class GUICustomFullScreen : GUIFullScreen {
         base.OpenWindow(key);
         _state = MotionState.Idle;
     }
+
     public void PlayAnim(GUIAnimatedOpen gui)
     {
         gui.Open();
@@ -70,7 +109,7 @@ public class GUICustomFullScreen : GUIFullScreen {
     protected virtual void Update()
     {
 
-        if (GameManager.Instance._pause == true)
+        if (_nowPopUp != null)
         {
             _state = MotionState.Idle;
             return;
@@ -96,22 +135,22 @@ public class GUICustomFullScreen : GUIFullScreen {
             return;
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10;
-        UnitController selectedUnit = UnitManager.Instance.GetUnitControllerAt(mousePos);
+        Unit selectedUnit = UnitManager.Instance.GetUnitControllerAt(mousePos);
+
+        IMoveable moveable = GameManager.Instance.Playground.GetMoveableAt(
+            Mathf.RoundToInt(mousePos.x), Mathf.RoundToInt(mousePos.y));
 
         MoveSet(selectedUnit);
-
+        MoveSet(moveable);
     }
 
-    protected void MoveSet(UnitController unit)
+    protected void MoveSet(IMoveable unit)
     {
+        if (unit == null) return;
 
-        if (unit)
-        {
-            _state = MotionState.UnitMoving;
-            _originMouseInput = new Vector3(unit.transform.position.x, unit.transform.position.y, 0);
-            mover.StartMove(unit.transform);
-
-        }
+        _state = MotionState.UnitMoving;
+        _originMouseInput = new Vector3(unit.Pos.x, unit.Pos.y, 0);
+        mover.StartMove(unit);
 
     }
 
@@ -163,7 +202,8 @@ public class GUICustomFullScreen : GUIFullScreen {
             return;
         }
 
-        mover.UnitMoveTo(placePos);
+        mover.UnitMoveTo(new Vector2Int(
+            Mathf.RoundToInt(placePos.x), Mathf.RoundToInt(placePos.y)));
         _originMouseInput = placePos;
         UnitPosChangeEvent();
     }

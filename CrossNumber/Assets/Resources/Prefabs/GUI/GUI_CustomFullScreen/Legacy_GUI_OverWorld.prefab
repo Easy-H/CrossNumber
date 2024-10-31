@@ -33,7 +33,6 @@ RectTransform:
   m_Children:
   - {fileID: 2955018419676852854}
   m_Father: {fileID: 2834070574218931729}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.3}
   m_AnchorMax: {x: 0.3, y: 0.9}
@@ -167,7 +166,6 @@ RectTransform:
   m_Children:
   - {fileID: 5263069320171494992}
   m_Father: {fileID: 2834070574218931729}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7, y: 0.3}
   m_AnchorMax: {x: 1, y: 0.9}
@@ -278,7 +276,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1393708122288690687}
   - component: {fileID: 2141574072974877660}
-  - component: {fileID: 9166009733867303102}
   - component: {fileID: 5528791866075293920}
   m_Layer: 5
   m_Name: NTxt_OverworldName
@@ -300,7 +297,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2834070574218931729}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.3}
   m_AnchorMax: {x: 0.7, y: 0.9}
@@ -315,41 +311,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2946232043754384960}
   m_CullTransparentMesh: 1
---- !u!114 &9166009733867303102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2946232043754384960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400d0541b7e395c42af8b20a90b6a982, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 852453ac4469fbb4fb6a818b7d6a610b, type: 3}
-    m_FontSize: 14
-    m_FontStyle: 1
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 300
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 
-  m_Key: 
 --- !u!114 &5528791866075293920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +357,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7539683841505679581}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.1}
   m_AnchorMax: {x: 1, y: 0.9}
@@ -491,7 +451,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5501626861298060071}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.1}
   m_AnchorMax: {x: 1, y: 0.9}
@@ -559,6 +518,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -622,7 +582,16 @@ PrefabInstance:
       value: GUI_OverWorldButton (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
+--- !u!4 &1423453971826458616 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 498206150501497067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5998359673454645641 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6185570449284704610, guid: 45c337cce13c822478e8e9a85093f999,
@@ -640,6 +609,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -703,7 +673,16 @@ PrefabInstance:
       value: GUI_OverWorldButton (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
+--- !u!4 &4502403581532346475 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 3121878760273829752}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9116600370640057882 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6185570449284704610, guid: 45c337cce13c822478e8e9a85093f999,
@@ -721,6 +700,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -784,6 +764,9 @@ PrefabInstance:
       value: GUI_OverWorldButton (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &2153057814166702036 stripped
 MonoBehaviour:
@@ -797,11 +780,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6709898503463004581 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 5203554371598397110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5233573950482468344
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -865,6 +855,9 @@ PrefabInstance:
       value: GUI_OverWorldButton (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &2123144079389385882 stripped
 MonoBehaviour:
@@ -878,11 +871,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6740067598746323691 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 5233573950482468344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5266880465997071834
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -946,6 +946,9 @@ PrefabInstance:
       value: GUI_OverWorldButton (9)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &2071717873167346872 stripped
 MonoBehaviour:
@@ -959,11 +962,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6647123806146577097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 5266880465997071834}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5483528232085434615
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -1027,6 +1037,9 @@ PrefabInstance:
       value: GUI_OverWorldButton (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &1859679138651281813 stripped
 MonoBehaviour:
@@ -1040,11 +1053,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6427063128648644580 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 5483528232085434615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5608508495122690036
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -1108,6 +1128,9 @@ PrefabInstance:
       value: GUI_OverWorldButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &1730195138682603158 stripped
 MonoBehaviour:
@@ -1121,11 +1144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6412431802976676071 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 5608508495122690036}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6191566640486944078
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7170965750178131600, guid: 41f8371956cd2594198ac0c027753317,
@@ -1189,6 +1219,65 @@ PrefabInstance:
       value: Legacy_GUI_OverWorld
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6412431802976676071}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6427063128648644580}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4502403581532346475}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6709898503463004581}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9186504887015203455}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8399322449709392483}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1423453971826458616}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6740067598746323691}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8367194656179661904}
+    - targetCorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6647123806146577097}
+    - targetCorrespondingSourceObject: {fileID: 8266490319446926175, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1393708122288690687}
+    - targetCorrespondingSourceObject: {fileID: 8266490319446926175, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7539683841505679581}
+    - targetCorrespondingSourceObject: {fileID: 8266490319446926175, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5501626861298060071}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7170965750178131603, guid: 41f8371956cd2594198ac0c027753317,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2577528226915333302}
   m_SourcePrefab: {fileID: 100100000, guid: 41f8371956cd2594198ac0c027753317, type: 3}
 --- !u!224 &2834070574218931729 stripped
 RectTransform:
@@ -1215,8 +1304,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 0
-  _canvas: {fileID: 7458360899107163648}
   _trContainer: {fileID: 0}
+  _container: {fileID: 0}
+  _capture: {fileID: 0}
+  _canvas: {fileID: 7458360899107163648}
   _buttons:
   - {fileID: 1730195138682603158}
   - {fileID: 1859679138651281813}
@@ -1229,7 +1320,7 @@ MonoBehaviour:
   - {fileID: 3810419920722575905}
   - {fileID: 2071717873167346872}
   _buttonContainer: {fileID: 3920592749397669279}
-  _worldNameText: {fileID: 9166009733867303102}
+  _btnCanvas: {fileID: 0}
 --- !u!4 &3920592749397669279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7170965751215683793, guid: 41f8371956cd2594198ac0c027753317,
@@ -1247,6 +1338,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -1310,6 +1402,9 @@ PrefabInstance:
       value: GUI_OverWorldButton (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &3810419920722575905 stripped
 MonoBehaviour:
@@ -1323,11 +1418,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8367194656179661904 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 7005027302534376259}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7041526756167099760
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -1391,6 +1493,9 @@ PrefabInstance:
       value: GUI_OverWorldButton (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &3778248284175010834 stripped
 MonoBehaviour:
@@ -1404,11 +1509,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8399322449709392483 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 7041526756167099760}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7662278311190832492
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3920592749397669279}
     m_Modifications:
     - target: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
@@ -1472,6 +1584,9 @@ PrefabInstance:
       value: GUI_OverWorldButton (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c337cce13c822478e8e9a85093f999, type: 3}
 --- !u!114 &4576341161101298702 stripped
 MonoBehaviour:
@@ -1485,3 +1600,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4893ea5c984d1fc4e90ca430b14c078b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &9186504887015203455 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1524719174484215571, guid: 45c337cce13c822478e8e9a85093f999,
+    type: 3}
+  m_PrefabInstance: {fileID: 7662278311190832492}
+  m_PrefabAsset: {fileID: 0}

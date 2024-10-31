@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class EquationMaker {
-    public int ContainCharCount { get; private set; }
 
     private string _value;
     private bool _lastIsNum;
@@ -9,32 +8,25 @@ public class EquationMaker {
     public EquationMaker()
     {
         _value = "";
-        ContainCharCount = 0;
-        _lastIsNum = false;
-    }
-
-    public EquationMaker(string s)
-    {
-        _value = s;
-        ContainCharCount = 0;
         _lastIsNum = false;
     }
 
     // 필드에 있는 유닛을 문자열 수식으로 만든다.
-    public string MakeEquation(Vector3 pos, Vector3 dir, bool back)
+    public string MakeEquation(Vector2Int pos, Vector2Int dir, bool back)
     {
         _value = "";
 
-        for (Unit unit = UnitManager.Instance.GetUnitDataAt(pos + dir); unit != null; unit = UnitManager.Instance.GetUnitDataAt(pos + dir))
+        while (true)
         {
-            string value = unit.Value;
-            if (value == null)
+            pos += dir;
+
+            Unit value = GameManager.Instance.Playground.GetDataAt(pos.x, pos.y);
+            if (value == null || value.Value.Equals("=") || value.Value.Equals(""))
                 break;
 
-            unit.IsCalced = true;
-            _AddValue(value, back);
+            _AddValue(value.Value, back);
+            value.SetStateCalced();
 
-            pos += dir;
         }
 
         _value = _value.Trim();
@@ -61,7 +53,6 @@ public class EquationMaker {
                 _value = _value + str;
         }
         _lastIsNum = isNum;
-        ContainCharCount++;
 
     }
 

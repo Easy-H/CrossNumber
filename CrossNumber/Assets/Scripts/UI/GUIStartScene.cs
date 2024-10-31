@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using EHTool.UIKit;
 
 public class GUIStartScene : GUICustomFullScreen
 {
 
     public void OpenUI(string uiName) {
-        UIManager.OpenGUI<GUIWindow>(uiName);
+        UIManager.Instance.OpenGUI<GUIWindow>(uiName);
     }
 }

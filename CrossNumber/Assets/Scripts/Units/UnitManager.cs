@@ -1,9 +1,7 @@
-using System.Collections;
+using EHTool;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEngine.UI.CanvasScaler;
 
 public class UnitManager : Singleton<UnitManager> {
 
@@ -12,48 +10,15 @@ public class UnitManager : Singleton<UnitManager> {
 
     public Transform Container { get; set; }
 
-    protected override void OnCreate()
-    {
-        base.OnCreate();
-
-    }
-
-    public UnitController BuilderCreateUnit(string value, Vector3 pos)
+    public Unit BuilderCreateUnit(string value, Vector3 pos)
     {
 
         if (EventSystem.current.IsPointerOverGameObject()) return null;
 
-        UnitController unit = AssetOpener.ImportGameObject("Prefabs/Unit").GetComponent<UnitController>();
+        Unit unit = AssetOpener.ImportGameObject("Prefabs/Unit").GetComponent<Unit>();
 
         unit.transform.SetParent(Container);
-        unit.SetValue(value, pos);
-
-        Units.Add(unit.GetData());
-
-        if (value.Equals("="))
-        {
-            EqualUnits.Add((EqualUnit)unit.GetData());
-
-        }
-
-        return unit;
-    }
-
-    public UnitController CreateUnit(string value, Vector3 pos)
-    {
-
-        UnitController unit = AssetOpener.ImportGameObject("Prefabs/Unit").GetComponent<UnitController>();
-
-        unit.transform.SetParent(Container);
-        unit.SetValue(value, pos);
-
-        Units.Add(unit.GetData());
-
-        if (value.Equals("="))
-        {
-            EqualUnits.Add((EqualUnit)unit.GetData());
-
-        }
+        unit.SetValue(value, Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
 
         return unit;
     }
@@ -64,32 +29,21 @@ public class UnitManager : Singleton<UnitManager> {
         EqualUnits = new List<EqualUnit>();
     }
 
-    public Unit GetUnitDataAt(Vector3 pos)
+    public Unit GetUnitControllerAt(Vector3 pos)
     {
-        UnitController cntl = GetUnitControllerAt(pos);
-
-        if (cntl == null)
-            return null;
-
-        return cntl.GetData();
-    }
-
-    public UnitController GetUnitControllerAt(Vector3 pos)
-    {
-        UnitController unit = default;
+        Unit unit = default;
 
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.down, 0.1f, -1);
 
         if (hit)
-            unit = hit.transform.GetComponent<UnitController>();
+            unit = hit.transform.GetComponent<Unit>();
 
         return unit;
     }
 
-    public void DestroyUnit(UnitController obj)
+    public void DestroyUnit(Unit obj)
     {
-        Units.Remove(obj.GetData());
-        Object.Destroy(obj.gameObject);
+        Units.Remove(obj);
     }
 
 }

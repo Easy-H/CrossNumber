@@ -1,4 +1,4 @@
-using System.Collections;
+using EHTool;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
@@ -52,10 +52,6 @@ public class SoundManager : MonoSingleton<SoundManager> {
         {
             _audio.clip = Resources.Load(value) as AudioClip;
 
-        }
-        else if (audioName.Equals("NoSound"))
-        {
-            return;
         }
         else
         {
