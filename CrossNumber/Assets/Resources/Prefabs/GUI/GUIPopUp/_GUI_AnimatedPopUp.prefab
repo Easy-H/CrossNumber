@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 1878628518042842618}
   - component: {fileID: 5109224204030597498}
   m_Layer: 5
-  m_Name: GUI_AnimatedPopUp
+  m_Name: _GUI_AnimatedPopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,16 +1,20 @@
+using EHTool.UIKit;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GUIUploadCloud : MonoBehaviour
 {
-    StageData _data;
+
+    [SerializeField] InputField _name;
     
     public void Upload() {
-        StageManager.Instance.UploadStage("2 + 3", _data);
-    }
+        StageManager.Instance.GetLocalStageData("Temp", (data) => {
+            StageManager.Instance.UploadStage(_name.text, data);
+            StageManager.Instance.SaveBuildStage(new StageData());
+            UIManager.Instance.NowDisplay.Close();
 
-    public void SetData(StageData data) {
-        _data = data;
+        });
     }
 }

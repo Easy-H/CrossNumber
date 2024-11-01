@@ -25,7 +25,7 @@ public class GUIOverWorldButton : MonoBehaviour {
     }
 
     void OpenLevel(StageData data) {
-        UIManager.Instance.OpenGUI<GUIPlayScene>("Play").SetStage(data);
+        UIManager.Instance.OpenGUI<GUIPlay>("Play").SetStage(data);
     }
     
 }

@@ -2,7 +2,7 @@ using EHTool;
 using EHTool.UIKit;
 using System.Xml;
 using UnityEngine;
-public class GUIBuildScene : GUICustomFullScreen {
+public class GUIBuild : GUICustomFullScreen {
 
     [SerializeField] LevelMaker _setter;
     [SerializeField] GUIAnimatedOpen _editToolContainer;
@@ -17,7 +17,6 @@ public class GUIBuildScene : GUICustomFullScreen {
         {
             _setter.MakeLevel(data);
         });
-        ChangePen("1");
     }
 
     public void ChangePen(string value)
@@ -31,6 +30,7 @@ public class GUIBuildScene : GUICustomFullScreen {
         if (!Input.GetMouseButtonDown(0))
         {
             base.Update();
+            GameManager.Instance.Playground.HasError();
             return;
         }
 
@@ -51,16 +51,19 @@ public class GUIBuildScene : GUICustomFullScreen {
                 SoundManager.Instance.PlayAudio("Move");
                 MoveSet(newUnit);
             }
+            GameManager.Instance.Playground.HasError();
 
             return;
         }
 
         if (!_penValue.Equals("Erase")) {
             MoveSet(unit);
+            GameManager.Instance.Playground.HasError();
             return;
         }
 
         GameManager.Instance.Playground.RemoveUnitAt(unit);
+        GameManager.Instance.Playground.HasError();
     }
 
     public void GenerateWorld(string name)
@@ -88,10 +91,7 @@ public class GUIBuildScene : GUICustomFullScreen {
         StageData newStage = new StageData(Document);
         StageManager.Instance.SaveBuildStage(newStage);
 
-        GUIPlayScene temp = UIManager.Instance.OpenGUI<GUIPlayScene>("BuildTest");
-
-        temp.SetStage(newStage);
-        temp.GetComponent<GUIUploadCloud>().SetData(newStage);
+        UIManager.Instance.OpenGUI<GUIPlay>("BuildTest").SetStage(newStage);
 
     }
 

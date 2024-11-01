@@ -414,6 +414,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUI_PlayClear
       objectReference: {fileID: 0}
+    - target: {fileID: 4605135372636617352, guid: 5b51737d7c03cc949b421a22cf2df8d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5595993965353488550, guid: 5b51737d7c03cc949b421a22cf2df8d1,
         type: 3}
       propertyPath: m_Pivot.x

@@ -22,7 +22,7 @@ public class Legacy_GUIOverWorldButton : MonoBehaviour
     }
 
     public void GotoStage() {
-        GUIPlayScene window = UIManager.Instance.OpenGUI<GUIPlayScene>("Play");
+        GUIPlay window = UIManager.Instance.OpenGUI<GUIPlay>("Play");
         window.SetStage(new StageData(_value));
     }
     

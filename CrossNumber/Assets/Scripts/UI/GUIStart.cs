@@ -1,6 +1,6 @@
 using EHTool.UIKit;
 
-public class GUIStartScene : GUICustomFullScreen
+public class GUIStart : GUICustomFullScreen
 {
 
     public void OpenUI(string uiName) {

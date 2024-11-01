@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <List>
-  <Element name="Setting"	    path="Prefabs/GUI/GUI_AnimatedLine/GUI_Setting" />
-  <Element name="Credit"	    path="Prefabs/GUI/GUI_Credit" />
+  <Element name="Setting"	    path="Prefabs/GUI/GUIFullScreen/GUI_Setting" />
+  <Element name="Credit"	    path="Prefabs/GUI/GUIFullScreen/GUI_Credit" />
   
-  <Element name="Capture"	    path="Prefabs/GUI/GUI_Capture" />
+  <Element name="OverWorld"	  path="Prefabs/GUI/GUIFullScreen/GUI_OverWorld" />
   
-  <Element name="OverWorld"	  path="Prefabs/GUI/GUI_CustomFullScreen/GUI_OverWorld" />
-  
-  <Element name="Play"	      path="Prefabs/GUI/GUI_CustomFullScreen/GUI_Play" />
-  <Element name="Stop"	      path="Prefabs/GUI/GUI_AnimatedLine/GUI_PlayStop" />
-  <Element name="Clear"	      path="Prefabs/GUI/GUI_AnimatedLine/GUI_PlayClear" />
+  <Element name="Play"	      path="Prefabs/GUI/GUIFullScreen/GUI_Play" />
+  <Element name="Stop"	      path="Prefabs/GUI/GUIPopUp/GUI_PlayStop" />
+  <Element name="Clear"	      path="Prefabs/GUI/GUIPopUp/GUI_PlayClear" />
 	
-  <Element name="Build"	      path="Prefabs/GUI/GUI_CustomFullScreen/GUI_Build" />
-  <Element name="Loading"	    path="Prefabs/GUI/GUI_CustomFullScreen/GUI_Loading" />
-  <Element name="BuildTest"   path="Prefabs/GUI/GUI_CustomFullScreen/GUI_BuildTest" />
+  <Element name="Build"	      path="Prefabs/GUI/GUIFullScreen/GUI_Build" />
+  <Element name="Loading"	    path="Prefabs/GUI/GUIFullScreen/GUI_Loading" />
+  <Element name="BuildTest"   path="Prefabs/GUI/GUIFullScreen/GUI_BuildTest" />
 
 </List>

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUIPlayScene : GUICustomFullScreen {
+public class GUIPlay : GUICustomFullScreen {
 
     [SerializeField] GUIAnimatedOpen _clear;
     [SerializeField] LevelMaker _setter;
@@ -79,7 +79,7 @@ public class GUIPlayScene : GUICustomFullScreen {
 
     public void ReloadScene()
     {
-        UIManager.Instance.OpenGUI<GUIPlayScene>("Play").SetStage(_data);
+        UIManager.Instance.OpenGUI<GUIPlay>("Play").SetStage(_data);
         Close();
     }
 
