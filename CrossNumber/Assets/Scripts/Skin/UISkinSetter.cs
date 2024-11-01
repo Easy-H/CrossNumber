@@ -12,7 +12,7 @@ public class UISkinSetter : MonoBehaviour, IObserver<SkinData> {
 
     [SerializeField] NeedColor _skinNeed = NeedColor.Unit;
 
-    [SerializeField] Graphic _source;
+    [SerializeField] Graphic? _source;
 
 
     public void OnCompleted()

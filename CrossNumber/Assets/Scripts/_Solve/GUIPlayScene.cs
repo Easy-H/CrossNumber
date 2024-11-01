@@ -12,13 +12,6 @@ public class GUIPlayScene : GUICustomFullScreen {
     string _levelName;
     StageData _data;
 
-    public override void Open()
-    {
-        base.Open();
-        GameManager.Instance.Playground = new SolvePlayground();
-
-    }
-
     public void SetStage(StageData data)
     {
         //_levelName = path;

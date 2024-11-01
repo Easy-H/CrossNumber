@@ -111,6 +111,7 @@ public class SolvePlayground : IPlayground {
     }
 
     public void Dispose() {
+
         for (int i = 0; i < _units.Count; i++) {
             _units[i].Remove();
         }

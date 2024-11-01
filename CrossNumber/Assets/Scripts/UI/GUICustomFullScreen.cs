@@ -115,6 +115,8 @@ public class GUICustomFullScreen : GUIFullScreen {
             return;
         }
 
+        if (MobileUITouchDetector.IsPointerOverUIObject()) return;
+
         switch (_state)
         {
             case MotionState.Idle:

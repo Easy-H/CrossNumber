@@ -23,7 +23,7 @@ public class LevelMaker : MonoBehaviour
 
     }
 
-    private void CreateUnit(string value, Vector3 pos) {
+    public Unit CreateUnit(string value, Vector3 pos) {
 
         Unit unit;
 
@@ -40,5 +40,6 @@ public class LevelMaker : MonoBehaviour
 
         unit.SetValue(value, Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
 
+        return unit;
     }
 }

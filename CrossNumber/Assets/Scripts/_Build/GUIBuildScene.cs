@@ -13,17 +13,11 @@ public class GUIBuildScene : GUICustomFullScreen {
     public override void SetOn()
     {
         base.SetOn();
-        GameManager.Instance.Playground = new SolvePlayground();
         StageManager.Instance.GetLocalStageData("Temp", (data) =>
         {
             _setter.MakeLevel(data);
         });
         ChangePen("1");
-    }
-
-    public override void Close()
-    {
-        base.Close();
     }
 
     public void ChangePen(string value)
@@ -40,6 +34,8 @@ public class GUIBuildScene : GUICustomFullScreen {
             return;
         }
 
+        if (MobileUITouchDetector.IsPointerOverUIObject()) return;
+
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Unit unit = GameManager.Instance.Playground.GetDataAt(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
@@ -48,7 +44,7 @@ public class GUIBuildScene : GUICustomFullScreen {
         {
             if (_penValue.Equals("Erase")) return;
 
-            Unit newUnit = UnitManager.Instance.BuilderCreateUnit(_penValue, pos);
+            Unit newUnit = _setter.CreateUnit(_penValue, pos);
 
             if (newUnit)
             {

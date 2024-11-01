@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5543761011296827386}
   - component: {fileID: 433800845914194189}
   - component: {fileID: 7369308425733132060}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas_Unit (D)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 2304704267789310832}
   - component: {fileID: 2390151139167647421}
   - component: {fileID: 3196385099052891447}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas_Unit(C)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 8706115398990073899}
   - component: {fileID: 3286629001046639727}
   - component: {fileID: 2987950554767705599}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 7674618466217223377}
   - component: {fileID: 8270381078636802145}
   - component: {fileID: 3090170885881313005}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 7841029254895637519}
   - component: {fileID: 304750418276570940}
   - component: {fileID: 3074758826510537543}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas_Unit (R)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1083,7 +1083,7 @@ GameObject:
   - component: {fileID: 222747803933818412}
   - component: {fileID: 7360005542082755260}
   - component: {fileID: 3017967324950345285}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas_Unit (T)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1197,7 +1197,7 @@ GameObject:
   - component: {fileID: 2295476174975753849}
   - component: {fileID: 3864623546839329338}
   - component: {fileID: 2715957942987434245}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1449,7 +1449,7 @@ GameObject:
   - component: {fileID: 159268942452417650}
   - component: {fileID: 7080213979877589358}
   - component: {fileID: 608131505827766889}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1599,7 +1599,7 @@ GameObject:
   - component: {fileID: 1815827009756395044}
   - component: {fileID: 133387124106437780}
   - component: {fileID: 8368572549621173011}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2883,7 +2883,7 @@ GameObject:
   - component: {fileID: 2073348041281702880}
   - component: {fileID: 1584372453935993256}
   - component: {fileID: 5530718364858450638}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas_Unit (S)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3456,7 +3456,6 @@ GameObject:
   - component: {fileID: 2304751855335789702}
   - component: {fileID: 8454698672739550810}
   - component: {fileID: 2370101663705081881}
-  - component: {fileID: 4558113266721309497}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -3504,7 +3503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3525,20 +3524,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: X
---- !u!114 &4558113266721309497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5907178476095263542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113389bbc6cd1474098ada91f8573f61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _skinNeed: 1
-  _source: {fileID: 2370101663705081881}
 --- !u!1 &6056389668219552954
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,7 +3537,7 @@ GameObject:
   - component: {fileID: 8699993545341720723}
   - component: {fileID: 4539833099086748222}
   - component: {fileID: 6537828776238061895}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas_Unit (E)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4107,7 +4092,7 @@ GameObject:
   - component: {fileID: 8525693969813542896}
   - component: {fileID: 5103779017436799258}
   - component: {fileID: 5624860147854854182}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4642,7 +4627,7 @@ GameObject:
   - component: {fileID: 4668575157622835863}
   - component: {fileID: 8808226229167584349}
   - component: {fileID: 8248127997131888221}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5725,7 +5710,7 @@ GameObject:
   - component: {fileID: 6943352289437974365}
   - component: {fileID: 8624278839185355251}
   - component: {fileID: 1072182329549340063}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas_Unit (I)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
