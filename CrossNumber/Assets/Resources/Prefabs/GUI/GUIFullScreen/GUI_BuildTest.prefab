@@ -118,6 +118,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6313221582492924238, guid: c7ea10c0392147a4bbf4106a870c14ef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetOff
+      objectReference: {fileID: 0}
     - target: {fileID: 6700039749326888429, guid: c7ea10c0392147a4bbf4106a870c14ef,
         type: 3}
       propertyPath: m_FillAmount
