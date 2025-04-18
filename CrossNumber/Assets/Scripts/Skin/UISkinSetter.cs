@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +7,9 @@ public class UISkinSetter : MonoBehaviour, IObserver<SkinData> {
 #nullable enable
     private IDisposable? _cancellation;
 
-    [SerializeField] NeedColor _skinNeed = NeedColor.Unit;
+    [SerializeField] private SkinData.Type _skinNeed = SkinData.Type.Unit;
 
-    [SerializeField] Graphic? _source;
-
+    [SerializeField] private Graphic? _source;
 
     public void OnCompleted()
     {

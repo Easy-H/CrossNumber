@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class UIAnimUnit {
 
     public enum UIAnimationType {
@@ -114,9 +115,9 @@ public class UIAnimSequence : MonoBehaviour {
 
     [SerializeField] UIAnimUnit[] _animations = null;
 
-    CallbackMethod _animCallback;
+    Action _animCallback;
 
-    public void Action(CallbackMethod callback = null)
+    public void Action(Action callback = null)
     {
         gameObject.SetActive(true);
         StartCoroutine(_UIAnim());

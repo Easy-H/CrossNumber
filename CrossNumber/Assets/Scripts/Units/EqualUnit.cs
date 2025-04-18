@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 
 public class EqualUnit : Unit {
 
-    [SerializeField] Transform[] _error = new Transform[4];
-    [SerializeField] DrawRedLine[] _calcResultError = new DrawRedLine[2];
+    [SerializeField] private Transform[] _error = new Transform[4];
+    [SerializeField] private DrawRedLine[] _calcResultError = new DrawRedLine[2];
 
-    int _useError;
+    private int _useError;
 
     private bool _errorOccurred;
 
@@ -17,18 +17,6 @@ public class EqualUnit : Unit {
         base.SetValue(value, x, y);
 
         GameManager.Instance.Playground.AddEqualUnit(this);
-
-        for (int i = 0; i < 4; i++)
-        {
-            _error[i] = AssetOpener.ImportGameObject("Prefabs/Error").transform;
-            _error[i].SetParent(transform);
-        }
-
-        _calcResultError[0] = AssetOpener.Import<DrawRedLine>("Prefabs/RedLine");
-        _calcResultError[1] = AssetOpener.Import<DrawRedLine>("Prefabs/RedLine");
-
-        _calcResultError[0].transform.SetParent(transform);
-        _calcResultError[1].transform.SetParent(transform);
 
     }
 
@@ -85,10 +73,7 @@ public class EqualUnit : Unit {
             _calcResultError[1].EraseLine();
         }
 
-        if (used)
-        {
-            IsCalced = true;
-        }
+        IsCalced = used;
 
         return !_errorOccurred;
 

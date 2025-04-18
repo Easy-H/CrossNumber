@@ -1,0 +1,10 @@
+{
+    "Error":        "Audio/ErrorSound",
+    "Wrong":        "Audio/WrongSound",
+    "Move":         "Audio/MoveSound",
+    "Clear":        "Audio/ClearSound",
+    "OpenPopUp":    "Audio/OpenPopUpSound",
+    "ClosePopUp":   "Audio/OpenPopUpSound",
+    "Change":       "Audio/ChangeScene"
+    
+}

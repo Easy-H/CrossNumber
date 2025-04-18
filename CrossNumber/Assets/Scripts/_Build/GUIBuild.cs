@@ -1,14 +1,25 @@
-using EHTool;
 using EHTool.UIKit;
 using System.Xml;
 using UnityEngine;
+
 public class GUIBuild : GUICustomFullScreen {
+    
+    [SerializeField] private StageMaker _setter;
+    [SerializeField] private GUIUnitPenSelect[] _penBtns;
 
-    [SerializeField] LevelMaker _setter;
-    [SerializeField] GUIAnimatedOpen _editToolContainer;
-    [SerializeField] GUIPen _pen;
+    private string _penValue = "1";
+    private GUIUnitPenSelect _beforeSelect;
 
-    string _penValue = "1";
+    public override void Open()
+    {
+        base.Open();
+
+        foreach (var btn in _penBtns) {
+            btn.SetButtonInfor(this);
+        }
+
+        _penBtns[0].Select();
+    }
 
     public override void SetOn()
     {
@@ -19,10 +30,14 @@ public class GUIBuild : GUICustomFullScreen {
         });
     }
 
-    public void ChangePen(string value)
+    public void ChangePen(GUIUnitPenSelect select, string value)
     {
         _penValue = value;
-        _pen.SetPen(_penValue);
+        if (_beforeSelect != null) {
+            _beforeSelect.DisSelect();
+        }
+        _beforeSelect = select;
+        SoundManager.Instance.PlayAudio("Move");
     }
 
     protected override void Update()
@@ -36,15 +51,20 @@ public class GUIBuild : GUICustomFullScreen {
 
         if (MobileUITouchDetector.IsPointerOverUIObject()) return;
 
-        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 pos = Camera.main.ScreenToWorldPoint
+            (Input.mousePosition);
+        Vector2Int targetPos =
+            new Vector2Int(Mathf.RoundToInt(pos.x),
+                Mathf.RoundToInt(pos.y));
 
-        Unit unit = GameManager.Instance.Playground.GetDataAt(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
+        Unit unit = GameManager.Instance.Playground.
+            GetDataAt(targetPos.x, targetPos.y);
 
         if (unit == null)
         {
             if (_penValue.Equals("Erase")) return;
 
-            Unit newUnit = _setter.CreateUnit(_penValue, pos);
+            Unit newUnit = _setter.CreateUnit(_penValue, targetPos);
 
             if (newUnit)
             {
@@ -63,36 +83,27 @@ public class GUIBuild : GUICustomFullScreen {
         }
 
         GameManager.Instance.Playground.RemoveUnitAt(unit);
+        SoundManager.Instance.PlayAudio("Move");
         GameManager.Instance.Playground.HasError();
     }
 
     public void GenerateWorld(string name)
     {
 
-        XmlDocument Document = new XmlDocument();
-        XmlElement FList = Document.CreateElement("StageData");
-        Document.AppendChild(FList);
-
         Unit[] units = FindObjectsOfType<Unit>();
+        UnitInfor[] unitInfors = new UnitInfor[units.Length];
 
-        for (int i = 0; i < units.Length; i++)
-        {
-            XmlElement FElement = Document.CreateElement("Unit");
-            FElement.SetAttribute("value", units[i].Value);
-            FElement.SetAttribute("xPos", units[i].transform.position.x.ToString());
-            FElement.SetAttribute("yPos", units[i].transform.position.y.ToString());
-
-            FList.AppendChild(FElement);
+        for (int i = 0; i < units.Length; i++) {
+            unitInfors[i] = new UnitInfor
+                (units[i].Value, units[i].Pos);
         }
 
-        //Document.Save("Assets/Resources/XML/StageData/" + name + ".xml");
-        //Debug.Log(name + " Saved");
+        Stage newStage = new Stage(unitInfors);
+        StageManager.Instance.SaveBuildStage("Temp", newStage);
 
-        StageData newStage = new StageData(Document);
-        StageManager.Instance.SaveBuildStage(newStage);
-
-        UIManager.Instance.OpenGUI<GUIPlay>("BuildTest").SetStage(newStage);
-
+        UIManager.Instance.OpenGUI<GUIPlay>
+            ("BuildTest").SetStage(newStage);
+        
     }
 
 }

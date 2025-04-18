@@ -28,10 +28,10 @@ public class Unit : MonoBehaviour, IMoveable, IUnit {
     {
         if (!CanPlace(x, y)) return;
 
-        _Setposition(x, y);
+        _SetPosition(x, y);
     }
 
-    protected void _Setposition(int x, int y, Unit defaultUnit = null) {
+    protected void _SetPosition(int x, int y, Unit defaultUnit = null) {
 
         GameManager.Instance.Playground.SetMoveableAt(defaultUnit, Pos.x, Pos.y);
         GameManager.Instance.Playground.SetDataAt(defaultUnit, Pos.x, Pos.y);
@@ -64,7 +64,8 @@ public class Unit : MonoBehaviour, IMoveable, IUnit {
         Pos = new Vector2Int(x, y);
 
         GameManager.Instance.Playground.AddUnit(this);
-        GameManager.Instance.Playground.SetMoveableAt(this, x, y);
+        GameManager.Instance.Playground.
+            SetMoveableAt(this, x, y);
         GameManager.Instance.Playground.SetDataAt(this, x, y);
     }
 

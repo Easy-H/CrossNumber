@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +12,12 @@ public class SceneChange : MonoBehaviour {
     [SerializeField] float _playTimeSecond = 2f;
     [SerializeField] string _audio;
 
-    CallbackMethod _callback;
+    Action _callback;
 
     // Start is called before the first frame update
     static IList<SceneChange> list = new List<SceneChange>();
 
-    public void Show(Texture2D texture, CallbackMethod callback = null)
+    public void Show(Texture2D texture, Action callback = null)
     {
 
         foreach (SceneChange sc in list) {

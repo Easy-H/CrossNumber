@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd4db7d51de0874a89a079971327057, type: 3}
+  m_Name: Data_Overworld_LocalOverworld
+  m_EditorClassIdentifier: 
+  Name: 
+  Stages:
+  - name: 1+1=2
+    key: 1-1
+  - name: 2-1=1
+    key: 1-2
+  - name: 3 x 2 = 6
+    key: 1-3
+  - name: 4 = 2 + 1 x 2
+    key: 1-4
+  - name: 5 - 2 = 3
+    key: 1-5
+  - name: 6 = 2 x 3
+    key: 1-6
+  - name: 7 = 3 + 4
+    key: 1-7
+  - name: 8 = 2 x 4
+    key: 1-8
+  - name: 9 = 3 x 3
+    key: 1-9
+  - name: 1 0 = 1 x 1 0
+    key: 1-10

@@ -1,18 +1,16 @@
 using EHTool.UIKit;
-using Newtonsoft.Json.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GUIPlay : GUICustomFullScreen {
 
-    [SerializeField] GUIAnimatedOpen _clear;
-    [SerializeField] LevelMaker _setter;
+    [SerializeField] private GUIAnimatedOpen _clear;
+    [SerializeField] private StageMaker _setter;
 
-    string _levelName;
-    StageData _data;
+    private string _levelName;
+    private Stage _data;
 
-    public void SetStage(StageData data)
+    public void SetStage(Stage data)
     {
         //_levelName = path;
         _data = data;
@@ -51,6 +49,7 @@ public class GUIPlay : GUICustomFullScreen {
     {
 
         yield return new WaitForFixedUpdate();
+
         if (!GameManager.Instance.Playground.HasError() && _state == MotionState.Idle)
         {
             _StageClear();
@@ -66,13 +65,13 @@ public class GUIPlay : GUICustomFullScreen {
 
     public void MoveUndo()
     {
-        mover.Undo();
+        _unitMover.Undo();
         CalculateWorld();
     }
 
     public void MoveRedo()
     {
-        mover.Redo();
+        _unitMover.Redo();
         CalculateWorld();
 
     }
@@ -85,12 +84,15 @@ public class GUIPlay : GUICustomFullScreen {
 
     public void GoNextStage()
     {
+        Close();
+        return;
+        
         if (_data._nextStagePath == null) {
             Close();
             return;
         }
 
-        SetStage(new StageData(_data._nextStagePath));
+        //SetStage(new Stage(_data._nextStagePath));
 
     }
 

@@ -1,62 +1,75 @@
-using EHTool;
 using UnityEngine;
 using System.Xml;
 using System.Collections.Generic;
 
-
 public struct UnitInfor {
     public string type;
-    public Vector3 pos;
+    public Vector2Int pos;
+
+    public UnitInfor(string t, Vector2Int p) {
+        type = t;
+        pos = p;
+    }
 }
 
-public class StageMetaData {
-    public string name;
-    public string value;
-}
+public class Stage {
 
-public class StageData {
+    public UnitInfor[] Units => _units;
 
-    public UnitInfor[] units;
+    private UnitInfor[] _units;
     public string _nextStagePath;
 
-    public StageData() { 
-        units = new UnitInfor[0];
+    public Stage() { 
+        _units = new UnitInfor[0];
     }
 
-    public StageData(string path) {
-        _SetData(AssetOpener.ReadXML("StageData/" + path));
+    public Stage(UnitInfor[] units) {
+        _units = units;
     }
 
-    public StageData(Dictionary<string, object> data)
+    public Stage(IDictionary<string, IDictionary<string, object>> data)
     {
-        units = new UnitInfor[data.Count];
+        _units = new UnitInfor[data.Count];
 
         int i = 0;
-        foreach (object d in data.Values)
+        foreach (var d in data.Values)
         {
-            Dictionary<string, object> dd = d as Dictionary<string, object>;
-            
-            units[i].type = dd["type"].ToString();
-            units[i].pos = new Vector3(int.Parse(dd["xPos"].ToString()), int.Parse(dd["yPos"].ToString()));
+            _units[i].type = d["type"].ToString();
+            _units[i].pos =new Vector2Int
+                (int.Parse(d["xPos"].ToString()),
+                int.Parse(d["yPos"].ToString()));
             i++;
         }
 
     }
 
-    public StageData(XmlDocument xmlDoc)
+    public Stage(XmlDocument xmlDoc)
     {
-        _SetData(xmlDoc);
+        XmlNodeList nodes = xmlDoc.SelectNodes("StageData/Unit");
+
+        _units = new UnitInfor[nodes.Count];
+
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            string unitValue = nodes[i].Attributes["value"].Value;
+            int x = int.Parse(nodes[i].Attributes["xPos"].Value);
+            int y = int.Parse(nodes[i].Attributes["yPos"].Value);
+
+            _units[i].type = unitValue;
+            _units[i].pos = new Vector2Int(x, y);
+        }
 
     }
 
-    public Dictionary<string, object> ToDictionary() { 
-        Dictionary<string, object> retval =  new Dictionary<string, object>();
+    public IDictionary<string, object> ToDictionary() { 
+        IDictionary<string, object> retval = 
+            new Dictionary<string, object>();
 
-        for (int i = 0; i < units.Length; i++) {
+        for (int i = 0; i < _units.Length; i++) {
             Dictionary<string, object> data = new Dictionary<string, object>() {
-                { "type", units[i].type },
-                { "xPos", units[i].pos.x },
-                { "yPos", units[i].pos.y }
+                { "type", _units[i].type },
+                { "xPos", _units[i].pos.x },
+                { "yPos", _units[i].pos.y }
 
             };
             retval.Add(i.ToString().ToString(), data);
@@ -65,21 +78,26 @@ public class StageData {
         return retval;
     }
 
-    private void _SetData(XmlDocument xmlDoc) {
+    public XmlDocument ToXML() {
+        
+        XmlDocument Document = new XmlDocument();
+        XmlElement FList = Document.CreateElement("StageData");
+        
+        Document.AppendChild(FList);
 
-        XmlNodeList nodes = xmlDoc.SelectNodes("StageData/Unit");
-
-        units = new UnitInfor[nodes.Count];
-
-        for (int i = 0; i < nodes.Count; i++)
+        for (int i = 0; i < _units.Length; i++)
         {
-            string unitValue = nodes[i].Attributes["value"].Value;
-            int x = int.Parse(nodes[i].Attributes["xPos"].Value);
-            int y = int.Parse(nodes[i].Attributes["yPos"].Value);
+            XmlElement FElement = Document.CreateElement("Unit");
+            FElement.SetAttribute("value", _units[i].type);
+            FElement.SetAttribute("xPos",
+                _units[i].pos.x.ToString());
+            FElement.SetAttribute("yPos",
+                _units[i].pos.y.ToString());
 
-            units[i].type = unitValue;
-            units[i].pos = new Vector3(x, y);
+            FList.AppendChild(FElement);
         }
+
+        return Document;
     }
 
 }

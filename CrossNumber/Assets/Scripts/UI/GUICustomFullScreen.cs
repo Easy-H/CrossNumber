@@ -1,34 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using EHTool.UIKit;
-using System.Collections.Generic;
 using EHTool;
+using System.Collections.Generic;
+using System;
 
 public class GUICustomFullScreen : GUIFullScreen {
 
-    [SerializeField] Transform _trContainer;
-    [SerializeField] GameObject _container;
-    [SerializeField] Capture _capture;
+    [SerializeField] private Transform _trContainer;
+    [SerializeField] private GameObject _container;
+    [SerializeField] private Capture _capture;
 
-    public Canvas _canvas;
+    protected UnitMover _unitMover;
+    protected CameraMover _cameraMover;
 
-    Transform _trCamera;
-    Transform _trBoard;
-
-    protected UnitMover mover;
-    Vector3 _originMouseInput;
-
-    protected CallbackMethod _captureCallback;
-    protected CallbackMethod _effectCallback;
+    protected Action _captureCallback;
+    protected Action _effectCallback;
 
     protected enum MotionState { Idle, CameraMoving, UnitMoving }
     protected MotionState _state = MotionState.Idle;
 
-    protected void CaptureAndEvent(CallbackMethod callback)
+    protected void CaptureAndEvent(Action callback)
     {
         _capture.CaptureScreen((texture) =>
         {
-            AssetOpener.Import<SceneChange>("Prefabs/GUI/GUI_Capture").Show(texture, _effectCallback);
+            AssetOpener.ImportComponent<SceneChange>
+                ("Prefabs/GUI/GUI_Capture").Show(texture, _effectCallback);
             callback?.Invoke();
             _effectCallback = null;
         });
@@ -38,18 +35,16 @@ public class GUICustomFullScreen : GUIFullScreen {
     public override void Open()
     {
         _isSetting = true;
-
-        _trCamera = Camera.main.transform;
-        _trCamera.position = Vector3.back * 10;
-
         _popupUI = new List<IGUIPopUp>();
 
-        _trBoard = GameObject.FindWithTag("Board").transform;
+
         _state = MotionState.Idle;
 
         UnitManager.Instance.Refresh();
 
-        mover = new UnitMover();
+        _unitMover = new UnitMover();
+        _cameraMover = new CameraMover(Camera.main.transform,
+            GameObject.FindWithTag("Board").transform);
 
         _effectCallback = null;
 
@@ -68,6 +63,8 @@ public class GUICustomFullScreen : GUIFullScreen {
     {
         base.SetOn();
         GameManager.Instance.Playground.Dispose();
+
+        _state = MotionState.Idle;
         _container.SetActive(true);
     }
 
@@ -85,37 +82,17 @@ public class GUICustomFullScreen : GUIFullScreen {
 
         });
     }
-
-    public void Pop() {
-        _state = MotionState.Idle;
-        gameObject.SetActive(true);
-    }
-
-    public void OpenScene(int idx)
-    {
-        SceneManager.LoadScene(idx);
-    }
-
-    public override void OpenWindow(string key) {
-        base.OpenWindow(key);
-        _state = MotionState.Idle;
-    }
-
-    public void PlayAnim(GUIAnimatedOpen gui)
-    {
-        gui.Open();
-    }
     
     protected virtual void Update()
     {
-
         if (_nowPopUp != null)
         {
             _state = MotionState.Idle;
             return;
         }
 
-        if (MobileUITouchDetector.IsPointerOverUIObject()) return;
+        if (MobileUITouchDetector.IsPointerOverUIObject()) 
+            return;
 
         switch (_state)
         {
@@ -131,52 +108,63 @@ public class GUICustomFullScreen : GUIFullScreen {
         }
     }
 
-    void _Idle()
+    private Vector3 GetMousePos()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint
+            (Input.mousePosition) + Vector3.forward * 10;
+
+        return mousePos;
+    }
+
+    private Vector2Int Vector3ToVector2Int(Vector3 origin)
+    {
+        return new Vector2Int(
+            Mathf.RoundToInt(origin.x), Mathf.RoundToInt(origin.y));
+    }
+
+    private void _Idle()
     {
         if (!Input.GetMouseButtonDown(0))
             return;
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10;
-        Unit selectedUnit = UnitManager.Instance.GetUnitControllerAt(mousePos);
+        Vector3 mousePos = GetMousePos();
+        Vector2Int targetPos = Vector3ToVector2Int(mousePos);
 
-        IMoveable moveable = GameManager.Instance.Playground.GetMoveableAt(
-            Mathf.RoundToInt(mousePos.x), Mathf.RoundToInt(mousePos.y));
+        IMoveable moveable = GameManager.Instance.Playground.       
+            GetMoveableAt(targetPos.x, targetPos.y);
 
-        MoveSet(selectedUnit);
+        if (moveable == null) {
+            _cameraMover.MoveStart(mousePos);
+            _state = MotionState.CameraMoving;
+            return;
+        }
+
         MoveSet(moveable);
     }
 
-    protected void MoveSet(IMoveable unit)
+    protected void MoveSet(IMoveable moveable)
     {
-        if (unit == null) return;
+        if (moveable == null) return;
 
         _state = MotionState.UnitMoving;
-        _originMouseInput = new Vector3(unit.Pos.x, unit.Pos.y, 0);
-        mover.StartMove(unit);
+        _unitMover.StartMove(moveable);
 
     }
 
     void _CameraMoving()
     {
-
         if (Input.GetMouseButtonUp(0))
         {
             _state = MotionState.Idle;
             return;
         }
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _trCamera.position;
-
-        _trCamera.Translate(_originMouseInput - mousePos);
-        _trBoard.position = new Vector3(Mathf.Round(_trCamera.position.x), Mathf.Round(_trCamera.position.y), 10);
-
-        _originMouseInput = mousePos;
+        _cameraMover.Move(GetMousePos());
 
     }
 
     virtual protected void _UnitMoving()
     {
-
         if (Input.GetMouseButtonUp(0))
         {
             _state = MotionState.Idle;
@@ -189,24 +177,13 @@ public class GUICustomFullScreen : GUIFullScreen {
 
     virtual protected void UnitPlace()
     {
-        mover.MoveEnd();
-
+        _unitMover.MoveEnd();
     }
 
     virtual protected void UnitHold()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 10;
+        _unitMover.UnitMoveTo(Vector3ToVector2Int(GetMousePos()));
 
-        Vector3 placePos = new Vector3(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y), 0);
-
-        if ((placePos - _originMouseInput).sqrMagnitude < 0.1f)
-        {
-            return;
-        }
-
-        mover.UnitMoveTo(new Vector2Int(
-            Mathf.RoundToInt(placePos.x), Mathf.RoundToInt(placePos.y)));
-        _originMouseInput = placePos;
         UnitPosChangeEvent();
     }
 

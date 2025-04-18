@@ -1,0 +1,21 @@
+{
+  "Close"	        :"Close"	,
+
+  "LanguageTitle"  :"Language"  ,
+  "Korean"	        :"Korean"	,
+  "English"	      :"English"	,
+
+  "ThemeTitle"	    :"Theme"	,
+  "BasicTheme"	    :"Basic"	,
+  "ChalkTheme"	    :"Chalk Board"	,
+  "BlackTheme"	    :"Black Board"	,
+
+  "MadeBy"	        :"Made by"	,
+  "FontInfor"	    :"Use Font"	,
+  "IconInfor"	    :"Use Icon"	,
+  "PrivacyPolicy"	:"Privacy Policy"	,
+
+  "Beginner"       :"Beginner"  ,
+  "Intermediate"   :"Intermediate"  ,
+  "Advanced"       :"Advanced"
+}

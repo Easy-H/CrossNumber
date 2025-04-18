@@ -1,44 +1,22 @@
-using EHTool.UIKit;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIAnimatedOpen : GUIPopUp {
+public class GUIAnimatedOpen : MonoBehaviour {
 
-    [SerializeField] UIAnimSequence _openSequence;
-    [SerializeField] UIAnimSequence _closeSequence;
+    [SerializeField] private UIAnimSequence _openSequence;
+    [SerializeField] private UIAnimSequence _closeSequence;
 
-    public override void Open()
+    public void SetOn()
     {
-        base.Open();
+        gameObject.SetActive(true);
         _openSequence.Action();
     }
 
-    public override void SetOn()
+    public void SetOff()
     {
-        base.SetOn();
-        _openSequence.Action();
-    }
-
-    public override void SetOff()
-    {
-        _closeSequence.Action(base.SetOff);
-    }
-
-    public override void Close()
-    {
-        _closeSequence.Action(base.Close);
-
-    }
-
-    public void Toggle() {
-        if (gameObject.activeSelf) {
-            SetOff();
-            return;
-        }
-        SetOn();
-
+        _closeSequence.Action(() => {
+            gameObject.SetActive(false);
+        });
     }
 
 }

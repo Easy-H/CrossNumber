@@ -1,0 +1,9 @@
+{
+    "Setting":      "Prefabs/GUI/GUIFullScreen/GUI_Setting",
+    "Credit":       "Prefabs/GUI/GUIFullScreen/GUI_Credit",
+    "Overworld":    "Prefabs/GUI/GUIFullScreen/GUI_OverWorld",
+    "Play":         "Prefabs/GUI/GUIFullScreen/GUI_Play",
+    "Build":        "Prefabs/GUI/GUIFullScreen/GUI_Build",
+    "Loading":      "Prefabs/GUI/GUIFullScreen/GUI_Loading",
+    "BuildTest":    "Prefabs/GUI/GUIFullScreen/GUI_BuildTest"
+}

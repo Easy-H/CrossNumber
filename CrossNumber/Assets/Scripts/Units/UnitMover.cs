@@ -1,23 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class UnitMover {
 
-    IMoveable _target;
-    Vector2Int startPos;
+    private IMoveable _target;
+    private Vector2Int _startPos;
+    private Vector2Int _beforePos;
 
-    CustomStack<MoveData> _moves = new CustomStack<MoveData>();
+    private CustomStack<MoveData> _moves
+        = new CustomStack<MoveData>();
 
     public void StartMove(IMoveable target)
     {
         _target = target;
-        startPos = target.Pos;
+        _startPos = target.Pos;
+        _beforePos = _startPos;
     }
 
     public void UnitMoveTo(Vector2Int pos)
     {
+        if ((_beforePos - pos).sqrMagnitude < 0.1f) return;
+        _beforePos = pos;
+        
         if (!_target.CanPlace(pos.x, pos.y)) return;
 
         _target?.SetPosition(pos.x, pos.y);
@@ -48,7 +51,7 @@ public class UnitMover {
     public void MoveEnd()
     {
         if (_target == null) return;
-        _moves?.Push(new MoveData(_target, startPos, _target.Pos));
+        _moves?.Push(new MoveData(_target, _startPos, _target.Pos));
         _target = null;
     }
 

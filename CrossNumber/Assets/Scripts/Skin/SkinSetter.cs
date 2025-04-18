@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SkinSetter : MonoBehaviour, IObserver<SkinData> {
@@ -8,7 +6,7 @@ public class SkinSetter : MonoBehaviour, IObserver<SkinData> {
 #nullable enable
     private IDisposable? _cancellation;
 
-    [SerializeField] NeedColor _skinNeed = NeedColor.Unit;
+    [SerializeField] SkinData.Type _skinNeed = SkinData.Type.Unit;
 
 
     public void OnCompleted()

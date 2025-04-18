@@ -1,12 +1,12 @@
 using System.Collections;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Capture : MonoBehaviour {
 
-    CallbackMethod<Texture2D> _callback;
+    private Action<Texture2D> _callback;
 
-    public void CaptureScreen(CallbackMethod<Texture2D> callback)
+    public void CaptureScreen(Action<Texture2D> callback)
     {
         gameObject.SetActive(true);
         StartCoroutine(_CaptureScreen());

@@ -39,7 +39,7 @@ public class OverUnit : Unit {
     {
         Unit newOver = GameManager.Instance.Playground.GetDataAt(x, y);
 
-        _Setposition(x, y, _overedUnit);
+        _SetPosition(x, y, _overedUnit);
 
         _overedUnit = newOver;
     }
