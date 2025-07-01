@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd4db7d51de0874a89a079971327057, type: 3}
   m_Name: Data_Overworld_LocalOverworld
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Beginner
   Stages:
   - name: 1+1=2
     key: 1-1

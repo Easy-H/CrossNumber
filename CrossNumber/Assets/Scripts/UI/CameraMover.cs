@@ -10,9 +10,12 @@ public class CameraMover {
     public CameraMover(Transform cameraTr, Transform boardTr)
     {
         _cameraTr = cameraTr;
-        _cameraTr.position = Vector3.back * 10;
-
         _boardTr = boardTr;
+
+    }
+
+    public void Reset() {
+        _cameraTr.position = Vector3.back * 10;
 
     }
 

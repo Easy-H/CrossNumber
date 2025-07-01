@@ -4225,9 +4225,7 @@ PrefabInstance:
     - target: {fileID: 824734626545992334, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
       propertyPath: m_text
-      value: '<mspace="0.4
-
-        ">Make</mspace>'
+      value: <mspace="0.4">Make</mspace>
       objectReference: {fileID: 0}
     - target: {fileID: 1524719174484215571, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}

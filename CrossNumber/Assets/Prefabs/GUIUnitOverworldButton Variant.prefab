@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _btnName: {fileID: 8038964633496758881}
-  _mspace: 1
+  _mspace: 0.4
 --- !u!114 &8038964633496758881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 824734626545992334, guid: a203dc39a683a4c458ddea74a4a6d2a5,

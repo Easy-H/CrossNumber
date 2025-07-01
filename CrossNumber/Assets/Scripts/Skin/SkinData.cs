@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkinData : ScriptableObject {
 
     public enum Type {
-        Background,     Unit,       RedLine,        UiPanel,    UiBoard,    UiBoardLine
+        Background,     Unit,       RedLine,        UiPanel,    UiBoard,    UiBoardLine,    ScrollBar
     };
 
     public Color back = Color.white;
@@ -14,6 +14,7 @@ public class SkinData : ScriptableObject {
     public Color panel = Color.white;
     public Color board = Color.white;
     public Color line = Color.white;
+    public Color scrollBar = Color.white;
 
     public Color Get(Type type)
     {
@@ -31,6 +32,8 @@ public class SkinData : ScriptableObject {
                 return board;
             case Type.UiBoardLine:
                 return line;
+            case Type.ScrollBar:
+                return scrollBar;
             default:
                 return Color.white;
         }

@@ -54,6 +54,7 @@ public class GUICustomFullScreen : GUIFullScreen {
             UIManager.Instance.OpenFullScreen(this);
             _container.SetActive(true);
             _captureCallback?.Invoke();
+            _cameraMover.Reset();
 
         });
 
@@ -78,6 +79,7 @@ public class GUICustomFullScreen : GUIFullScreen {
     {
         CaptureAndEvent(() => {
             _container.SetActive(false);
+            _cameraMover.Reset();
             base.Close();
 
         });

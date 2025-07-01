@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class FirestoreOverworld : IOverworld {
 
-    public string OverworldName { get; }
+    public string OverworldName { get; } = "Online";
 
     private IStageConnector _connector;
 
