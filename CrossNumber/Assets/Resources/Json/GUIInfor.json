@@ -1,9 +1,19 @@
 {
+    "MessageBox":   "Prefabs/GUI/GUIPopUp/GUI_MessageBox",
     "Setting":      "Prefabs/GUI/GUIFullScreen/GUI_Setting",
+
+    "SignUp":       "Prefabs/GUI/GUIFullScreen/GUI_SignUp",
+    "SignIn":       "Prefabs/GUI/GUIFullScreen/GUI_SignIn",
+    "ReVerify":     "Prefabs/GUI/GUIPopUp/GUI_ReVerify",
+    "AuthData":     "Prefabs/GUI/GUIFullScreen/GUI_AuthData",
+    "AuthEdit":     "Prefabs/GUI/GUIFullScreen/GUI_AutEdit",
+
     "Credit":       "Prefabs/GUI/GUIFullScreen/GUI_Credit",
     "Overworld":    "Prefabs/GUI/GUIFullScreen/GUI_OverWorld",
+
     "Play":         "Prefabs/GUI/GUIFullScreen/GUI_Play",
     "Build":        "Prefabs/GUI/GUIFullScreen/GUI_Build",
     "Loading":      "Prefabs/GUI/GUIFullScreen/GUI_Loading",
+    
     "BuildTest":    "Prefabs/GUI/GUIFullScreen/GUI_BuildTest"
 }

@@ -1,6 +1,4 @@
 using UnityEngine;
-using System;
-using EHTool.LangKit;
 using UnityEngine.UI;
 
 namespace EHTool.UIKit {

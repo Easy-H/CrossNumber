@@ -39,6 +39,23 @@ public class UIAnimUnit {
         return FillImage();
     }
 
+    public void SetToLastState()
+    {
+        switch (_eventType)
+        {
+            case UIAnimationType.Rest:
+                break;
+            case UIAnimationType.Fade:
+                EventTarget.color = new Color(EventTarget.color.r, EventTarget.color.r, EventTarget.color.r, EventValue);
+                break;
+            case UIAnimationType.Close:
+                EventTarget.gameObject.SetActive(false);
+                break;
+
+        }
+        EventTarget.fillAmount = EventValue;
+    }
+
     IEnumerator FillImage()
     {
 
@@ -57,7 +74,6 @@ public class UIAnimUnit {
             yield return new WaitForEndOfFrame();
 
         }
-        EventTarget.fillAmount = EventValue;
 
     }
 
@@ -70,7 +86,6 @@ public class UIAnimUnit {
 
         while (useTime < goalTime)
         {
-
             useTime = Time.realtimeSinceStartup;
             yield return new WaitForEndOfFrame();
 
@@ -102,20 +117,27 @@ public class UIAnimUnit {
 
         }
 
-        EventTarget.color = new Color(EventTarget.color.r, EventTarget.color.r, EventTarget.color.r, EventValue);
-
     }
 
 }
 
 public class UIAnimSequence : MonoBehaviour {
 
-    [SerializeField] string _actionName;
-    [SerializeField] string _audioName;
+    [SerializeField] private string _actionName;
+    [SerializeField] private string _audioName;
 
-    [SerializeField] UIAnimUnit[] _animations = null;
+    [SerializeField] private UIAnimUnit[] _startState = null;
+    [SerializeField] private UIAnimUnit[] _animations = null;
 
-    Action _animCallback;
+    private Action _animCallback;
+
+    public void SetStart()
+    { 
+        for (int i = 0; i < _startState.Length; i++)
+        {
+            _startState[i].SetToLastState();
+        }
+    }
 
     public void Action(Action callback = null)
     {
@@ -133,6 +155,7 @@ public class UIAnimSequence : MonoBehaviour {
         {
             StartCoroutine(_animations[i].GetAnim());
             yield return new WaitForSeconds(_animations[i].EventTime);
+            _animations[i].SetToLastState();
         }
 
         _animCallback?.Invoke();

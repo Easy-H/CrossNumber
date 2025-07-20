@@ -84,14 +84,15 @@ namespace EHTool.UIKit {
             return retGO.GetComponent<T>();
         }
 
-        public void DisplayMessage(string messageContent)
+        public void DisplayMessage(string messageContent, Action callback = null)
         {
             if (_msgBox == null)
             {
                 _msgBox = OpenGUI<GUIMessageBox>("MessageBox");
             }
 
-            _msgBox.SetMessage(messageContent);
+            _msgBox.SetMessage(messageContent, callback);
+            
         }
 
     }

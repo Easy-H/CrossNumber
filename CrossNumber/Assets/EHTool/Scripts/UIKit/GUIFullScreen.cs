@@ -19,7 +19,6 @@ namespace EHTool.UIKit {
 
         public override void Open()
         {
-
             _isSetting = true;
 
             base.Open();
@@ -44,7 +43,7 @@ namespace EHTool.UIKit {
             _nowPanel?.SetOff();
         }
 
-        public void AddPopUp(IGUIPopUp popUp)
+        public virtual void AddPopUp(IGUIPopUp popUp)
         {
             if (_nowPopUp != null)
             {
@@ -56,7 +55,7 @@ namespace EHTool.UIKit {
 
         }
 
-        public void ClosePopUp(IGUIPopUp popUp) {
+        public virtual void ClosePopUp(IGUIPopUp popUp) {
 
             if (_nowPopUp != popUp)
             {

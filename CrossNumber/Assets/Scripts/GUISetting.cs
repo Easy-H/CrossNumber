@@ -79,7 +79,7 @@ public class GUISetting : GUICustomFullScreen
         _nowLangIdx = idx;
         _langDropdown.value = idx;
 
-        CaptureAndEvent(() =>
+        Loading(() =>
         {
             LangManager.Instance.ChangeLang(_langOpt[_langDropdown.value].value);
         });
@@ -110,7 +110,7 @@ public class GUISetting : GUICustomFullScreen
         _nowSkinIdx = idx;
         _skinDropdown.value = idx;
 
-        CaptureAndEvent(() =>
+        Loading(() =>
         {
             SkinManager.Instance.ChangeSkin(_skinOpt[_skinDropdown.value].value);
         });

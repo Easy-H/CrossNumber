@@ -7,9 +7,12 @@ namespace EHTool.UIKit {
 
         public void SetOn();
         public void SetOff();
+        
         public void Open();
         public void Open(Action callback);
+
         public void Close();
+        public void Close(Action callback);
 
     }
 }

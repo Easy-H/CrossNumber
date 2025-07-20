@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using EHTool.UIKit;
 using EHTool;
 using System.Collections.Generic;
@@ -7,7 +6,6 @@ using System;
 
 public class GUICustomFullScreen : GUIFullScreen {
 
-    [SerializeField] private Transform _trContainer;
     [SerializeField] private GameObject _container;
     [SerializeField] private Capture _capture;
 
@@ -18,9 +16,9 @@ public class GUICustomFullScreen : GUIFullScreen {
     protected Action _effectCallback;
 
     protected enum MotionState { Idle, CameraMoving, UnitMoving }
-    protected MotionState _state = MotionState.Idle;
+    protected MotionState _motionState = MotionState.Idle;
 
-    protected void CaptureAndEvent(Action callback)
+    protected void Loading(Action callback)
     {
         _capture.CaptureScreen((texture) =>
         {
@@ -37,8 +35,7 @@ public class GUICustomFullScreen : GUIFullScreen {
         _isSetting = true;
         _popupUI = new List<IGUIPopUp>();
 
-
-        _state = MotionState.Idle;
+        _motionState = MotionState.Idle;
 
         UnitManager.Instance.Refresh();
 
@@ -50,7 +47,8 @@ public class GUICustomFullScreen : GUIFullScreen {
 
         _container.SetActive(false);
 
-        CaptureAndEvent(() => {
+        Loading(() =>
+        {
             UIManager.Instance.OpenFullScreen(this);
             _container.SetActive(true);
             _captureCallback?.Invoke();
@@ -65,7 +63,7 @@ public class GUICustomFullScreen : GUIFullScreen {
         base.SetOn();
         GameManager.Instance.Playground.Dispose();
 
-        _state = MotionState.Idle;
+        _motionState = MotionState.Idle;
         _container.SetActive(true);
     }
 
@@ -77,7 +75,7 @@ public class GUICustomFullScreen : GUIFullScreen {
 
     public override void Close()
     {
-        CaptureAndEvent(() => {
+        Loading(() => {
             _container.SetActive(false);
             _cameraMover.Reset();
             base.Close();
@@ -89,14 +87,14 @@ public class GUICustomFullScreen : GUIFullScreen {
     {
         if (_nowPopUp != null)
         {
-            _state = MotionState.Idle;
+            _motionState = MotionState.Idle;
             return;
         }
 
         if (MobileUITouchDetector.IsPointerOverUIObject()) 
             return;
 
-        switch (_state)
+        switch (_motionState)
         {
             case MotionState.Idle:
                 _Idle();
@@ -110,18 +108,19 @@ public class GUICustomFullScreen : GUIFullScreen {
         }
     }
 
-    private Vector3 GetMousePos()
+    protected Vector3 GetMousePos()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint
-            (Input.mousePosition) + Vector3.forward * 10;
+        Vector3 mousePos =
+            Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        return mousePos;
+        return new Vector3(mousePos.x, mousePos.y, 0);
     }
 
-    private Vector2Int Vector3ToVector2Int(Vector3 origin)
+    protected Vector2Int Vector3ToVector2Int(Vector3 origin)
     {
         return new Vector2Int(
-            Mathf.RoundToInt(origin.x), Mathf.RoundToInt(origin.y));
+            Mathf.RoundToInt(origin.x),
+            Mathf.RoundToInt(origin.y));
     }
 
     private void _Idle()
@@ -137,7 +136,7 @@ public class GUICustomFullScreen : GUIFullScreen {
 
         if (moveable == null) {
             _cameraMover.MoveStart(mousePos);
-            _state = MotionState.CameraMoving;
+            _motionState = MotionState.CameraMoving;
             return;
         }
 
@@ -148,16 +147,16 @@ public class GUICustomFullScreen : GUIFullScreen {
     {
         if (moveable == null) return;
 
-        _state = MotionState.UnitMoving;
+        _motionState = MotionState.UnitMoving;
         _unitMover.StartMove(moveable);
 
     }
 
-    void _CameraMoving()
+    private void _CameraMoving()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            _state = MotionState.Idle;
+            _motionState = MotionState.Idle;
             return;
         }
 
@@ -169,28 +168,25 @@ public class GUICustomFullScreen : GUIFullScreen {
     {
         if (Input.GetMouseButtonUp(0))
         {
-            _state = MotionState.Idle;
-            UnitPlace();
+            _motionState = MotionState.Idle;
+            UnitPlace(_unitMover.MoveEnd());
             return;
         }
 
         UnitHold();
     }
 
-    virtual protected void UnitPlace()
+    virtual protected void UnitPlace(IUnitActionData data)
     {
-        _unitMover.MoveEnd();
+        
     }
 
     virtual protected void UnitHold()
     {
         _unitMover.UnitMoveTo(Vector3ToVector2Int(GetMousePos()));
-
         UnitPosChangeEvent();
     }
 
-    virtual protected void UnitPosChangeEvent() {
-
-    }
+    virtual protected void UnitPosChangeEvent() { }
 
 }

@@ -6,6 +6,7 @@ namespace EHTool.UIKit {
         // Start is called before the first frame update
 
         protected Action _setOnEvent;
+        protected Action _setOffEvent;
 
         [SerializeField] private uint priority = 0;
         public uint Priority => priority;
@@ -19,6 +20,9 @@ namespace EHTool.UIKit {
 
         virtual public void SetOff()
         {
+            _setOffEvent?.Invoke();
+            _setOffEvent = null;
+
             if (gameObject == null) return;
             gameObject.SetActive(false);
 
@@ -39,6 +43,12 @@ namespace EHTool.UIKit {
         {
             Open();
             _setOnEvent += callback;
+        }
+
+        public virtual void Close(Action callback)
+        {
+            Close();
+            _setOffEvent += callback;
         }
 
         public virtual void Close()
