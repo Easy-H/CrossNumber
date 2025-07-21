@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 
 namespace EHTool.UIKit {
@@ -10,6 +9,11 @@ namespace EHTool.UIKit {
 
         protected abstract void ShowMessage(string key);
 
+        public override void Close()
+        {
+            SetOff();
+        }
+
         public void CloseMessageBox()
         {
             SetOff();
@@ -17,21 +21,16 @@ namespace EHTool.UIKit {
 
         public void SetMessage(string key, Action buttonMethod = null)
         {
-            buttonMethod ??= CloseMessageBox;
+            _buttonMethod = buttonMethod;
+            _buttonMethod ??= CloseMessageBox;
 
             SetOn();
             ShowMessage(key);
-
-            _buttonMethod = buttonMethod;
         }
 
         public void MessageBoxButton()
         {
             _buttonMethod?.Invoke();
-
-            if (_buttonMethod != CloseMessageBox) return;
-
-            CloseMessageBox();
         }
     }
 }

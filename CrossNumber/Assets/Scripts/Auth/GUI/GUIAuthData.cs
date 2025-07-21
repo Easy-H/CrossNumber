@@ -9,8 +9,13 @@ public class GUIAuthData : GUICustomFullScreen {
     [SerializeField] private TextMeshProUGUI _id;
     [SerializeField] private TextMeshProUGUI _stageCnt;
 
+    [SerializeField] private GameObject _loadingField;
+    [SerializeField] private GameObject _contentField;
+
     public override void Open()
     {
+        _loadingField?.SetActive(true);
+        _contentField?.SetActive(false);
         base.Open();
 
         if (!GameManager.Instance.Auth.IsSignIn())
@@ -29,15 +34,18 @@ public class GUIAuthData : GUICustomFullScreen {
             }
 
             UIManager.Instance.DisplayMessage(msg, Close);
-            
+
         });
-        
+
     }
 
     void _ShowUserData(UserData userdata)
     {
         Loading(() =>
         {
+            _loadingField?.SetActive(false);
+            _contentField?.SetActive(true);
+            
             _id.text = GameManager.Instance.Auth.GetUserId();
             _defaultName.text = string.Format("{0}",
                 GameManager.Instance.Auth.GetName());

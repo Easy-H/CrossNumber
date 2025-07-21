@@ -69,10 +69,12 @@ public class Unit : MonoBehaviour, IMoveable, IUnit {
         GameManager.Instance.Playground.SetDataAt(this, x, y);
     }
 
-    public void Remove()
+    public virtual void Remove()
     {
+        GameManager.Instance.Playground.RemoveUnit(this);
         GameManager.Instance.Playground.SetMoveableAt(null, Pos.x, Pos.y);
         GameManager.Instance.Playground.SetDataAt(null, Pos.x, Pos.y);
+        
         Destroy(gameObject);
     }
 

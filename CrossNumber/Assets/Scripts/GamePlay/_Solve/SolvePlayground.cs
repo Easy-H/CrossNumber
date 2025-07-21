@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SolvePlayground : IPlayground {
+public class SolvePlayground : IPlayground
+{
 
-    IDictionary<Vector2Int, IMoveable> _moveableMap;
-    IDictionary<Vector2Int, Unit> _valueMap;
+    private IDictionary<Vector2Int, IMoveable> _moveableMap;
+    private IDictionary<Vector2Int, Unit> _valueMap;
 
-    IList<Unit> _units;
-    IList<EqualUnit> _equalUnits;
+    private IList<Unit> _units;
+    private IList<EqualUnit> _equalUnits;
 
-    public SolvePlayground() { 
+    public SolvePlayground()
+    {
         _moveableMap = new Dictionary<Vector2Int, IMoveable>();
         _valueMap = new Dictionary<Vector2Int, Unit>();
 
@@ -58,14 +60,19 @@ public class SolvePlayground : IPlayground {
     public void RemoveUnit(Unit target)
     {
         _units.Remove(target);
-        target.Remove();
+    }
+
+    public void RemoveEqualUnit(EqualUnit target)
+    {
+        _equalUnits.Remove(target);
     }
 
     public void SetDataAt(Unit unit, int x, int y)
     {
         Vector2Int newKey = new Vector2Int(x, y);
 
-        if (_valueMap.ContainsKey(newKey)) {
+        if (_valueMap.ContainsKey(newKey))
+        {
             _valueMap[newKey] = unit;
             return;
         }
@@ -103,22 +110,27 @@ public class SolvePlayground : IPlayground {
     {
         Vector2Int target = new Vector2Int(x, y);
 
-        if (_valueMap.ContainsKey(target)) {
+        if (_valueMap.ContainsKey(target))
+        {
             return _valueMap[target];
         }
         return null;
     }
 
-    public void Dispose() {
+    public void Dispose()
+    {
 
-        for (int i = 0; i < _units.Count; i++) {
-            _units[i].Remove();
+        while (_units.Count > 0)
+        { 
+            _units[0].Remove();
         }
-        
+
         _moveableMap = new Dictionary<Vector2Int, IMoveable>();
         _valueMap = new Dictionary<Vector2Int, Unit>();
 
         _units.Clear();
         _equalUnits.Clear();
+        
     }
+    
 }

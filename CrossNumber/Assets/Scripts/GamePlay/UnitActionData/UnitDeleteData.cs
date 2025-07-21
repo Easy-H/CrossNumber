@@ -24,7 +24,7 @@ public class UnitDeleteData : IUnitActionData
 
     public void Redo()
     {
-        GameManager.Instance.Playground.RemoveUnit(_unit);
+        _unit.Remove();
     }
 
 }

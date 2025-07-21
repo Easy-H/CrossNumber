@@ -8,9 +8,22 @@ public class GUIOverWorld : GUICustomFullScreen {
     [SerializeField] private List<GUIOverWorldButton> _buttons = null;
     [SerializeField] private Transform _buttonContainer = null;
 
+    
+    [SerializeField] private GameObject _loadingField;
+    [SerializeField] private GameObject _contentField;
+
     private IOverworld _overworld;
 
-    public void SetOverworld(IOverworld overworld) {
+    public override void Open()
+    {
+        _loadingField?.SetActive(true);
+        _contentField?.SetActive(false);
+        
+        base.Open();
+    }
+
+    public void SetOverworld(IOverworld overworld)
+    {
         _overworldName.text = overworld.OverworldName;
         _overworld = overworld;
         _overworld.GetStageList(_Success, null);
@@ -20,6 +33,9 @@ public class GUIOverWorld : GUICustomFullScreen {
     {
 
         Loading(() => {
+
+            _loadingField?.SetActive(false);
+            _contentField?.SetActive(true);
             
             _buttonContainer.position = Vector3.zero;
 

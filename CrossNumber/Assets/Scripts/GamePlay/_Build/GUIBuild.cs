@@ -60,6 +60,7 @@ public class GUIBuild : GUIStageFullScreen {
             if (unit == null) return;
 
             PushAction(new UnitDeleteData(_setter, unit));
+            unit.Remove();
             GameManager.Instance.Playground.RemoveUnit(unit);
             SoundManager.Instance.PlayAudio("Move");
             GameManager.Instance.Playground.HasError();

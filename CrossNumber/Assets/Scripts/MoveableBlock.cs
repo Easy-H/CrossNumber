@@ -31,7 +31,7 @@ public class MoveableBlock : MonoBehaviour, IMoveable
 
         StartCoroutine(WaitForLayout());
     }
-    
+
     IEnumerator WaitForLayout()
     {
         yield return new WaitForEndOfFrame();
@@ -39,36 +39,49 @@ public class MoveableBlock : MonoBehaviour, IMoveable
         SetMoveable(this);
     }
 
-    private int GetStartXPos() {
+    private int GetStartXPos()
+    {
         return Mathf.RoundToInt(transform.position.x
             - (((RectTransform)transform).sizeDelta.x * .5f));
     }
-    
-    private int GetEndXPos() {
+
+    private int GetEndXPos()
+    {
         return Mathf.RoundToInt(transform.position.x
             + (((RectTransform)transform).sizeDelta.x * .5f));
     }
-    
-    private int GetStartYPos() {
+
+    private int GetStartYPos()
+    {
         return Mathf.RoundToInt(transform.position.y
             - (((RectTransform)transform).sizeDelta.y * .5f));
     }
-    
-    private int GetEndYPos() {
+
+    private int GetEndYPos()
+    {
         return Mathf.RoundToInt(transform.position.y
             + (((RectTransform)transform).sizeDelta.y * .5f));
     }
 
-    private void SetMoveable(IMoveable moveable) {
-        
+    private void SetMoveable(IMoveable moveable)
+    {
+
         Vector2Int min = new Vector2Int(GetStartXPos(), GetStartYPos());
         Vector2Int max = new Vector2Int(GetEndXPos(), GetEndYPos());
 
-        for (int i = min.x; i <= max.x; i++) {
-            for (int j = min.y; j <= max.y; j++) {
+        for (int i = min.x; i <= max.x; i++)
+        {
+            for (int j = min.y; j <= max.y; j++)
+            {
                 GameManager.Instance.Playground.
                     SetMoveableAt(moveable, i, j);
             }
         }
     }
+    
+    public void Remove()
+    {
+        Destroy(gameObject);
+    }
+    
 }

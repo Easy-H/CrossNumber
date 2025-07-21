@@ -35,13 +35,4 @@ public class GUICustomMessageBox : GUIMessageBox
         });
     }
 
-    public override void Close()
-    {
-        _closeSequence.SetStart();
-        _closeSequence.Action(() =>
-        {
-            base.Close();
-        });
-    }
-
 }

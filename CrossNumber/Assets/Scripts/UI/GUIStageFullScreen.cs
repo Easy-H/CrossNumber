@@ -44,13 +44,21 @@ public class GUIStageFullScreen : GUICustomFullScreen
     // 뒤로가기 기능
     public void MoveUndo()
     {
-        _unitActionStack.Pop()?.Undo();
+        IUnitActionData data = _unitActionStack.Pop();
+
+        if (data == null) return;
+        
+        data.Undo();
         CalculateWorld();
     }
 
     public void MoveRedo()
     {
-        _unitActionStack.PopCancle().Redo();
+        IUnitActionData data = _unitActionStack.PopCancle();
+
+        if (data == null) return;
+
+        data.Redo();
         CalculateWorld();
     }
 

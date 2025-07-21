@@ -207,7 +207,7 @@ PrefabInstance:
     - target: {fileID: 1218745331227025746, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
       propertyPath: m_FillAmount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1231725656151568439, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
@@ -232,7 +232,7 @@ PrefabInstance:
     - target: {fileID: 2860432165184991640, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2933705534853476740, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
@@ -291,12 +291,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetStage
       objectReference: {fileID: 0}
-    - target: {fileID: 4348056657990688478, guid: ccf31ea3b34196849b11a8e1c8c3b455,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 45947bce1531ac345a8bb4ac5363bd2d,
-        type: 3}
     - target: {fileID: 4702514515417047369, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
       propertyPath: m_FillAmount
@@ -429,6 +423,11 @@ PrefabInstance:
       propertyPath: _container
       value: 
       objectReference: {fileID: 488838977295902613}
+    - target: {fileID: 7767036281057519429, guid: ccf31ea3b34196849b11a8e1c8c3b455,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7806522176903775191, guid: ccf31ea3b34196849b11a8e1c8c3b455,
         type: 3}
       propertyPath: m_Sprite

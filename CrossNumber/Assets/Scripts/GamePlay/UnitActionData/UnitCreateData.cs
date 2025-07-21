@@ -18,12 +18,12 @@ public class UnitCreateData : IUnitActionData
 
     public void Undo()
     {
-        GameManager.Instance.Playground.RemoveUnit(_unit);
+        _unit.Remove();
     }
 
     public void Redo()
     {
-        _creator.CreateUnit(_value, _pos);
+        _unit = _creator.CreateUnit(_value, _pos);
         SoundManager.Instance.PlayAudio("Move");
     }
 

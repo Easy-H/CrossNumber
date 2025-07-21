@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class Moveable : MonoBehaviour, IMoveable {
+public class Moveable : MonoBehaviour, IMoveable
+{
 
     public Vector2Int Pos { get; set; }
 
@@ -21,7 +22,7 @@ public class Moveable : MonoBehaviour, IMoveable {
     public virtual void SetPosition(int x, int y)
     {
         if (!CanPlace(x, y)) return;
-        
+
         SetMoveable(null);
 
         transform.position = new Vector2(x, y);
@@ -35,6 +36,11 @@ public class Moveable : MonoBehaviour, IMoveable {
         GameManager.Instance.Playground.SetMoveableAt
             (moveable, Pos.x, Pos.y);
 
+    }
+
+    public void Remove()
+    {
+        Destroy(gameObject);
     }
 
 }

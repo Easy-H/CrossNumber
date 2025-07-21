@@ -656,7 +656,7 @@ PrefabInstance:
     - target: {fileID: 3381397832383463449, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetOff
+      value: QuitStage
       objectReference: {fileID: 0}
     - target: {fileID: 3381397832383463449, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
@@ -666,7 +666,7 @@ PrefabInstance:
     - target: {fileID: 3381397832383463449, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GUICustomPopUp, Assembly-CSharp
+      value: GUIStageClearPopUp, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3381397832383463449, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
