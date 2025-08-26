@@ -40,8 +40,10 @@ public class EqualUnit : Unit
 
         EquationMaker maker = new EquationMaker();
 
-        IsCalced = CheckCalc(maker, Vector2Int.right, 0)
-            || CheckCalc(maker, Vector2Int.down, 1);
+        bool calc1 = CheckCalc(maker, Vector2Int.right, 0);
+        bool calc2 = CheckCalc(maker, Vector2Int.down, 1);
+
+        IsCalced = calc1 || calc2;
 
         return !_errorOccurred;
 
@@ -49,6 +51,7 @@ public class EqualUnit : Unit
 
     bool CheckCalc(EquationMaker maker, Vector2Int dir, int idx)
     {
+
         string equation1 = maker.MakeEquation(Pos, -dir, true);
         string equation2 = maker.MakeEquation(Pos, dir, false);
 

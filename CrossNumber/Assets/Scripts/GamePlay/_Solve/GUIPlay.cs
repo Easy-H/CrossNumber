@@ -5,8 +5,6 @@ public class GUIPlay : GUIStageFullScreen
 {
     [SerializeField] private GUIStageClearPopUp _clear;
 
-    private string _levelName;
-
     protected override void ClearEvent()
     {
         if (_clear == null)
@@ -24,9 +22,9 @@ public class GUIPlay : GUIStageFullScreen
 
     public override void ReloadScene()
     {
-        UIManager.Instance.OpenGUI<GUIPlay>("Play").
-            SetStage(_data);
         Close();
+        UIManager.Instance.OpenGUI<GUIPlay>("Play").
+            SetStage(_data, _stageName);
     }
 
     public void GoNextStage()

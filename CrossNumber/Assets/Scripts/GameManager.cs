@@ -2,7 +2,6 @@
 
 public class GameManager : MonoSingleton<GameManager>
 {
-
     public IAuther Auth { get; private set; }
     public IPlayground Playground { get; set; } = new SolvePlayground();
 

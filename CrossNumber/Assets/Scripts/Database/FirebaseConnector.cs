@@ -39,35 +39,6 @@ public class FirebaseConnector<K, T> : IDatabaseConnector<K, T> where T : IDicti
 
     }
 
-    public void AddRecord(T record)
-    {
-        // 나중에 수정 필요
-        Dictionary<string, object> updates = new Dictionary<string, object>
-        {
-            { "0" , record }
-        };
-
-        _docRef.UpdateChildrenAsync(updates).ContinueWithOnMainThread(task => {
-            Debug.Log("AddRecord");
-        });
-    }
-
-    public void UpdateRecordAt(K idx, T record)
-    {
-        Dictionary<string, object> updates = new Dictionary<string, object>
-        {
-            { idx.ToString(), record.ToDictionary() }
-            //,{ (idx + 1).ToString(), null }
-        };
-
-        _docRef.UpdateChildrenAsync(updates);
-
-        if (!_databaseExist)
-        {
-            _databaseExist = true;
-        }
-    }
-
     public void GetAllRecord(Action<IDictionary<K, T>> callback, Action<string> fallback)
     {
         if (_allListener != null)
@@ -119,7 +90,7 @@ public class FirebaseConnector<K, T> : IDatabaseConnector<K, T> where T : IDicti
     }
 
     // GetRecordAll에서 모든 레코드 받아오면 거기서 원하는걸 찾아오는 방식임
-    // 비효율적인 방식이지만 이 게임에서 이걸 사용하는 건 하나밖에 없어서(MetaData) 일단은 이렇게 둠
+    // 비효율적인 방식이라 수정 필요
     public void GetRecordAt(K idx, Action<T> callback, Action<string> fallback)
     {
         GetAllRecord((data) =>
@@ -133,6 +104,54 @@ public class FirebaseConnector<K, T> : IDatabaseConnector<K, T> where T : IDicti
             fallback?.Invoke("No Idx");
         }, fallback);
 
+    }
+
+    public void AddRecord(T record)
+    {
+        // 나중에 수정 필요
+        Dictionary<string, object> updates = new Dictionary<string, object>
+        {
+            { "0" , record }
+        };
+
+        _docRef.UpdateChildrenAsync(updates).ContinueWithOnMainThread(task => {
+            Debug.Log("AddRecord");
+        });
+    }
+
+    public void UpdateRecordAt(K idx, T record)
+    {
+        Dictionary<string, object> updates = new Dictionary<string, object>
+        {
+            { idx.ToString(), record.ToDictionary() }
+            //,{ (idx + 1).ToString(), null }
+        };
+
+        _docRef.UpdateChildrenAsync(updates);
+
+        if (!_databaseExist)
+        {
+            _databaseExist = true;
+        }
+    }
+    
+    public void UpdateRecords(UpdateData<K, T>[] updateData)
+    {
+
+        Dictionary<string, object> updates = new Dictionary<string, object>();
+
+        for (int i = 0; i < updateData.Length; i++)
+        {
+            updates.Add(updateData[i].Idx.ToString(),
+                updateData[i].Record.ToDictionary());
+        }
+
+        _docRef.UpdateChildrenAsync(updates);
+
+        if (!_databaseExist)
+        {
+            _databaseExist = true;
+        }
     }
     
     public void DeleteRecordAt(K idx)

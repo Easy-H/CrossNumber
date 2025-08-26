@@ -1,19 +1,23 @@
 {
-    "MessageBox":   "Prefabs/GUI/GUIPopUp/GUI_MessageBox",
-    "Setting":      "Prefabs/GUI/GUIFullScreen/GUI_Setting",
+    "MessageBox":       "Prefabs/GUI/GUIPopUp/GUI_MessageBox",
+    "Setting":          "Prefabs/GUI/GUIFullScreen/GUI_Setting",
 
-    "SignUp":       "Prefabs/GUI/GUIFullScreen/GUI_SignUp",
-    "SignIn":       "Prefabs/GUI/GUIFullScreen/GUI_SignIn",
-    "ReVerify":     "Prefabs/GUI/GUIPopUp/GUI_ReVerify",
-    "AuthData":     "Prefabs/GUI/GUIFullScreen/GUI_AuthData",
-    "AuthEdit":     "Prefabs/GUI/GUIFullScreen/GUI_AutEdit",
+    "SignUp":           "Prefabs/GUI/GUIFullScreen/GUI_SignUp",
+    "SignIn":           "Prefabs/GUI/GUIFullScreen/GUI_SignIn",
+    "ReVerify":         "Prefabs/GUI/GUIPopUp/GUI_ReVerify",
+    "AuthData":         "Prefabs/GUI/GUIFullScreen/GUI_AuthData",
+    "AuthEdit":         "Prefabs/GUI/GUIFullScreen/GUI_AutEdit",
 
-    "Credit":       "Prefabs/GUI/GUIFullScreen/GUI_Credit",
-    "Overworld":    "Prefabs/GUI/GUIFullScreen/GUI_OverWorld",
+    "Credit":           "Prefabs/GUI/GUIFullScreen/GUI_Credit",
+    "CustomOverworld":  "Prefabs/GUI/GUIFullScreen/GUI_CustomOverworld",
+    "Overworld":        "Prefabs/GUI/GUIFullScreen/GUI_OverWorld",
 
-    "Play":         "Prefabs/GUI/GUIFullScreen/GUI_Play",
-    "Build":        "Prefabs/GUI/GUIFullScreen/GUI_Build",
-    "Loading":      "Prefabs/GUI/GUIFullScreen/GUI_Loading",
+    "Play":             "Prefabs/GUI/GUIFullScreen/GUI_Play",
+    "Build":            "Prefabs/GUI/GUIFullScreen/GUI_Build",
+    "Loading":          "Prefabs/GUI/GUIFullScreen/GUI_Loading",
     
-    "BuildTest":    "Prefabs/GUI/GUIFullScreen/GUI_BuildTest"
+    "CustomStageData":  "Prefabs/GUI/GUIPopUp/GUI_CustomStageData",
+    "BuildTest":        "Prefabs/GUI/GUIFullScreen/GUI_BuildTest",
+    "Save":             "Prefabs/GUI/GUIPopUp/GUI_Save",
+    "Upload":           "Prefabs/GUI/GUIPopUp/GUI_Upload"
 }

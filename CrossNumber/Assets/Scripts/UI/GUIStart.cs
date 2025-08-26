@@ -8,17 +8,21 @@ public class GUIStart : GUICustomFullScreen
     [SerializeField] private string _signInWindowKey = "SignIn";
 
     public void OpenLocalOverworld() {
-        UIManager.Instance.
-            OpenGUI<GUIOverWorld>("Overworld").SetOverworld
-                (StageManager.Instance.GetLocalOverworld());
+        UIManager.Instance.OpenGUI<GUIOverWorld>("Overworld").
+            SetOverworld(StageManager.Instance.GetOverworld("Local"));
         
     }
 
     public void OpenOverworld()
     {
-        UIManager.Instance.
-            OpenGUI<GUIOverWorld>("Overworld").SetOverworld
-                (StageManager.Instance.GetCloudOverworld());
+        UIManager.Instance.OpenGUI<GUIOverWorld>("Overworld").
+            SetOverworld(StageManager.Instance.GetOverworld("Cloud"));
+    }
+
+    public void OpenCustomOverworld()
+    { 
+        UIManager.Instance.OpenGUI<GUIOverWorld>("CustomOverworld").
+            SetOverworld(StageManager.Instance.GetOverworld("Custom"));
     }
 
     public void OpenAuth()

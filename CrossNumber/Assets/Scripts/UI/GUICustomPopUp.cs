@@ -1,7 +1,8 @@
 using EHTool.UIKit;
 using UnityEngine;
 
-public class GUICustomPopUp : GUIPopUp {
+public class GUICustomPopUp : GUIPopUp
+{
 
     [SerializeField] private UIAnimSequence _openSequence;
     [SerializeField] private UIAnimSequence _closeSequence;
@@ -21,18 +22,25 @@ public class GUICustomPopUp : GUIPopUp {
     public override void SetOff()
     {
         _closeSequence.SetStart();
-        _closeSequence.Action(() => {
+        _closeSequence.Action(() =>
+        {
             base.SetOff();
         });
     }
 
     public override void Close()
     {
+        gameObject.SetActive(true);
         _closeSequence.SetStart();
         _closeSequence.Action(() =>
         {
             base.Close();
         });
+    }
+
+    protected void BaseClose()
+    {
+        base.Close();
     }
 
 }

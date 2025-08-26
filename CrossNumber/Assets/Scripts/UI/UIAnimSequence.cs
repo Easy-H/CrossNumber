@@ -12,7 +12,7 @@ public class UIAnimUnit {
         FillImage,
         Close
     }
-
+    
     public UIAnimationType _eventType;
 
     public Image EventTarget = null;

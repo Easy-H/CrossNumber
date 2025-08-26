@@ -1,8 +1,8 @@
 using EHTool.UIKit;
 using UnityEngine;
 
-public class GUIBuild : GUIStageFullScreen {
-    
+public class GUIBuild : GUIStageFullScreen
+{
     [SerializeField] private GUIUnitPenSelect[] _penBtns;
 
     private string _penValue = "1";
@@ -12,7 +12,8 @@ public class GUIBuild : GUIStageFullScreen {
     {
         base.Open();
 
-        foreach (var btn in _penBtns) {
+        foreach (var btn in _penBtns)
+        {
             btn.SetButtonInfor(this);
         }
 
@@ -22,19 +23,14 @@ public class GUIBuild : GUIStageFullScreen {
     public override void SetOn()
     {
         base.SetOn();
-        StageManager.Instance.GetLocalStageData("Temp", (data) =>
-        {
-            SetStage(data);
-        });
     }
 
     public void ChangePen(GUIUnitPenSelect select, string value)
     {
         _penValue = value;
-        if (_beforeSelect != null) {
-            _beforeSelect.DisSelect();
-        }
+        _beforeSelect?.DisSelect();
         _beforeSelect = select;
+
         SoundManager.Instance.PlayAudio("Move");
     }
 
@@ -64,7 +60,9 @@ public class GUIBuild : GUIStageFullScreen {
             GameManager.Instance.Playground.RemoveUnit(unit);
             SoundManager.Instance.PlayAudio("Move");
             GameManager.Instance.Playground.HasError();
-            
+
+            return;
+
         }
 
         if (unit == null)
@@ -85,23 +83,9 @@ public class GUIBuild : GUIStageFullScreen {
         return;
     }
 
-    public void GenerateWorld(string name)
+    public override void ReloadScene()
     {
-
-        Unit[] units = FindObjectsOfType<Unit>();
-        UnitInfor[] unitInfors = new UnitInfor[units.Length];
-
-        for (int i = 0; i < units.Length; i++) {
-            unitInfors[i] = new UnitInfor
-                (units[i].Value, units[i].Pos);
-        }
-
-        Stage newStage = new Stage(unitInfors);
-        StageManager.Instance.SaveBuildStage("Temp", newStage);
-
-        UIManager.Instance.OpenGUI<GUIPlay>
-            ("BuildTest").SetStage(newStage);
-        
+        base.ReloadScene();
     }
 
 }

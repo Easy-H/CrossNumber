@@ -4022,7 +4022,7 @@ PrefabInstance:
     - target: {fileID: 7309828273709211359, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
       propertyPath: m_Name
-      value: GUIUnitButton
+      value: GUIUnitButton_Start
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4176,7 +4176,7 @@ PrefabInstance:
     - target: {fileID: 7309828273709211359, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
       propertyPath: m_Name
-      value: GUIUnitButton (1)
+      value: GUIUnitButton_WorldStage
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4200,7 +4200,7 @@ PrefabInstance:
     - target: {fileID: 501468176326140598, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 501468176326140598, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
@@ -4210,12 +4210,12 @@ PrefabInstance:
     - target: {fileID: 501468176326140598, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenWindow
+      value: OpenCustomOverworld
       objectReference: {fileID: 0}
     - target: {fileID: 501468176326140598, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EHTool.UIKit.GUIWindow, EHTool
+      value: GUIStart, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 501468176326140598, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
@@ -4340,7 +4340,7 @@ PrefabInstance:
     - target: {fileID: 7309828273709211359, guid: a203dc39a683a4c458ddea74a4a6d2a5,
         type: 3}
       propertyPath: m_Name
-      value: GUIUnitButton (2)
+      value: GUIUnitButton_Make
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

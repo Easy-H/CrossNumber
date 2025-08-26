@@ -9,6 +9,11 @@ public class GUIStageClearPopUp : GUICustomPopUp
         _target = target;
     }
 
+    public void Clear()
+    {
+        _target.Close();
+    }
+
     public void QuitStage()
     {
         _target.Close();
