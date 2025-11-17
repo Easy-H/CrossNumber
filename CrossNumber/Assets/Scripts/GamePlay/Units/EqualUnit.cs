@@ -49,7 +49,7 @@ public class EqualUnit : Unit
 
     }
 
-    bool CheckCalc(EquationMaker maker, Vector2Int dir, int idx)
+    private bool CheckCalc(EquationMaker maker, Vector2Int dir, int idx)
     {
 
         string equation1 = maker.MakeEquation(Pos, -dir, true);
@@ -69,43 +69,68 @@ public class EqualUnit : Unit
 
     // 두 식이 계산이 되는지, 계산이 된다면 그 결과가 같은지 확인한다.
     void CompareEquation(string e1, string e2, Vector2Int direction, int i)
-    {
+    {   
+        CalculatorBase calculator = new RecursiveCalculator();
 
-        Equation equation1 = new Equation(e1);
-        Equation equation2 = new Equation(e2);
+        bool canCalc = true;
+        
+        if (!calculator.CanCalcCheck(e1))
+        {
+            canCalc = false;
+            EquationError(e1, -direction);
+        }
 
-        int e1Len = e1.Replace(" ", "").Length - Regex.Matches(e1, @"\^").Count * 2;
-        int e2Len = e2.Replace(" ", "").Length - Regex.Matches(e2, @"\^").Count * 2;
+        if (!calculator.CanCalcCheck(e2))
+        {
+            canCalc = false;
+            EquationError(e2, direction);
+        }
 
-        bool canCalc = Error(equation1, Pos - direction * (e1Len + 1))
-            && Error(equation2, Pos + direction * (e2Len + 1));
+        _errorOccurred = !canCalc;
 
-        if (equation1.Value == equation2.Value || !canCalc)
+        if (!canCalc || calculator.Calculate(e1)
+            == calculator.Calculate(e2))
         {
             _calcResultError[i].EraseLine();
             return;
         }
+
+        _errorOccurred = true;
+
+        ValueMissMatchError(e1, e2, direction, i);
+
+    }
+
+    private int GetEquationLen(string equation)
+    {
+        return equation.Replace(" ", "").Length
+            - Regex.Matches(equation, @"\^").Count * 2;
+    }
+
+    // 수식의 끝이 이상할 때 표시되는 에러
+    private void EquationError(string equation, Vector2Int direction)
+    {
+        int len = GetEquationLen(equation);
+
+        Vector2Int pos = Pos + direction * (len + 1);
+
+        _error[_useError].gameObject.SetActive(true);
+        _error[_useError++].position = new Vector2(pos.x, pos.y);
+
+    }
+
+    // 두 수식의 값이 다를 때 표시되는 에러
+    private void ValueMissMatchError(string e1, string e2, Vector2Int direction, int i)
+    {
         
-        Vector2 dir = new Vector2(direction.x, direction.y);
+        Vector2 dir = direction;
+
+        int e1Len = GetEquationLen(e1);
+        int e2Len = GetEquationLen(e2);
 
         _calcResultError[i].DrawLine(
             Pos - (e1Len - e2Len) * 0.5f * dir, dir, e1Len + e2Len + 1);
 
-        _errorOccurred = true;
-
-
-    }
-
-    // 수식의 끝이 이상할 때 표시되는 에러
-    bool Error(Equation equation, Vector2Int pos)
-    {
-        if (equation.CanCalc) return true;
-
-        _errorOccurred = true;
-        _error[_useError].gameObject.SetActive(true);
-        _error[_useError++].position = new Vector2(pos.x, pos.y);
-
-        return false;
     }
 
 }

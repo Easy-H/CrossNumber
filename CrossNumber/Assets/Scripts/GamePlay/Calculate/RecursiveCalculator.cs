@@ -1,47 +1,22 @@
 using UnityEngine;
 
-public class Equation {
+public class RecursiveCalculator : CalculatorBase {
 
-    string Input;
 
-    public float Value { get; private set; }
-    public bool CanCalc { get; private set; }
-
-    public Equation()
+    public RecursiveCalculator()
     {
-        CanCalc = false;
+        
     }
 
-    public Equation(string s)
+    public override float Calculate(string value)
     {
-        CanCalc = CanCalcCheck(s);
-
-        if (CanCalc)
-            Value = Calculate(s);
+        float ret = Calc(value);
+        return ret;
     }
 
-    public bool CanCalcCheck(string Input)
+    private float Calc(string value)
     {
-        // 수식이 존재하지 않으면 false
-        if (Input.Length < 1) return false;
-
-        string str = Input.Substring(0, 1);
-        bool isNum = int.TryParse(str, out int i);
-
-        // 첫 문자가 +, -가 아닌 문자일 경우 false
-        if (!isNum && str != "+" && str != "-")
-            return false;
-
-        //마지막 문자가 숫자면 true, 아니면 false
-        str = Input.Substring(Input.Length - 1);
-        isNum = int.TryParse(str, out i);
-
-        return isNum;
-    }
-
-    float Calculate(string _value)
-    {
-        string[] _words = _value.Split(' ');
+        string[] _words = value.Split(' ');
 
         float[] nums = new float[3];
         string[] ops = new string[2];
@@ -57,6 +32,7 @@ public class Equation {
             nums[numsNum++] = -1;
             ops[opsNum++] = "*";
         }
+        
         else if (_words[wordIdx] == "+")
         {
             wordIdx++;
@@ -70,9 +46,9 @@ public class Equation {
             }
 
             if (!int.TryParse(_words[wordIdx++], out int tmp)) {
-                CanCalc = false;
                 return 0;
             }
+
             nums[numsNum++] = tmp;
 
             if (numsNum == 3)
@@ -101,7 +77,7 @@ public class Equation {
 
             }
 
-            if (length == wordIdx || _words[wordIdx] == ")")
+            if (length == wordIdx || _words[wordIdx].Equals(")"))
             {
                 if (numsNum == 2)
                 {
@@ -115,23 +91,7 @@ public class Equation {
             ops[opsNum++] = _words[wordIdx++];
 
         }
-
-    }
-
-    // 숫자와 기호를 넣으면 결과를 출력한다.
-    static float Calc(float Num1, string Char, float Num2)
-    {
-        if (Char == "+")
-            return Num1 + Num2;
-        else if (Char == "-")
-            return Num1 - Num2;
-        else if (Char == "*")
-            return Num1 * Num2;
-        else if (Char == "^")
-            return Mathf.Pow(Num1, Num2);
-        else
-            return Num1 / Num2;
-
+        
     }
 
 }
