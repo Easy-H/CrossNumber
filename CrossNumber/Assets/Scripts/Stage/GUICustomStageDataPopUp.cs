@@ -1,12 +1,18 @@
-using EHTool.UIKit;
+using EasyH.Unity.UI;
+using UnityEngine.UI;
+using UnityEngine;
 
 public class GUICustomStageDataPopUp : GUICustomPopUp
 {
+    private IGUI _parent;
     private StageMetaData _stageMetaData;
+    [SerializeField] private TMPro.TextMeshProUGUI _stageName;
 
-    public void SetTarget(StageMetaData stageMetaData)
+    public void SetTarget(StageMetaData stageMetaData, IGUI parent)
     {
         _stageMetaData = stageMetaData;
+        _stageName.text = stageMetaData.Name;
+        _parent = parent;
     }
 
     public void Edit()
@@ -41,12 +47,15 @@ public class GUICustomStageDataPopUp : GUICustomPopUp
 
     public void Delete()
     {
-        StageManager.Instance.DeleteCustomStage(_stageMetaData.Key,
+        StageManager.Instance.DeleteCustomStage(_stageMetaData.Name,
         () =>
         {
-            UnityEngine.Debug.Log("DeleteCustomStage");
+            _parent.SetOn();
             Close();
-        }, (msg)=> { });
+        }, (msg)=>
+        {
+            Debug.Log(msg);
+        });
     }
     
 }

@@ -5,6 +5,8 @@ using System.IO;
 using System;
 using UnityEngine;
 using EHTool.DBKit;
+using System.Security.Cryptography;
+using System.Text;
 
 internal class CustomStageConnector : IStageConnector
 {
@@ -58,18 +60,37 @@ internal class CustomStageConnector : IStageConnector
             {
                 retval[i].SetType("Custom");
             }
+
             callback?.Invoke(retval);
 
         }, (msg) => { fallback?.Invoke(); });
 
     }
 
+    // https://stackoverflow.com/questions/3984138/hash-string-in-c-sharp
+    public static byte[] GetHash(string inputString)
+    {
+        using (HashAlgorithm algorithm = SHA256.Create())
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+    }
+
+    public static string GetHashString(string inputString)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (byte b in GetHash(inputString))
+            sb.Append(b.ToString("X2"));
+
+        return sb.ToString();
+    }
+    
     public void UploadStage(string name, Stage data, Action<string> callback, Action<string> fallback)
     {
-        _dbConnector.UpdateRecordAt(
-            name, new StageMetaData(name, name, false));
+        string key = GetHashString(name);
 
-        File.WriteAllText(GetPath(name),
+        _dbConnector.UpdateRecordAt(
+            name, new StageMetaData(name, key, false));
+
+        File.WriteAllText(GetPath(key),
             JsonConvert.SerializeObject(data.ToDictionary()));
 ;
         callback?.Invoke(name);
@@ -77,11 +98,18 @@ internal class CustomStageConnector : IStageConnector
 
     public void DeleteStage(string name, Action<string> callback, Action<string> fallback)
     {
-        _dbConnector.DeleteRecordAt(name);
+        _dbConnector.GetRecordAt(name, (data) =>
+        {
+            File.Delete(GetPath(data.Key));
 
-        File.Delete(GetPath(name));
+            _dbConnector.DeleteRecordAt(name);
 
-        callback?.Invoke(name);
+            callback?.Invoke(name);
+
+        }, (msg) =>
+        {
+            fallback?.Invoke(msg);
+        });
     }
 
     string GetPath(string name)

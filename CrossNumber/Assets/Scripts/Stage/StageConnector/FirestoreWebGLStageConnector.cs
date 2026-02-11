@@ -15,7 +15,7 @@ public class FirestoreWebGLStageConnector :
 
         if (_isConnect) return;
 
-        FirestoreWebGLBridge.FirestoreConnect(AssetOpener.ReadTextAsset("FirebaseConfig"));
+        FirebaseManager.Instance.SetConfig();
         _isConnect = true;
 
     }

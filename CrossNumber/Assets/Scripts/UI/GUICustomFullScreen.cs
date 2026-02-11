@@ -1,6 +1,6 @@
 using UnityEngine;
-using EHTool.UIKit;
-using EHTool;
+using EasyH.Unity;
+using EasyH.Unity.UI;
 using System.Collections.Generic;
 using System;
 
@@ -22,7 +22,7 @@ public class GUICustomFullScreen : GUIFullScreen {
     {
         _capture.CaptureScreen((texture) =>
         {
-            AssetOpener.ImportComponent<SceneChange>
+            ResourceManager.Instance.ResourceConnector.ImportComponent<SceneChange>
                 ("Prefabs/GUI/GUI_Capture").Show(texture, _effectCallback);
             callback?.Invoke();
             _effectCallback = null;

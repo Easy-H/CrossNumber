@@ -1,7 +1,5 @@
-using EHTool.DBKit;
-using System;
+using EasyH.Tool.DBKit;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 public class UserData : IDictionaryable<UserData>
 {

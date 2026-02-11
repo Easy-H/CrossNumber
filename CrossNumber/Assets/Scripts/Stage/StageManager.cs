@@ -1,4 +1,4 @@
-using EHTool;
+using EasyH.Unity;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ public class StageManager : MonoSingleton<StageManager>
         };
 
         _stageConnectorDict.Add("Local",
-            AssetOpener.Import<LocalOverworld>
+            ResourceManager.Instance.ResourceConnector.Import<LocalOverworld>
             ("Data/Overworld/Data_Overworld_LocalOverworld"));
 
         IStageConnector cloudConnector;
@@ -23,10 +23,8 @@ public class StageManager : MonoSingleton<StageManager>
 #if !UNITY_WEBGL || UNITY_EDITOR
         cloudConnector = new FirestoreStageConnector();
 #else
-        cloudConnector = GameManager.Instance.
-            GetComponent<FirestoreWebGLStageConnector>()
-        cloudConnector ??= GameManager.Instance.
-            AddComponent<FirestoreWebGLStageConnector>();
+        cloudConnector = GetComponent<FirestoreWebGLStageConnector>();
+        cloudConnector ??= gameObject.AddComponent<FirestoreWebGLStageConnector>();
 #endif
         _stageConnectorDict.Add("Cloud", cloudConnector);
 

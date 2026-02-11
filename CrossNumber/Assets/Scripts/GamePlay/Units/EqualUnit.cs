@@ -61,14 +61,14 @@ public class EqualUnit : Unit
             return false;
         }
 
-        CompareEquation(equation1, equation2, dir, 0);
+        CompareEquation(equation1, equation2, dir, idx);
 
         return true;
 
     }
 
     // 두 식이 계산이 되는지, 계산이 된다면 그 결과가 같은지 확인한다.
-    void CompareEquation(string e1, string e2, Vector2Int direction, int i)
+    void CompareEquation(string e1, string e2, Vector2Int direction, int idx)
     {   
         CalculatorBase calculator = new RecursiveCalculator();
 
@@ -86,18 +86,18 @@ public class EqualUnit : Unit
             EquationError(e2, direction);
         }
 
-        _errorOccurred = !canCalc;
+        _errorOccurred = _errorOccurred || !canCalc;
 
         if (!canCalc || calculator.Calculate(e1)
             == calculator.Calculate(e2))
         {
-            _calcResultError[i].EraseLine();
+            _calcResultError[idx].EraseLine();
             return;
         }
 
         _errorOccurred = true;
 
-        ValueMissMatchError(e1, e2, direction, i);
+        ValueMissMatchError(e1, e2, direction, idx);
 
     }
 
@@ -127,7 +127,7 @@ public class EqualUnit : Unit
 
         int e1Len = GetEquationLen(e1);
         int e2Len = GetEquationLen(e2);
-
+        
         _calcResultError[i].DrawLine(
             Pos - (e1Len - e2Len) * 0.5f * dir, dir, e1Len + e2Len + 1);
 

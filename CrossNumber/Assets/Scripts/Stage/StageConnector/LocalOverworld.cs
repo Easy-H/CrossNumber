@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using EHTool;
+using EasyH;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Data_Overworld_", menuName = "Custom/OverworldData", order = 1)]

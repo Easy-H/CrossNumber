@@ -1,4 +1,4 @@
-﻿using EHTool;
+﻿using EasyH.Unity;
 
 public class GameManager : MonoSingleton<GameManager>
 {

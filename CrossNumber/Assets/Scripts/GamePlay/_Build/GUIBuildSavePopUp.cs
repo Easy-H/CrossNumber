@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
-using EHTool.UIKit;
+using EasyH.Unity.UI;
+using System;
 
 public class GUIBuildSavePopUp : GUICustomPopUp
 {
     [SerializeField] private InputField _name;
 
-    public void SetDefaultName(string defaultName)
+    private Action<string> _saveCallback;
+
+    public void SetDefaultName(string defaultName, Action<string> saveCallback = null)
     {
         _name.text = defaultName;
+        _saveCallback = saveCallback;
     }
 
     public void Save()
@@ -16,7 +20,9 @@ public class GUIBuildSavePopUp : GUICustomPopUp
         StageManager.Instance.AddCustomStage(_name.text, GetStage(),
             () =>
             {
-                UIManager.Instance.DisplayMessage("msg_SuccessSave", Close);
+                UIManager.Instance.DisplayMessage("msg_SuccessSave");
+                _saveCallback?.Invoke(_name.text);
+                Close();
             }, (msg) =>
             {
                 UIManager.Instance.DisplayMessage(msg);
@@ -25,7 +31,7 @@ public class GUIBuildSavePopUp : GUICustomPopUp
     
     private Stage GetStage()
     { 
-        Unit[] units = FindObjectsOfType<Unit>();
+        Unit[] units = FindObjectsByType<Unit>(FindObjectsSortMode.None);
         UnitInfor[] unitInfors = new UnitInfor[units.Length];
 
         for (int i = 0; i < units.Length; i++)

@@ -525,15 +525,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -800,7 +802,7 @@ PrefabInstance:
     - target: {fileID: 1379887687772522343, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_fontSize
-      value: 25.5
+      value: 25.1
       objectReference: {fileID: 0}
     - target: {fileID: 3381397832383463449, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
@@ -840,7 +842,7 @@ PrefabInstance:
     - target: {fileID: 6755284692435750095, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
       propertyPath: m_fontSize
-      value: 22.85
+      value: 22.45
       objectReference: {fileID: 0}
     - target: {fileID: 8663200740538180508, guid: 23cb81be9adacb647b197a9a3faca14b,
         type: 3}
@@ -1001,6 +1003,7 @@ MonoBehaviour:
   priority: 0
   _openSequence: {fileID: 3777109314176328284}
   _closeSequence: {fileID: 818393267189191601}
+  _stageName: {fileID: 8066643963816848346}
 --- !u!114 &3777109314176328284 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2012049657335800643, guid: 23cb81be9adacb647b197a9a3faca14b,

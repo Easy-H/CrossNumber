@@ -1,4 +1,4 @@
-using EHTool.UIKit;
+using EasyH.Unity.UI;
 
 public class GUICustomOverWorld : GUIOverWorld
 {
@@ -17,7 +17,6 @@ public class GUICustomOverWorld : GUIOverWorld
     public override void ClosePopUp(IGUIPopUp popUp)
     {
         base.ClosePopUp(popUp);
-        SetOverworld(_overworld);
     }
     
 }

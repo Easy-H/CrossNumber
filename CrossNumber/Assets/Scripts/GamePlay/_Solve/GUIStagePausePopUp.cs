@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GUIStagePausePopUp : GUICustomPopUp
 {
-    [SerializeField] private TMPro.TextMeshProUGUI _stageNameUI;
+    [SerializeField] protected TMPro.TextMeshProUGUI _stageNameUI;
     protected string _stageName;
 
     private GUIStageFullScreen _target;

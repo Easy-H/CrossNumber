@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using EHTool.UIKit;
+using EasyH.Unity.UI;
 
 public class GUIStageFullScreen : GUICustomFullScreen
 {

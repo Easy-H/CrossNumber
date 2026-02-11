@@ -1,4 +1,3 @@
-using EHTool.UIKit;
 using UnityEngine;
 
 public class GUIBuild : GUIStageFullScreen

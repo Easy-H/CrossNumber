@@ -1,4 +1,4 @@
-using EHTool.UIKit;
+using EasyH.Unity.UI;
 using UnityEngine;
 using TMPro;
 
@@ -29,9 +29,8 @@ public class GUIAuthReVerify : GUICustomPopUp
         GameManager.Instance.Auth.ReVerify(_password.text, () =>
         {
             //_loading.LoadingOff();
+            BaseClose();
             OpenWindow(_verifyOpenWindow);
-            Close();
-
         },
         (string msg) =>
         {

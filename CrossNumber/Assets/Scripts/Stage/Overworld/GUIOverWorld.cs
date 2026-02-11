@@ -25,11 +25,12 @@ public class GUIOverWorld : GUICustomFullScreen {
     public override void SetOn()
     {
         base.SetOn();
+        
         if (_overworld == null) return;
 
+        _overworld?.GetStageList(_Success, null);
         _loadingField?.SetActive(true);
         _contentField?.SetActive(false);
-        _overworld?.GetStageList(_Success, null);
         
     }
 
@@ -42,7 +43,7 @@ public class GUIOverWorld : GUICustomFullScreen {
 
     private void _Success(StageMetaData[] data)
     {
-
+        
         Loading(() => {
 
             _loadingField?.SetActive(false);
@@ -59,7 +60,7 @@ public class GUIOverWorld : GUICustomFullScreen {
                 }
 
                 _buttons[i].gameObject.SetActive(true);
-                _buttons[i++].SetButtonInfor(d);
+                _buttons[i++].SetButtonInfor(d, this);
                 
             }
 

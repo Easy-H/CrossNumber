@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EHTool.UIKit;
+using EasyH.Unity.UI;
 using UnityEngine.UI;
 using TMPro;
 

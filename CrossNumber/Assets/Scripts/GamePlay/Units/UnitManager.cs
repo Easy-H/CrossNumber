@@ -1,4 +1,4 @@
-using EHTool;
+using EasyH;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;

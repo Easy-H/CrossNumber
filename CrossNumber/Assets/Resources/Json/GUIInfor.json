@@ -6,7 +6,7 @@
     "SignIn":           "Prefabs/GUI/GUIFullScreen/GUI_SignIn",
     "ReVerify":         "Prefabs/GUI/GUIPopUp/GUI_ReVerify",
     "AuthData":         "Prefabs/GUI/GUIFullScreen/GUI_AuthData",
-    "AuthEdit":         "Prefabs/GUI/GUIFullScreen/GUI_AutEdit",
+    "AuthEdit":         "Prefabs/GUI/GUIFullScreen/GUI_AuthEdit",
 
     "Credit":           "Prefabs/GUI/GUIFullScreen/GUI_Credit",
     "CustomOverworld":  "Prefabs/GUI/GUIFullScreen/GUI_CustomOverworld",

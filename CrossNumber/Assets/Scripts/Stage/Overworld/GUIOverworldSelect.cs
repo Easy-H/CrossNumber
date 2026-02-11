@@ -1,4 +1,4 @@
-using EHTool.UIKit;
+using EasyH.Unity.UI;
 
 public class GUIOverworldSelect : GUICustomFullScreen
 {

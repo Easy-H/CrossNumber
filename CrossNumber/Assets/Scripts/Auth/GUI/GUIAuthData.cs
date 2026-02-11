@@ -1,5 +1,5 @@
-using EHTool.UIKit;
-using EHTool.LangKit;
+using EasyH.Unity.UI;
+using EasyH.Tool.LangKit;
 using UnityEngine;
 using TMPro;
 
@@ -24,6 +24,18 @@ public class GUIAuthData : GUICustomFullScreen {
             Close();
             return;
         }
+        DisplayUserData();
+
+    }
+
+    public override void SetOn()
+    {
+        base.SetOn();
+        DisplayUserData();
+    }
+
+    private void DisplayUserData()
+    {
 
         GameManager.Instance.Auth.GetUserData(_ShowUserData, (msg) =>
         {
@@ -33,10 +45,11 @@ public class GUIAuthData : GUICustomFullScreen {
                 return;
             }
 
-            UIManager.Instance.DisplayMessage(msg, Close);
+            UIManager.Instance.DisplayMessage(msg);
+            Close();
 
         });
-
+        
     }
 
     void _ShowUserData(UserData userdata)

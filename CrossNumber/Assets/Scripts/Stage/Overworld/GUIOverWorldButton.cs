@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
-using EHTool.UIKit;
+using EasyH.Unity.UI;
+
 
 public class GUIOverWorldButton : MonoBehaviour
 {
@@ -10,12 +11,15 @@ public class GUIOverWorldButton : MonoBehaviour
 
     protected StageMetaData _stageMetaData;
 
-    public void SetButtonInfor(StageMetaData stageMetaData)
+    protected IGUI _parentGUI;
+
+    public void SetButtonInfor(StageMetaData stageMetaData, IGUI parent)
     {
         _stageMetaData = stageMetaData;
         _btnName.text = string.Format(
             "<mspace=\"{0}\">{1}</mspace>",
             _mspace, stageMetaData.Name.Replace(" ", ""));
+        _parentGUI = parent;
 
     }
 

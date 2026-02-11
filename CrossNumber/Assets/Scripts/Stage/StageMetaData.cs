@@ -45,4 +45,9 @@ public class StageMetaData : IDictionaryable<StageMetaData>
         Type = type;
     }
 
+    public override string ToString()
+    {
+        return string.Format("{0}, {1}, {2}", Name, Key, IsVerified);
+    }
+
 }
