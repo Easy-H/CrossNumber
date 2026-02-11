@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using System;
 using UnityEngine;
-using EHTool.DBKit;
+using EasyH.Tool.DBKit;
 using System.Security.Cryptography;
 using System.Text;
 

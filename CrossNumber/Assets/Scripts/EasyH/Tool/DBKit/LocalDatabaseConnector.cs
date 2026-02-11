@@ -13,10 +13,10 @@ namespace EasyH.Tool.DBKit
         private Dictionary<K, Dictionary<string, object>> _data;
         private string _path;
 
-        private ISet<Action<IDictionary<K, T>>> _allCallback;
-        private IDictionary<Action<T>, ISet<K>> _recordCallback;
+        private Action<IDictionary<K, T>> _allCallback;
+        private IDictionary<K, Action<T>> _recordCallback;
 
-        private IDictionary<Action<T>, Action<string>> _recordFallback;
+        private IDictionary<K, Action<string>> _recordFallback;
 
         public bool IsDatabaseExist()
         {
@@ -57,9 +57,9 @@ namespace EasyH.Tool.DBKit
 #endif
             _data = null;
 
-            _allCallback = new HashSet<Action<IDictionary<K, T>>>();
-            _recordCallback = new Dictionary<Action<T>, ISet<K>>();
-            _recordFallback = new Dictionary<Action<T>, Action<string>>();
+            _allCallback = null;
+            _recordCallback = new Dictionary<K, Action<T>>();
+            _recordFallback = new Dictionary<K, Action<string>>();
         }
 
         public void Connect(string authName, string databaseName)
@@ -126,13 +126,13 @@ namespace EasyH.Tool.DBKit
         public void GetAllRecord(Action<IDictionary<K, T>> callback, Action<string> fallback)
         {
 
-            if (_allCallback.Count > 0)
+            if (_allCallback != null)
             {
-                _allCallback.Add(Callback);
+                _allCallback += callback;
                 return;
             }
 
-            _allCallback.Add(callback);
+            _allCallback = callback;
 
             IDictionary<K, T> data = new Dictionary<K, T>();
 
@@ -146,69 +146,64 @@ namespace EasyH.Tool.DBKit
                 {
                     value.SetValueFromDictionary(childDataDictionary);
                 }
-
                 data.Add(key, value);
             }
 
-            foreach (Action<IDictionary<K, T>> cb in _allCallback)
-            {
-                cb(data);
-            }
+            Action<IDictionary<K, T>> c = _allCallback;
+            _allCallback = null;
 
-            _allCallback = new HashSet<Action<IDictionary<K, T>>>();
+            c.Invoke(data);
 
         }
 
         public void GetRecordAt(K idx, Action<T> callback, Action<string> fallback)
         {
-            if (!_recordCallback.ContainsKey(callback))
+            if (_recordCallback.ContainsKey(idx))
             {
-                _recordCallback.Add(callback, new HashSet<K>());
-                _recordFallback.Add(callback, fallback);
+                _recordCallback[idx] += callback;
+                _recordFallback[idx] += fallback;
             }
 
-            _recordCallback[callback].Add(idx);
-            _recordFallback[callback] = fallback;
+            _recordCallback[idx] = callback;
+            _recordFallback[idx] = fallback;
 
             GetAllRecord(Callback, Fallback);
         }
 
         public void Callback(IDictionary<K, T> data)
         {
-            foreach (KeyValuePair<Action<T>, ISet<K>> callback in _recordCallback)
+            foreach (KeyValuePair<K, Action<T>> callback in _recordCallback)
             {
-                foreach (K idx in callback.Value)
-                {
-                    if (data.ContainsKey(idx))
-                        callback.Key(data[idx]);
-                    else
-                        _recordFallback[callback.Key]("No Idx");
-
-                }
+                if (data.ContainsKey(callback.Key))
+                    callback.Value?.Invoke(data[callback.Key]);
+                else
+                    _recordFallback[callback.Key]("No Idx");
             }
 
-            _recordCallback = new Dictionary<Action<T>, ISet<K>>();
-            _recordFallback = new Dictionary<Action<T>, Action<string>>();
+            _recordCallback = new Dictionary<K, Action<T>>();
+            _recordFallback = new Dictionary<K, Action<string>>();
         }
 
         public void Fallback(string msg)
         {
-
-            foreach (KeyValuePair<Action<T>, ISet<K>> callback in _recordCallback)
+            foreach (KeyValuePair<K, Action<T>> callback in _recordCallback)
             {
-                foreach (K idx in callback.Value)
-                {
-                    _recordFallback[callback.Key]?.Invoke(msg);
-
-                }
+                _recordFallback[callback.Key]?.Invoke(msg);
             }
 
-            _recordCallback = new Dictionary<Action<T>, ISet<K>>();
-            _recordFallback = new Dictionary<Action<T>, Action<string>>();
+            _recordCallback = new Dictionary<K, Action<T>>();
+            _recordFallback = new Dictionary<K, Action<string>>();
         }
 
         public void DeleteRecordAt(K idx)
         {
+            Dictionary<K, Dictionary<string, object>> table
+                = _GetDataTable();
+            table.Remove(idx);
+
+            string json = JsonConvert.SerializeObject(table);
+
+            File.WriteAllText(_path, json);
 
         }
     }

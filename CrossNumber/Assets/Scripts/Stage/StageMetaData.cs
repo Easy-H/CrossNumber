@@ -1,5 +1,5 @@
 
-using EHTool.DBKit;
+using EasyH.Tool.DBKit;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -37,6 +37,10 @@ public class StageMetaData : IDictionaryable<StageMetaData>
 
         Name = value["name"].ToString();
         Key = value["key"].ToString();
+
+        if (!value.ContainsKey("verified")) return;
+        
+        IsVerified = value["verified"].ToString().Equals("True");
 
     }
 

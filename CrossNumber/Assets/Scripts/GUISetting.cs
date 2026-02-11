@@ -1,12 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using EasyH.Unity.UI;
 using EasyH.Tool.LangKit;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using EHTool;
 
 public class GUISetting : GUICustomFullScreen
 {
@@ -16,16 +12,14 @@ public class GUISetting : GUICustomFullScreen
         public string value;
     }
 
-    [SerializeField] Option[] _langOpt;
-    [SerializeField] Dropdown _langDropdown;
+    [SerializeField] private Option[] _langOpt;
+    [SerializeField] private Dropdown _langDropdown;
     int _nowLangIdx = 0;
 
 
-    [SerializeField] Option[] _skinOpt;
-    [SerializeField] Dropdown _skinDropdown;
-    int _nowSkinIdx = 0;
-
-
+    [SerializeField] private Option[] _skinOpt;
+    [SerializeField] private Dropdown _skinDropdown;
+    private int _nowSkinIdx = 0;
 
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private Slider _musicMasterSlider;

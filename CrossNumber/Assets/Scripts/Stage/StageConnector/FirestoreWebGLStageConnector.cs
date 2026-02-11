@@ -1,4 +1,3 @@
-using EHTool;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
@@ -8,16 +7,9 @@ public class FirestoreWebGLStageConnector :
     MonoBehaviour, IStageConnector
 {
 
-    static bool _isConnect = false;
-
     public FirestoreWebGLStageConnector()
     {
-
-        if (_isConnect) return;
-
         FirebaseManager.Instance.SetConfig();
-        _isConnect = true;
-
     }
 
     public void UploadStage(string name, Stage data, Action<string> callback, Action<string> fallback)
